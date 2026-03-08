@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Productos - SportShop</title>
+        <link rel="stylesheet" href="css/estilo.css" />
+        <link rel="stylesheet" href="css/navbar.css" />
+        <link rel="stylesheet" href="css/footer.css" />
+    </head>
+    <body class="products-page">
+        <header class="navbar">
+            <div class="navbar__left">
+                <div class="logo">S</div>
+                <div class="brand">SportShop</div>
+            </div>
+
+            <div class="navbar__center">
+                <form class="search" role="search">
+                    <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
+                </form>
+            </div>
+
+            <nav class="navbar__right">
+                <div class="nav-links">
+                    <a href="/products">Productos</a>
+                    <a href="/products#hombres">Hombre</a>
+                    <a href="/products#mujeres">Mujer</a>
+                    <a href="/login">Iniciar Sesión</a>
+                </div>
+                <div class="nav-icons">
+                    <a href="/cart" class="icon" aria-label="Carrito"><img src="assets/icons/cart.svg" alt="Carrito"></a>
+                    <a href="/account" class="icon" aria-label="Cuenta"><img src="assets/icons/user.svg" alt="Cuenta"></a>
+                    <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+                </div>
+                <!-- mobile menu (hidden by default) -->
+                <div class="mobile-menu" aria-hidden="true">
+                    <a href="/products">Productos</a>
+                    <a href="/products#hombres">Hombre</a>
+                    <a href="/products#mujeres">Mujer</a>
+                    <a href="/login">Iniciar Sesión</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <div class="products-layout">
+                <!-- Sidebar de filtros -->
+                <aside class="filters">
+                    <h3>Filtros</h3>
+
+                    <div>
+                        <h4>Categorías</h4>
+                        <ul>
+                            <li><label><input type="checkbox" /> Camisetas</label></li>
+                            <li><label><input type="checkbox" /> Pantalones</label></li>
+                            <li><label><input type="checkbox" /> Chaquetas</label></li>
+                            <li><label><input type="checkbox" /> Shorts</label></li>
+                            <li><label><input type="checkbox" /> Accesorios</label></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>Marcas</h4>
+                        <ul>
+                            <li><label><input type="checkbox" /> Nike</label></li>
+                            <li><label><input type="checkbox" /> Adidas</label></li>
+                            <li><label><input type="checkbox" /> Puma</label></li>
+                            <li><label><input type="checkbox" /> Under Armour</label></li>
+                            <li><label><input type="checkbox" /> Reebok</label></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>Tallas</h4>
+                        <div class="sizes">
+                            <button>XS</button>
+                            <button>S</button>
+                            <button>M</button>
+                            <button>L</button>
+                            <button>XL</button>
+                            <button>XXL</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>Colores</h4>
+                        <div class="color-options">
+                            <div class="color-box" style="background-color: #000;"></div>
+                            <div class="color-box" style="background-color: #fff; border: 1px solid #ccc;"></div>
+                            <div class="color-box" style="background-color: #f00;"></div>
+                            <div class="color-box" style="background-color: #00f;"></div>
+                            <div class="color-box" style="background-color: #0f0;"></div>
+                            <div class="color-box" style="background-color: #ff0;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>Rango de Precio</h4>
+                        <div class="price-range">
+                            <div class="price-display">
+                                <span>$0</span>
+                                <span>$200.000</span>
+                            </div>
+                            <input type="range" min="0" max="200000" value="0" />
+                            <input type="range" min="0" max="200000" value="200000" />
+                        </div>
+                        <button class="clear-filters">Limpiar filtros</button>
+                    </div>
+                </aside>
+
+                <!-- Área de productos -->
+                <section class="products-area">
+                    <h2>Productos para Hombre</h2>
+                    <p>Encuentra la mejor selección de ropa deportiva para hombres.</p>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <img src="assets/images/pantalon.png" alt="Leggings Fitness Elite">
+                            <div class="product-info">
+                                <span class="product-tag">Camisetas</span>
+                                <h3>Leggings Fitness Elite</h3>
+                                <p>Leggings deportivos de compresión con tela transpirable y ajuste cómodo, ideales para entrenamientos intensos.</p>
+                                <div class="product-price">$45.000</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="assets/images/pantalontela.png" alt="pantalon de tela">
+                            <div class="product-info">
+                                <span class="product-tag">Pantalones</span>
+                                <h3>pantalon de tela</h3>
+                                <p>Pantalón de lino ligero y transpirable, ideal para mantener frescura y comodidad durante todo el día.</p>
+                                <div class="product-price">$45.000</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="assets/images/camiseta.png" alt="Camiseta Running Pro">
+                            <div class="product-info">
+                                <span class="product-tag">Chaquetas</span>
+                                <h3>Camiseta Running Pro</h3>
+                                <p>Camiseta deportiva ligera y transpirable, diseñada para mantenerte fresco y cómodo durante tus carreras.</p>
+                                <div class="product-price">$45.000</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="assets/images/sweater.png" alt="Sweater Pro">
+                            <div class="product-info">
+                                <span class="product-tag">Shorts</span>
+                                <h3>Sweater Pro</h3>
+                                <p>Sweater de tela suave con ajuste cómodo, perfecto para un estilo casual y deportivo.</p>
+                                <div class="product-price">$45.000</div>
+                            </div>
+                        </div>
+                        <!-- Agrega más productos según sea necesario -->
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">SportSwear</div>
+                    <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
+                </div>
+                <div class="footer-columns footer-links">
+                    <h4>Enlaces rápidos</h4>
+                    <ul>
+                        <li><a href="/products">Productos</a></li>
+                        <li><a href="/products#hombres">Hombre</a></li>
+                        <li><a href="/products#mujeres">Mujer</a></li>
+                        <li><a href="/cart">Carrito</a></li>
+                    </ul>
+                </div>
+                <div class="footer-columns footer-links">
+                    <h4>Atención al cliente</h4>
+                    <ul>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="#">Política de Devoluciones</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                <div class="footer-columns footer-contact">
+                    <h4>Contacto</h4>
+                    <a href="tel:+573001234567">Cel: +57 300 123 4567</a>
+                    <a href="mailto:info@sportwear.com">info@sportwear.com</a>
+                    <address style="color:rgba(255,255,255,0.7);font-style:normal;margin-top:8px">Calle 123 #45-67, Bogotá, Colombia</address>
+                </div>
+            </div>
+            <div class="footer-bottom">© 2026 SportSwear — Todos los derechos reservados</div>
+        </footer>
+    </body>
+    <script>
+    // Small script to toggle mobile menu
+    (function(){
+      const btn = document.querySelector('.hamburger');
+      const menu = document.querySelector('.mobile-menu');
+      if(!btn || !menu) return;
+      btn.addEventListener('click', ()=>{
+        const open = menu.classList.toggle('show');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      });
+      // close on outside click
+      document.addEventListener('click', (e)=>{
+        if(!menu.classList.contains('show')) return;
+        if(e.target===btn || menu.contains(e.target)) return;
+        menu.classList.remove('show');
+        btn.setAttribute('aria-expanded','false');
+        menu.setAttribute('aria-hidden','true');
+      });
+    })();
+    </script>
+</html>
