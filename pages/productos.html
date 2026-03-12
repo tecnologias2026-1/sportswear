@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Todos nuestros productos deportivos - SportSwear">
+  <title>Productos - SportSwear</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar__left">
+      <div class="logo">S</div>
+      <div class="brand">SportSwear</div>
+    </div>
+
+    <div class="navbar__center">
+      <form class="search" role="search">
+        <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
+      </form>
+    </div>
+
+    <nav class="navbar__right">
+      <div class="nav-links">
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
+      </div>
+      <div class="nav-icons">
+        <a href="carrito.html" class="icon" aria-label="Carrito">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+        </a>
+        <a href="login.html" class="icon" aria-label="Cuenta">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu" aria-hidden="true">
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ENCABEZADO -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Todos Nuestros Productos</h1>
+      <p>Descubre nuestra colección completa de ropa deportiva</p>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container">
+    <div class="products-layout">
+      <!-- SIDEBAR FILTROS -->
+      <aside class="filters-sidebar">
+        <h3>Filtros</h3>
+
+        <!-- Categorías -->
+        <div class="filter-group">
+          <h4>Categoría</h4>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="category" value="hombre">
+            <span>Hombre</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="category" value="mujer">
+            <span>Mujer</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="category" value="accesorios">
+            <span>Accesorios</span>
+          </label>
+        </div>
+
+        <!-- Rango de Precios -->
+        <div class="filter-group">
+          <h4>Precio</h4>
+          <div class="price-range">
+            <div class="price-inputs">
+              <input type="number" id="priceMin" placeholder="Min" min="0" max="200000">
+              <span>-</span>
+              <input type="number" id="priceMax" placeholder="Max" min="0" max="200000">
+            </div>
+            <div class="price-slider">
+              <input type="range" id="minRange" min="0" max="200000" value="0">
+              <input type="range" id="maxRange" min="0" max="200000" value="200000">
+            </div>
+            <p class="price-display">$ 0 - $ 200.000</p>
+          </div>
+        </div>
+
+        <!-- Color -->
+        <div class="filter-group">
+          <h4>Color</h4>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="color" value="negro">
+            <span>Negro</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="color" value="blanco">
+            <span>Blanco</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="color" value="azul">
+            <span>Azul</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="color" value="rojo">
+            <span>Rojo</span>
+          </label>
+        </div>
+
+        <!-- Talla -->
+        <div class="filter-group">
+          <h4>Talla</h4>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="size" value="xs">
+            <span>XS</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="size" value="s">
+            <span>S</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="size" value="m">
+            <span>M</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="size" value="l">
+            <span>L</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="size" value="xl">
+            <span>XL</span>
+          </label>
+        </div>
+
+        <!-- Botón Limpiar -->
+        <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Limpiar Filtros</button>
+      </aside>
+
+      <!-- ÁREA DE PRODUCTOS -->
+      <main class="products-grid-section">
+        <!-- Opciones de Ordenamiento -->
+        <div class="products-header">
+          <div class="products-count">
+            <span>Mostrando <strong>12</strong> productos</span>
+          </div>
+          <div class="sort-options">
+            <label for="sort">Ordenar por:</label>
+            <select id="sort" class="form-select">
+              <option value="relevancia">Relevancia</option>
+              <option value="precio-asc">Precio: Menor a Mayor</option>
+              <option value="precio-desc">Precio: Mayor a Menor</option>
+              <option value="nuevo">Más Nuevo</option>
+              <option value="popularidad">Más Popular</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- GRID DE PRODUCTOS -->
+        <div class="grid grid-cols-4">
+          <!-- Producto 1 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-1.jpg" alt="Camiseta Running Pro">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Camiseta Running Pro</h3>
+              <p class="product-card-description">Camiseta deportiva de secado rápido y material transpirable.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 45.000</span>
+                <div class="product-card-rating">★★★★★</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=1" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 2 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-2.jpg" alt="Short Training Pro">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Short Training Pro</h3>
+              <p class="product-card-description">Short cómodo para entrenamientos intensos con bolsillos.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 55.000</span>
+                <div class="product-card-rating">★★★★☆</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=2" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 3 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-3.jpg" alt="Leggings Fitness Elite">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Leggings Fitness Elite</h3>
+              <p class="product-card-description">Leggings ajustados con excelente soporte y comodidad.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 65.000</span>
+                <div class="product-card-rating">★★★★★</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=3" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 4 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-4.jpg" alt="Chaqueta Térmica Winter">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Chaqueta Térmica Winter</h3>
+              <p class="product-card-description">Chaqueta aislante para clima frío con capucha ajustable.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 125.000</span>
+                <div class="product-card-rating">★★★★★</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=4" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 5 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-5.jpg" alt="Sudadera Deportiva Classic">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Sudadera Deportiva Classic</h3>
+              <p class="product-card-description">Sudadera versátil para entrenamientos y uso casual.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 75.000</span>
+                <div class="product-card-rating">★★★★☆</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=5" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 6 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-6.jpg" alt="Pantalón Jogger Comfort">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Pantalón Jogger Comfort</h3>
+              <p class="product-card-description">Pantalón jogger cómodo para entrenamiento y descanso.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 85.000</span>
+                <div class="product-card-rating">★★★★★</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=6" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 7 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-7.jpg" alt="Top Deportivo CrossFit">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Top Deportivo CrossFit</h3>
+              <p class="product-card-description">Top deportivo resistente para CrossFit y entrenamientos funcionales.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 50.000</span>
+                <div class="product-card-rating">★★★★★</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=7" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 8 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-8.jpg" alt="Calcetines Sports Pro">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Calcetines Sports Pro</h3>
+              <p class="product-card-description">Calcetines deportivos de alto rendimiento y durabilidad.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 25.000</span>
+                <div class="product-card-rating">★★★★☆</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=8" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 9 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-9.jpg" alt="Gorro Deportivo Winter">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Gorro Deportivo Winter</h3>
+              <p class="product-card-description">Gorro cálido para los días fríos de entrenamiento.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 35.000</span>
+                <div class="product-card-rating">★★★★★</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=9" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 10 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-10.jpg" alt="Mochila Deportiva Urban">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Mochila Deportiva Urban</h3>
+              <p class="product-card-description">Mochila resistente con múltiples compartimentos.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 95.000</span>
+                <div class="product-card-rating">★★★★☆</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=10" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 11 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-11.jpg" alt="Brazalete Deportivo">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Brazalete Deportivo</h3>
+              <p class="product-card-description">Brazalete para mantener tu teléfono durante el ejercicio.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 30.000</span>
+                <div class="product-card-rating">★★★★★</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=11" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Producto 12 -->
+          <div class="product-card">
+            <div class="product-card-image">
+              <img src="../assets/images/producto-12.jpg" alt="Guantes Deportivos">
+            </div>
+            <div class="product-card-content">
+              <h3 class="product-card-name">Guantes Deportivos</h3>
+              <p class="product-card-description">Guantes de entrenamiento con agarre superior y comodidad.</p>
+              <div class="product-card-price">
+                <span class="product-card-price-value">$ 40.000</span>
+                <div class="product-card-rating">★★★★☆</div>
+              </div>
+              <div class="product-card-actions">
+                <a href="detalle-producto.html?id=12" class="product-card-btn product-card-add">Ver Detalles</a>
+                <button class="product-card-btn product-card-heart">♡</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGINACIÓN -->
+        <div class="pagination">
+          <button class="pagination-btn prev" disabled>&laquo; Anterior</button>
+          <button class="pagination-btn active">1</button>
+          <button class="pagination-btn">2</button>
+          <button class="pagination-btn">3</button>
+          <button class="pagination-btn next">Siguiente &raquo;</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>SportSwear</h3>
+        <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Enlaces Rápidos</h3>
+        <ul>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="productos.html?category=hombre">Hombre</a></li>
+          <li><a href="productos.html?category=mujer">Mujer</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Atención al Cliente</h3>
+        <ul>
+          <li><a href="#">Preguntas Frecuentes</a></li>
+          <li><a href="#">Política de Devoluciones</a></li>
+          <li><a href="#">Términos y Condiciones</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <div class="footer-contact">
+          <span class="footer-contact-icon">📍</span>
+          <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
+        </div>
+        <div class="footer-contact">
+          <span class="footer-contact-icon">📞</span>
+          <p>+57 300 123 6754</p>
+        </div>
+        <div class="footer-contact">
+          <span class="footer-contact-icon">📧</span>
+          <p>info@sportswear.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

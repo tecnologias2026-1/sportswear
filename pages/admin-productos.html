@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin - Gestión de Productos</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body style="margin: 0;">
+  <!-- LAYOUT ADMIN -->
+  <div class="admin-layout">
+    <!-- SIDEBAR ADMIN -->
+    <aside class="admin-sidebar">
+      <h2>SportSwear Admin</h2>
+      
+      <ul class="admin-menu">
+        <li class="admin-menu-item">
+          <a href="#dashboard" class="active">📊 Dashboard</a>
+        </li>
+        <li class="admin-menu-item">
+          <a href="#products" class="active">📦 Productos</a>
+        </li>
+        <li class="admin-menu-item">
+          <a href="#orders">📋 Pedidos</a>
+        </li>
+        <li class="admin-menu-item">
+          <a href="#users">👥 Usuarios</a>
+        </li>
+        <li class="admin-menu-item">
+          <a href="#categories">🏷️ Categorías</a>
+        </li>
+        <li class="admin-menu-item">
+          <a href="#reports">📈 Reportes</a>
+        </li>
+        <li class="admin-menu-item">
+          <a href="#settings">⚙️ Configuración</a>
+        </li>
+        <li class="admin-menu-item">
+          <a href="/" style="margin-top: 2rem; display: block;">← Volver al Sitio</a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- CONTENIDO ADMIN -->
+    <main class="admin-content">
+      <!-- ENCABEZADO -->
+      <div class="admin-header">
+        <div>
+          <h1>Gestión de Productos</h1>
+        </div>
+        <button class="btn btn-primary">+ Nuevo Producto</button>
+      </div>
+
+      <!-- ESTADÍSTICAS -->
+      <div class="admin-stats">
+        <div class="stat-card">
+          <h3>Total Productos</h3>
+          <div class="stat-card-value">156</div>
+        </div>
+
+        <div class="stat-card">
+          <h3>En Stock</h3>
+          <div class="stat-card-value">142</div>
+        </div>
+
+        <div class="stat-card">
+          <h3>Agotados</h3>
+          <div class="stat-card-value">14</div>
+        </div>
+
+        <div class="stat-card">
+          <h3>Ingresos Hoy</h3>
+          <div class="stat-card-value">$ 2.5M</div>
+        </div>
+      </div>
+
+      <!-- FILTROS Y BÚSQUEDA -->
+      <div style="background-color: white; padding: var(--spacing-lg); border-radius: var(--radius-lg); margin-bottom: var(--spacing-lg); display: flex; gap: var(--spacing-lg); flex-wrap: wrap;">
+        <input type="text" placeholder="Buscar producto..." class="form-input" style="flex: 1; min-width: 250px;">
+        
+        <select class="form-select" style="min-width: 180px;">
+          <option>Todas las categorías</option>
+          <option>Hombre</option>
+          <option>Mujer</option>
+          <option>Accesorios</option>
+        </select>
+
+        <select class="form-select" style="min-width: 150px;">
+          <option>Disponibilidad</option>
+          <option>En Stock</option>
+          <option>Agotado</option>
+          <option>Por Llegar</option>
+        </select>
+
+        <button class="btn btn-secondary">Filtrar</button>
+      </div>
+
+      <!-- TABLA DE PRODUCTOS -->
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Vendidos</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#001</td>
+              <td><strong>Camiseta Running Pro</strong></td>
+              <td>Hombre</td>
+              <td>$ 45.000</td>
+              <td>45</td>
+              <td>234</td>
+              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
+              <td>
+                <div class="admin-table-actions">
+                  <button class="admin-table-btn">Editar</button>
+                  <button class="admin-table-btn delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#002</td>
+              <td><strong>Short Training Pro</strong></td>
+              <td>Hombre</td>
+              <td>$ 55.000</td>
+              <td>23</td>
+              <td>156</td>
+              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
+              <td>
+                <div class="admin-table-actions">
+                  <button class="admin-table-btn">Editar</button>
+                  <button class="admin-table-btn delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#003</td>
+              <td><strong>Leggings Fitness Elite</strong></td>
+              <td>Mujer</td>
+              <td>$ 65.000</td>
+              <td>0</td>
+              <td>189</td>
+              <td><span style="background-color: #EF4444; color: white; padding: 4px 8px; border-radius: 4px;">Agotado</span></td>
+              <td>
+                <div class="admin-table-actions">
+                  <button class="admin-table-btn">Editar</button>
+                  <button class="admin-table-btn delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#004</td>
+              <td><strong>Chaqueta Térmica Winter</strong></td>
+              <td>General</td>
+              <td>$ 125.000</td>
+              <td>12</td>
+              <td>67</td>
+              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
+              <td>
+                <div class="admin-table-actions">
+                  <button class="admin-table-btn">Editar</button>
+                  <button class="admin-table-btn delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#005</td>
+              <td><strong>Sudadera Deportiva Classic</strong></td>
+              <td>General</td>
+              <td>$ 75.000</td>
+              <td>34</td>
+              <td>145</td>
+              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
+              <td>
+                <div class="admin-table-actions">
+                  <button class="admin-table-btn">Editar</button>
+                  <button class="admin-table-btn delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#006</td>
+              <td><strong>Pantalón Jogger Comfort</strong></td>
+              <td>General</td>
+              <td>$ 85.000</td>
+              <td>28</td>
+              <td>98</td>
+              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
+              <td>
+                <div class="admin-table-actions">
+                  <button class="admin-table-btn">Editar</button>
+                  <button class="admin-table-btn delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#007</td>
+              <td><strong>Top Deportivo CrossFit</strong></td>
+              <td>Mujer</td>
+              <td>$ 50.000</td>
+              <td>5</td>
+              <td>223</td>
+              <td><span style="background-color: #F59E0B; color: white; padding: 4px 8px; border-radius: 4px;">Bajo Stock</span></td>
+              <td>
+                <div class="admin-table-actions">
+                  <button class="admin-table-btn">Editar</button>
+                  <button class="admin-table-btn delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#008</td>
+              <td><strong>Calcetines Sports Pro</strong></td>
+              <td>Accesorios</td>
+              <td>$ 25.000</td>
+              <td>156</td>
+              <td>456</td>
+              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
+              <td>
+                <div class="admin-table-actions">
+                  <button class="admin-table-btn">Editar</button>
+                  <button class="admin-table-btn delete">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAGINACIÓN -->
+      <div class="pagination">
+        <button class="pagination-btn prev" disabled>&laquo; Anterior</button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">2</button>
+        <button class="pagination-btn">3</button>
+        <button class="pagination-btn">4</button>
+        <button class="pagination-btn next">Siguiente &raquo;</button>
+      </div>
+
+      <!-- MODAL CREAR/EDITAR PRODUCTO (OCULTO) -->
+      <div id="modal-producto" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1200; align-items: center; justify-content: center;">
+        <div class="auth-card" style="max-width: 600px; width: 90%;">
+          <h2>Nuevo Producto</h2>
+          
+          <form>
+            <div class="form-group">
+              <label class="form-label">Nombre del Producto</label>
+              <input type="text" class="form-input" placeholder="Ej: Camiseta Running Pro" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Descripción</label>
+              <textarea class="form-textarea" placeholder="Describe el producto..."></textarea>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label class="form-label">Precio ($ COP)</label>
+                <input type="number" class="form-input" placeholder="45000" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Stock</label>
+                <input type="number" class="form-input" placeholder="50" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Categoría</label>
+              <select class="form-select" required>
+                <option>Selecciona una categoría</option>
+                <option>Hombre</option>
+                <option>Mujer</option>
+                <option>Accesorios</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Imagen del Producto</label>
+              <input type="file" class="form-input" accept="image/*">
+            </div>
+
+            <div style="display: flex; gap: var(--spacing-lg);">
+              <button type="submit" class="btn btn-primary" style="flex: 1;">Guardar Producto</button>
+              <button type="button" class="btn btn-secondary" onclick="closeModal()" style="flex: 1;">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll('.admin-table-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        if(this.classList.contains('delete')) {
+          if(confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+            alert('Producto eliminado');
+          }
+        } else {
+          alert('Abriendo editor de producto...');
+        }
+      });
+    });
+
+    function closeModal() {
+      document.getElementById('modal-producto').style.display = 'none';
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
