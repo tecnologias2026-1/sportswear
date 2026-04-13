@@ -9,10 +9,10 @@
   <body>
     <header class="navbar">
       <div class="navbar-left">
-        <div class="brand">
+        <a id="navbar-brand-link" class="brand" href="pages/home.html">
           <div class="brand-logo">S</div>
           <div class="brand-name">SportSwear</div>
-        </div>
+        </a>
 
         <div class="search">
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -24,9 +24,11 @@
       </div>
 
       <nav class="navbar-right">
-        <a class="nav-link" href="#">Productos</a>
-        <a class="nav-link" href="#">Hombre</a>
-        <a class="nav-link" href="#">Mujer</a>
+        <a class="nav-link" href="home.html">Inicio</a>
+        <a class="nav-link" href="productos.html">Productos</a>
+        <a class="nav-link" href="productos.html?category=hombre">Hombre</a>
+        <a class="nav-link" href="productos.html?category=mujer">Mujer</a>
+        <a class="nav-link" href="login.html">Iniciar Sesión</a>
 
         <button class="icon-btn" aria-label="Carrito">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,8 +45,18 @@
           </svg>
         </button>
 
-        <a class="btn-ghost" href="#">Ver Tienda</a>
+        <a class="btn-ghost" href="productos.html">Ver Tienda</a>
       </nav>
     </header>
+    <script>
+      var brandLink = document.getElementById('navbar-brand-link');
+      if (brandLink) {
+        if (window.location.pathname.includes('/pages/')) {
+          brandLink.href = 'home.html';
+        } else {
+          brandLink.href = 'pages/home.html';
+        }
+      }
+    </script>
   </body>
 </html>

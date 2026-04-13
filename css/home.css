@@ -1,6 +1,11 @@
 .hero{
   position:relative;
-  min-height:78vh;
+  min-height:40vh;
+  width:100vw;
+  left:50%;
+  right:50%;
+  margin-left:-50vw;
+  margin-right:-50vw;
   display:flex;
   align-items:center;
   color:#fff;
@@ -27,5 +32,5 @@
 @media (max-width:900px){
   .hero__content{padding:48px 20px}
   .hero__content h1{font-size:40px}
-  .hero{min-height:60vh}
+  .hero{min-height:35vh}
 }

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestión de usuarios</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar__left">
+      <a class="brand-link" href="#">
+        <div class="logo">A</div>
+        <h3 class="brand">Admin Panel</h3>
+      </a>
+    </div>
+    <div class="navbar__center">
+      <div class="search">
+        <input type="text" placeholder="Buscar por usuarios por nombre, email o telefono" aria-label="buscar" />
+      </div>
+    </div>
+    <div class="navbar__right">
+      <nav class="nav-links">
+        <a href="#">Ver Tienda</a>
+        <a href="#" id="logout-btn">Cerrar sesión</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar__menu">
+         <a href="admin-productos.html" class="btn-ghost">Productos</a>
+<a href="gestion-pedidos.html" class="btn-ghost">Pedidos</a>
+<a href="gestion-usuarios.html" class="btn-ghost active">Usuarios</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="panel">
+        <h1>Gestión de usuarios</h1>
+        <p class="muted">Visualiza todos los usuarios registrados</p>
+
+        <div class="search-panel">
+          <input type="search" placeholder="Buscar por usuarios por nombre, email o telefono" />
+        </div>
+
+        <div class="table-card">
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+                <th>Direcciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Nombre">Carlos Perez</td>
+                <td data-label="Email">usuario@ejemplo.com</td>
+                <td data-label="Teléfono">+57 300 123 4567</td>
+                <td data-label="Rol"><span class="badge">Usuario</span></td>
+                <td data-label="Direcciones">Bogotá</td>
+              </tr>
+              <tr>
+                <td data-label="Nombre">Ana Gómez</td>
+                <td data-label="Email">ana@ejemplo.com</td>
+                <td data-label="Teléfono">+57 310 987 6543</td>
+                <td data-label="Rol"><span class="badge">Usuario</span></td>
+                <td data-label="Direcciones">Medellín</td>
+              </tr>
+              <tr>
+                <td data-label="Nombre">María Ruiz</td>
+                <td data-label="Email">maria@ejemplo.com</td>
+                <td data-label="Teléfono">+57 320 555 1234</td>
+                <td data-label="Rol"><span class="badge">Admin</span></td>
+                <td data-label="Direcciones">Cali</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+</body>
+<script>
+var logoutBtn = document.getElementById('logout-btn');
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // 🔥 borrar sesión
+    localStorage.removeItem("isAdmin");
+
+    alert("Sesión cerrada");
+
+    // 🔁 redirigir al login
+    if (window.location.pathname.includes('/pages/')) {
+      window.location.href = 'login.html';
+    } else {
+      window.location.href = 'pages/login.html';
+    }
+  });
+}
+</script>
+</html>
+

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Compra - SportSwear</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar__left">
+      <a class="brand-link" href="../index.html">
+        <div class="logo">S</div>
+        <a href="../index.html" class="brand-link">
+  <div class="brand">Sportswear</div>
+</a>
+      </a>
+    </div>
+
+    <div class="navbar__center">
+      <form class="search" role="search">
+        <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
+      </form>
+    </div>
+
+    <nav class="navbar__right">
+      <div class="nav-links">
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
+      </div>
+      <div class="nav-icons">
+        <a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+        <a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
+        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <h1>Finalizar Compra</h1>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="checkout-grid">
+      <section class="checkout-left">
+        <div class="card">
+          <h2 class="card-title">Información Personal</h2>
+          <form class="checkout-form">
+            <div class="grid grid-cols-2 gap-md">
+              <div class="form-group">
+                <label class="form-label">Nombre</label>
+                <input class="form-input" type="text" placeholder="Carlos Pérez">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Correo</label>
+                <input class="form-input" type="email" placeholder="usuario@ejemplo.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Teléfono</label>
+              <input class="form-input" type="tel" placeholder="+57 300 123 4567">
+            </div>
+
+            <h2 class="card-title">Dirección de envío</h2>
+            <div class="form-group">
+              <label class="form-label">Dirección</label>
+              <input class="form-input" type="text" placeholder="Calle 123 #45-67">
+            </div>
+
+            <div class="grid grid-cols-2 gap-md">
+              <div class="form-group">
+                <label class="form-label">Ciudad</label>
+                <input class="form-input" type="text" placeholder="Bogotá">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Departamento</label>
+                <input class="form-input" type="text" placeholder="Cundinamarca">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-md">
+              <div class="form-group">
+                <label class="form-label">Código Postal</label>
+                <input class="form-input" type="text" placeholder="110111">
+              </div>
+              <div class="form-group">
+                <label class="form-label">País</label>
+                <input class="form-input" type="text" placeholder="Colombia">
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="card mt-lg">
+          <h2 class="card-title">Método de Pago</h2>
+          <div class="payment-methods">
+            <label class="payment-method">
+              <input type="radio" name="pay" checked>
+              <div class="payment-content">
+                <strong>Epayco</strong>
+                <div class="muted">Pago seguro con Epayco</div>
+              </div>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="pay">
+              <div class="payment-content">
+                <strong>Tarjeta de Crédito/Débito</strong>
+                <div class="muted">Visa, Mastercard, American Express</div>
+              </div>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="pay">
+              <div class="payment-content">
+                <strong>PayPal</strong>
+                <div class="muted">Paga con tu cuenta PayPal</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <aside class="checkout-right">
+        <div class="card summary-card">
+          <h3 class="card-title">Resumen del Pedido</h3>
+          <ul class="summary-items">
+            <li class="summary-item">
+              <img src="../assets/images/camiseta running.webp" alt="Camiseta Running Pro">
+              <div class="summary-item-info">
+                <div class="name">Camiseta Running Pro</div>
+                <div class="muted">Talla: M · Cantidad: 1</div>
+              </div>
+              <div class="price">$45.000</div>
+            </li>
+          </ul>
+
+          <div class="summary-totals">
+            <div class="totals-row"><span>Subtotal</span><span>$45.000</span></div>
+            <div class="totals-row"><span>Envío</span><span>$10.000</span></div>
+            <div class="totals-row total"><strong>Total</strong><strong>$55.000</strong></div>
+          </div>
+
+          <button id="confirm-order" class="btn btn-primary btn-lg">Confirmar Pedido</button>
+          <p class="muted small mt-md">Al confirmar, aceptas nuestros términos y condiciones.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>SportSwear</h3>
+        <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Enlaces Rápidos</h3>
+        <ul>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="productos.html?category=hombre">Hombre</a></li>
+          <li><a href="productos.html?category=mujer">Mujer</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Atención al Cliente</h3>
+        <ul>
+          <li><a href="faq.html">Preguntas Frecuentes</a></li>
+          <li><a href="politica-devoluciones.html">Política de Devoluciones</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <div class="footer-contact">
+          <span class="footer-contact-icon">📍</span>
+          <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
+        </div>
+        <div class="footer-contact">
+          <span class="footer-contact-icon">📞</span>
+          <p>+57 300 123 6754</p>
+        </div>
+        <div class="footer-contact">
+          <span class="footer-contact-icon">📧</span>
+          <p>info@sportswear.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
+

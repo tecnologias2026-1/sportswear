@@ -10,7 +10,9 @@
   <header class="navbar">
     <div class="navbar__left">
       <div class="logo">S</div>
-      <div class="brand">SportShop</div>
+      <a href="../index.html" class="brand-link">
+  <div class="brand">Sportswear</div>
+</a>
     </div>
 
     <div class="navbar__center">
@@ -25,25 +27,17 @@
         <a href="productos.html?category=hombre">Hombre</a>
         <a href="productos.html?category=mujer">Mujer</a>
         <a href="login.html">Iniciar Sesión</a>
-      </div>
-			<nav class="navbar__right">
-				<div class="nav-links">
-					<a href="/pages/productos.html">Productos</a>
-					<a href="/pages/productos.html?category=hombre">Hombre</a>
-					<a href="/pages/productos.html?category=mujer">Mujer</a>
-					<a href="/pages/login.html">Iniciar Sesión</a>
-				</div>
 				<div class="nav-icons">
-					<a href="/pages/carrito.html" class="icon" aria-label="Carrito"><img src="/assets/icons/cart.svg" alt="Carrito"></a>
-					<a href="/pages/admin-productos.html" class="icon" aria-label="Cuenta"><img src="/assets/icons/user.svg" alt="Cuenta"></a>
+					<a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+					<a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
 					<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
 				</div>
 				<!-- mobile menu (hidden by default) -->
 				<div class="mobile-menu" aria-hidden="true">
-					<a href="/pages/productos.html">Productos</a>
-					<a href="/pages/productos.html?category=hombre">Hombre</a>
-					<a href="/pages/productos.html?category=mujer">Mujer</a>
-					<a href="/pages/login.html">Iniciar Sesión</a>
+					<a href="productos.html">Productos</a>
+					<a href="productos.html?category=hombre">Hombre</a>
+					<a href="productos.html?category=mujer">Mujer</a>
+					<a href="login.html">Iniciar Sesión</a>
 				</div>
 			</nav>
   </header>
@@ -57,16 +51,17 @@
   <div class="container">
     <div class="product-detail">
       <!-- Imágenes -->
-      <div>
-        <div class="product-detail-image">
-          <img src="../assets/images/camiseta.png" alt="Camiseta Running Pro" id="mainImage">
+      <div class="product-detail-images-carousel">
+        <button class="carousel-arrow prev" id="prevBtn" aria-label="Imagen anterior">❮</button>
+        <div class="carousel-container">
+          <div class="carousel-images" id="carouselImages">
+            <img src="../assets/images/camiseta running.webp" alt="Camiseta vista 1" class="carousel-img">
+            <img src="../assets/images/camisa lado.webp" alt="Camiseta vista 2" class="carousel-img">
+            <img src="../assets/images/camisa1.webp" alt="Camiseta vista 3" class="carousel-img">
+            <img src="../assets/images/camisa atras.webp" alt="Camiseta vista 4" class="carousel-img">
+          </div>
         </div>
-        <div class="product-detail-images-small">
-          <img src="../assets/images/camiseta.png" alt="Camiseta vista 1">
-          <img src="../assets/images/camiseta.png" alt="Camiseta vista 2">
-          <img src="../assets/images/camiseta.png" alt="Camiseta vista 3">
-          <img src="../assets/images/camiseta.png" alt="Camiseta vista 4">
-        </div>
+        <button class="carousel-arrow next" id="nextBtn" aria-label="Imagen siguiente">❯</button>
       </div>
 
       <!-- Información del Producto -->
@@ -121,7 +116,6 @@
         <!-- Botones de Acción -->
         <div class="product-detail-actions">
           <button class="btn btn-primary btn-lg">Agregar al Carrito</button>
-          <button class="btn btn-outline" style="flex: 0.5;">♡</button>
         </div>
 
         <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
@@ -179,7 +173,7 @@
       <div class="grid grid-cols-4">
         <div class="product-card">
           <div class="product-card-image">
-            <img src="../assets/images/shorts.png" alt="Short Training Pro">
+            <img src="../assets/images/short.webp" alt="Short Training Pro">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">Short Training Pro</h3>
@@ -197,7 +191,7 @@
 
         <div class="product-card">
           <div class="product-card-image">
-            <img src="../assets/images/pantalontela.png" alt="Leggings Fitness Elite">
+            <img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">Leggings Fitness Elite</h3>
@@ -215,7 +209,7 @@
 
         <div class="product-card">
           <div class="product-card-image">
-            <img src="../assets/images/chaqueta.png" alt="Chaqueta Térmica Winter">
+            <img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">Chaqueta Térmica Winter</h3>
@@ -233,7 +227,7 @@
 
         <div class="product-card">
           <div class="product-card-image">
-            <img src="../assets/images/sweater.png" alt="Sudadera Deportiva Classic">
+            <img src="../assets/images/sudadera deportiva.webp" alt="Sudadera Deportiva Classic">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">Sudadera Deportiva Classic</h3>
@@ -252,7 +246,7 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+<!-- FOOTER -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
@@ -273,25 +267,25 @@
       <div class="footer-section">
         <h3>Atención al Cliente</h3>
         <ul>
-          <li><a href="/pages/faq.html">Preguntas Frecuentes</a></li>
-          <li><a href="/pages/politica-devoluciones.html">Política de Devoluciones</a></li>
-          <li><a href="/pages/terminos-condiciones.html">Términos y Condiciones</a></li>
-          <li><a href="/pages/contacto.html">Contacto</a></li>
+          <li><a href="faq.html">Preguntas Frecuentes</a></li>
+          <li><a href="politica-devoluciones.html">Política de Devoluciones</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
+          <li><a href="#">Contacto</a></li>
         </ul>
       </div>
 
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📍</span>
+          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
           <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
         </div>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📞</span>
+          <span><img src="../assets/icons/telef.svg" alt="Teléfono"></span>
           <p>+57 300 123 6754</p>
         </div>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📧</span>
+          <span><img src="../assets/icons/email.svg" alt="Email"></span>
           <p>info@sportswear.com</p>
         </div>
       </div>
@@ -302,13 +296,36 @@
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Twitter">𝕏</a>
-        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="facebook">
+          <img src="../assets/icons/facebook.svg" alt="facebook">
+        </a>
+        <a href="#" aria-label="twitter">
+          <img src="../assets/icons/twitter.svg" alt="twitter">
+        </a>
+        <a href="#" aria-label="Instagram">
+          <img src="../assets/icons/insta.svg" alt="Instagram">
+        </a>
       </div>
     </div>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sizeButtons = document.querySelectorAll('.size-option');
+      if (sizeButtons.length) {
+        sizeButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            sizeButtons.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            // poner un atributo aria-pressed para accesibilidad
+            sizeButtons.forEach(b => b.setAttribute('aria-pressed', 'false'));
+            btn.setAttribute('aria-pressed', 'true');
+          });
+        });
+      }
+    });
+  </script>
   <script src="../js/main.js"></script>
 </body>
 </html>
+

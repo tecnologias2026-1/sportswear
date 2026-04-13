@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gestión de pedidos</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar__left">
+      <a class="brand-link" href="/">
+        <div class="logo">A</div>
+        <h3 class="brand">Admin Panel</h3>
+      </a>
+    </div>
+    <div class="navbar__center">
+      <div class="search">
+        <input type="search" placeholder="Buscar pedidos, ID..." />
+      </div>
+    </div>
+    <div class="navbar__right">
+      <nav class="nav-links">
+        <a href="#">Ver Tienda</a>
+        <a href="#" id="logout-btn">Cerrar sesión</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar__menu">
+         <a href="admin-productos.html" class="btn-ghost">Productos</a>
+<a href="gestion-pedidos.html" class="btn-ghost active">Pedidos</a>
+<a href="gestion-usuarios.html" class="btn-ghost">Usuarios</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="panel">
+        <h1>Gestión de pedidos</h1>
+        <p class="muted">Visualiza y gestiona todos los pedidos</p>
+
+        <div class="search-panel">
+          <input type="search" placeholder="Buscar por ID ..." />
+        </div>
+
+        <div class="table-card">
+          <div class="table-wrapper">
+            <table class="orders-table">
+              <thead>
+                <tr>
+                  <th>ID pedido</th>
+                  <th>fecha</th>
+                  <th>producto</th>
+                  <th>Total</th>
+                  <th>Estado</th>
+                  <th>Metodo de pago</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ejemplos -->
+                <tr>
+                  <td><strong>ORD-001</strong></td>
+                  <td>9 feb 2026</td>
+                  <td>2 Items</td>
+                  <td>$100.000</td>
+                  <td><span class="status-pill status-success">Enviado</span></td>
+                  <td>Mercado pago</td>
+                </tr>
+                <tr>
+                  <td><strong>ORD-002</strong></td>
+                  <td>8 feb 2026</td>
+                  <td>1 Item</td>
+                  <td>$50.000</td>
+                  <td><span class="status-pill status-pending">Pendiente</span></td>
+                  <td>Tarjeta</td>
+                </tr>
+                <tr>
+                  <td><strong>ORD-003</strong></td>
+                  <td>1 feb 2026</td>
+                  <td>3 Items</td>
+                  <td>$150.000</td>
+                  <td><span class="status-pill status-success">Enviado</span></td>
+                  <td>Mercado pago</td>
+                </tr>
+                <tr>
+                  <td><strong>ORD-004</strong></td>
+                  <td>28 ene 2026</td>
+                  <td>2 Items</td>
+                  <td>$120.000</td>
+                  <td><span class="status-pill status-cancel">Cancelado</span></td>
+                  <td>Transferencia</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+</body>
+
+<script>
+var logoutBtn = document.getElementById('logout-btn');
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // 🔥 borrar sesión
+    localStorage.removeItem("isAdmin");
+
+    alert("Sesión cerrada");
+
+    // 🔁 redirigir al login
+    if (window.location.pathname.includes('/pages/')) {
+      window.location.href = 'login.html';
+    } else {
+      window.location.href = 'pages/login.html';
+    }
+  });
+}
+</script>
+</html>
+

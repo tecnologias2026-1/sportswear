@@ -10,7 +10,9 @@
   <header class="navbar">
     <div class="navbar__left">
       <div class="logo">S</div>
-      <div class="brand">SportShop</div>
+      <a href="../index.html" class="brand-link">
+  <div class="brand">Sportswear</div>
+</a>
     </div>
 
     <div class="navbar__center">
@@ -23,22 +25,22 @@
       
 			<nav class="navbar__right">
 				<div class="nav-links">
-					<a href="/pages/productos.html">Productos</a>
-					<a href="/pages/productos.html?category=hombre">Hombre</a>
-					<a href="/pages/productos.html?category=mujer">Mujer</a>
-					<a href="/pages/login.html">Iniciar Sesión</a>
+					<a href="productos.html">Productos</a>
+					<a href="productos.html?category=hombre">Hombre</a>
+					<a href="productos.html?category=mujer">Mujer</a>
+					<a href="login.html">Iniciar Sesión</a>
 				</div>
 				<div class="nav-icons">
-					<a href="/pages/carrito.html" class="icon" aria-label="Carrito"><img src="/assets/icons/cart.svg" alt="Carrito"></a>
-					<a href="/pages/admin-productos.html" class="icon" aria-label="Cuenta"><img src="/assets/icons/user.svg" alt="Cuenta"></a>
+					<a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+					<a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
 					<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
 				</div>
 				<!-- mobile menu (hidden by default) -->
 				<div class="mobile-menu" aria-hidden="true">
-					<a href="/pages/productos.html">Productos</a>
-					<a href="/pages/productos.html?category=hombre">Hombre</a>
-					<a href="/pages/productos.html?category=mujer">Mujer</a>
-					<a href="/pages/login.html">Iniciar Sesión</a>
+					<a href="productos.html">Productos</a>
+					<a href="productos.html?category=hombre">Hombre</a>
+					<a href="productos.html?category=mujer">Mujer</a>
+					<a href="login.html">Iniciar Sesión</a>
 				</div>
 			</nav>
   </header>
@@ -72,7 +74,9 @@
           <span>Recuérdame</span>
         </label>
 
-        <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-login">
+  Iniciar Sesión
+</button>
 
         <p class="auth-footer" style="margin-top: var(--spacing-lg);">
           ¿Olvidaste tu contraseña? <a href="#">Restablecerla</a>
@@ -116,6 +120,20 @@
         <button type="submit" class="btn btn-primary btn-lg">Crear Cuenta</button>
       </form>
 
+
+      <div style="margin-top: 20px; padding: 15px; border-radius: 10px; background: #f5f5f5; border: 1px solid #ddd; text-align: center;">
+  
+  <h3 style="margin-bottom: 10px;">🔐 Acceso Administrador</h3>
+  
+  <p style="margin: 5px;"><strong>Correo:</strong> admin@sportswear.com</p>
+  <p style="margin: 5px;"><strong>Contraseña:</strong> 1234</p>
+
+  <button id="admin-login-btn" style="margin-top: 10px;" class="btn btn-secondary">
+    Entrar como admin
+  </button>
+
+</div>
+
       <!-- DIVIDER -->
       <div class="auth-divider">O continúa con</div>
 
@@ -131,12 +149,12 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer" style="margin-top: auto;">
+<!-- FOOTER -->
+  <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
         <h3>SportSwear</h3>
-        <p>Tu tienda de confianza para ropa deportiva de alta calidad.</p>
+        <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
       </div>
 
       <div class="footer-section">
@@ -150,28 +168,46 @@
       </div>
 
       <div class="footer-section">
-        <h3>Atención</h3>
+        <h3>Atención al Cliente</h3>
         <ul>
-          <li><a href="#">Preguntas Frecuentes</a></li>
-          <li><a href="#">Devoluciones</a></li>
-          <li><a href="#">Términos</a></li>
+          <li><a href="faq.html">Preguntas Frecuentes</a></li>
+          <li><a href="politica-devoluciones.html">Política de Devoluciones</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
+          <li><a href="#">Contacto</a></li>
         </ul>
       </div>
 
       <div class="footer-section">
         <h3>Contacto</h3>
-        <p>📍 Calle 123 #45-67, Bogotá<br>📞 +57 300 123 6754<br>📧 info@sportswear.com</p>
+        <div class="footer-contact">
+          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
+          <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
+        </div>
+        <div class="footer-contact">
+          <span><img src="../assets/icons/telef.svg" alt="Teléfono"></span>
+          <p>+57 300 123 6754</p>
+        </div>
+        <div class="footer-contact">
+          <span><img src="../assets/icons/email.svg" alt="Email"></span>
+          <p>info@sportswear.com</p>
+        </div>
       </div>
     </div>
 
     <div class="footer-divider"></div>
 
     <div class="footer-bottom">
-      <p class="footer-copyright">&copy; 2026 SportSwear.</p>
+      <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#">f</a>
-        <a href="#">𝕏</a>
-        <a href="#">📷</a>
+        <a href="#" aria-label="facebook">
+          <img src="../assets/icons/facebook.svg" alt="facebook">
+        </a>
+        <a href="#" aria-label="twitter">
+          <img src="../assets/icons/twitter.svg" alt="twitter">
+        </a>
+        <a href="#" aria-label="Instagram">
+          <img src="../assets/icons/insta.svg" alt="Instagram">
+        </a>
       </div>
     </div>
   </footer>
@@ -202,16 +238,59 @@
     loginTab.addEventListener('click', () => switchTab('login'));
     registerTab.addEventListener('click', () => switchTab('register'));
 
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('¡Iniciando sesión!');
-    });
+   
 
+    
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
       alert('¡Cuenta creada exitosamente!');
     });
   </script>
   <script src="../js/main.js"></script>
+
+
+
+</div>
 </body>
+<script>
+
+  var adminBtn = document.getElementById("admin-login-btn");
+
+if (adminBtn) {
+  adminBtn.addEventListener("click", function () {
+
+    localStorage.setItem("isAdmin", "true");
+
+    alert("Entrando como administrador");
+
+    window.location.href = "admin-productos.html";
+  });
+}
+
+if (loginForm) {
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    if (email === "admin@sportswear.com" && password === "1234") {
+
+      localStorage.setItem("isAdmin", "true");
+
+      alert("Bienvenido administrador");
+
+// pequeña pausa para asegurar redirección
+setTimeout(function() {
+  window.location.href = "admin-productos.html";
+}, 500);
+
+    } else {
+      alert("Usuario o contraseña incorrectos");
+    }
+  });
+}
+</script>
+
 </html>
+

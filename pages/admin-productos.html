@@ -7,38 +7,34 @@
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body style="margin: 0;">
+  <header class="navbar">
+    <div class="navbar__left">
+      <a class="brand-link" href="#">
+        <div class="logo">A</div>
+        <h3 class="brand">Admin Panel</h3>
+      </a>
+    </div>
+    <div class="navbar__center">
+      <div class="search">
+        <input type="text" placeholder="Buscar por productos, ID o categoría" aria-label="buscar" />
+      </div>
+    </div>
+    <div class="navbar__right">
+      <nav class="nav-links">
+        <a href="#">Ver Tienda</a>
+        <a href="#" id="logout-btn">Cerrar sesión</a>
+      </nav>
+    </div>
+  </header>
+
   <!-- LAYOUT ADMIN -->
   <div class="admin-layout">
-    <!-- SIDEBAR ADMIN -->
-    <aside class="admin-sidebar">
-      <h2>SportSwear Admin</h2>
-      
-      <ul class="admin-menu">
-        <li class="admin-menu-item">
-          <a href="#dashboard" class="active">📊 Dashboard</a>
-        </li>
-        <li class="admin-menu-item">
-          <a href="#products" class="active">📦 Productos</a>
-        </li>
-        <li class="admin-menu-item">
-          <a href="#orders">📋 Pedidos</a>
-        </li>
-        <li class="admin-menu-item">
-          <a href="#users">👥 Usuarios</a>
-        </li>
-        <li class="admin-menu-item">
-          <a href="#categories">🏷️ Categorías</a>
-        </li>
-        <li class="admin-menu-item">
-          <a href="#reports">📈 Reportes</a>
-        </li>
-        <li class="admin-menu-item">
-          <a href="#settings">⚙️ Configuración</a>
-        </li>
-        <li class="admin-menu-item">
-          <a href="/" style="margin-top: 2rem; display: block;">← Volver al Sitio</a>
-        </li>
-      </ul>
+    <!-- SIDEBAR (unificado con estilo de gestión) -->    <aside class="sidebar">
+      <div class="sidebar__menu">
+        <a href="admin-productos.html" class="btn-ghost active">Productos</a>
+<a href="gestion-pedidos.html" class="btn-ghost">Pedidos</a>
+<a href="gestion-usuarios.html" class="btn-ghost">Usuarios</a>
+      </div>
     </aside>
 
     <!-- CONTENIDO ADMIN -->
@@ -48,51 +44,41 @@
         <div>
           <h1>Gestión de Productos</h1>
         </div>
-        <button class="btn btn-primary">+ Nuevo Producto</button>
+        <button id="new-product-btn" class="btn btn-primary">+ Nuevo Producto</button>
       </div>
 
       <!-- ESTADÍSTICAS -->
       <div class="admin-stats">
         <div class="stat-card">
           <h3>Total Productos</h3>
-          <div class="stat-card-value">156</div>
+          <div class="stat-card-value" id="total-products-count">0</div>
         </div>
 
         <div class="stat-card">
           <h3>En Stock</h3>
-          <div class="stat-card-value">142</div>
+          <div class="stat-card-value" id="in-stock-count">0</div>
         </div>
 
         <div class="stat-card">
           <h3>Agotados</h3>
-          <div class="stat-card-value">14</div>
-        </div>
-
-        <div class="stat-card">
-          <h3>Ingresos Hoy</h3>
-          <div class="stat-card-value">$ 2.5M</div>
-        </div>
-      </div>
-
+          <div class="stat-card-value" id="out-stock-count">0</div>
       <!-- FILTROS Y BÚSQUEDA -->
       <div style="background-color: white; padding: var(--spacing-lg); border-radius: var(--radius-lg); margin-bottom: var(--spacing-lg); display: flex; gap: var(--spacing-lg); flex-wrap: wrap;">
-        <input type="text" placeholder="Buscar producto..." class="form-input" style="flex: 1; min-width: 250px;">
+        <input id="admin-search" type="text" placeholder="Buscar producto..." class="form-input" style="flex: 1; min-width: 250px;">
         
-        <select class="form-select" style="min-width: 180px;">
-          <option>Todas las categorías</option>
-          <option>Hombre</option>
-          <option>Mujer</option>
-          <option>Accesorios</option>
+        <select id="admin-category-filter" class="form-select" style="min-width: 180px;">
+          <option value="all">Todas las categorías</option>
+          <option value="Hombre">Hombre</option>
+          <option value="Mujer">Mujer</option>
         </select>
 
-        <select class="form-select" style="min-width: 150px;">
-          <option>Disponibilidad</option>
-          <option>En Stock</option>
-          <option>Agotado</option>
-          <option>Por Llegar</option>
+        <select id="admin-stock-filter" class="form-select" style="min-width: 150px;">
+          <option value="all">Todas</option>
+          <option value="in_stock">En Stock</option>
+          <option value="out_of_stock">Agotado</option>
         </select>
 
-        <button class="btn btn-secondary">Filtrar</button>
+        <button id="admin-filter-btn" class="btn btn-secondary">Filtrar</button>
       </div>
 
       <!-- TABLA DE PRODUCTOS -->
@@ -110,134 +96,8 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>#001</td>
-              <td><strong>Camiseta Running Pro</strong></td>
-              <td>Hombre</td>
-              <td>$ 45.000</td>
-              <td>45</td>
-              <td>234</td>
-              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
-              <td>
-                <div class="admin-table-actions">
-                  <button class="admin-table-btn">Editar</button>
-                  <button class="admin-table-btn delete">Eliminar</button>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#002</td>
-              <td><strong>Short Training Pro</strong></td>
-              <td>Hombre</td>
-              <td>$ 55.000</td>
-              <td>23</td>
-              <td>156</td>
-              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
-              <td>
-                <div class="admin-table-actions">
-                  <button class="admin-table-btn">Editar</button>
-                  <button class="admin-table-btn delete">Eliminar</button>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#003</td>
-              <td><strong>Leggings Fitness Elite</strong></td>
-              <td>Mujer</td>
-              <td>$ 65.000</td>
-              <td>0</td>
-              <td>189</td>
-              <td><span style="background-color: #EF4444; color: white; padding: 4px 8px; border-radius: 4px;">Agotado</span></td>
-              <td>
-                <div class="admin-table-actions">
-                  <button class="admin-table-btn">Editar</button>
-                  <button class="admin-table-btn delete">Eliminar</button>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#004</td>
-              <td><strong>Chaqueta Térmica Winter</strong></td>
-              <td>General</td>
-              <td>$ 125.000</td>
-              <td>12</td>
-              <td>67</td>
-              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
-              <td>
-                <div class="admin-table-actions">
-                  <button class="admin-table-btn">Editar</button>
-                  <button class="admin-table-btn delete">Eliminar</button>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#005</td>
-              <td><strong>Sudadera Deportiva Classic</strong></td>
-              <td>General</td>
-              <td>$ 75.000</td>
-              <td>34</td>
-              <td>145</td>
-              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
-              <td>
-                <div class="admin-table-actions">
-                  <button class="admin-table-btn">Editar</button>
-                  <button class="admin-table-btn delete">Eliminar</button>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#006</td>
-              <td><strong>Pantalón Jogger Comfort</strong></td>
-              <td>General</td>
-              <td>$ 85.000</td>
-              <td>28</td>
-              <td>98</td>
-              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
-              <td>
-                <div class="admin-table-actions">
-                  <button class="admin-table-btn">Editar</button>
-                  <button class="admin-table-btn delete">Eliminar</button>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#007</td>
-              <td><strong>Top Deportivo CrossFit</strong></td>
-              <td>Mujer</td>
-              <td>$ 50.000</td>
-              <td>5</td>
-              <td>223</td>
-              <td><span style="background-color: #F59E0B; color: white; padding: 4px 8px; border-radius: 4px;">Bajo Stock</span></td>
-              <td>
-                <div class="admin-table-actions">
-                  <button class="admin-table-btn">Editar</button>
-                  <button class="admin-table-btn delete">Eliminar</button>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#008</td>
-              <td><strong>Calcetines Sports Pro</strong></td>
-              <td>Accesorios</td>
-              <td>$ 25.000</td>
-              <td>156</td>
-              <td>456</td>
-              <td><span style="background-color: #10B981; color: white; padding: 4px 8px; border-radius: 4px;">Activo</span></td>
-              <td>
-                <div class="admin-table-actions">
-                  <button class="admin-table-btn">Editar</button>
-                  <button class="admin-table-btn delete">Eliminar</button>
-                </div>
-              </td>
-            </tr>
+          <tbody id="admin-table-body">
+            <!-- la tabla se renderiza desde JavaScript -->
           </tbody>
         </table>
       </div>
@@ -255,44 +115,45 @@
       <!-- MODAL CREAR/EDITAR PRODUCTO (OCULTO) -->
       <div id="modal-producto" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1200; align-items: center; justify-content: center;">
         <div class="auth-card" style="max-width: 600px; width: 90%;">
-          <h2>Nuevo Producto</h2>
+          <h2 id="modal-title">Nuevo Producto</h2>
           
-          <form>
+          <form id="product-form">
+            <input type="hidden" id="product-id">
             <div class="form-group">
-              <label class="form-label">Nombre del Producto</label>
-              <input type="text" class="form-input" placeholder="Ej: Camiseta Running Pro" required>
+              <label class="form-label" for="product-name">Nombre del Producto</label>
+              <input type="text" id="product-name" class="form-input" placeholder="Ej: Camiseta Running Pro" required>
             </div>
 
             <div class="form-group">
-              <label class="form-label">Descripción</label>
-              <textarea class="form-textarea" placeholder="Describe el producto..."></textarea>
+              <label class="form-label" for="product-description">Descripción</label>
+              <textarea id="product-description" class="form-textarea" placeholder="Describe el producto..."></textarea>
             </div>
 
             <div class="form-group-row">
               <div class="form-group">
-                <label class="form-label">Precio ($ COP)</label>
-                <input type="number" class="form-input" placeholder="45000" required>
+                <label class="form-label" for="product-price">Precio ($ COP)</label>
+                <input type="number" id="product-price" class="form-input" placeholder="45000" required>
               </div>
 
               <div class="form-group">
-                <label class="form-label">Stock</label>
-                <input type="number" class="form-input" placeholder="50" required>
+                <label class="form-label" for="product-stock">Stock</label>
+                <input type="number" id="product-stock" class="form-input" placeholder="50" required>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="form-label">Categoría</label>
-              <select class="form-select" required>
-                <option>Selecciona una categoría</option>
-                <option>Hombre</option>
-                <option>Mujer</option>
-                <option>Accesorios</option>
+              <label class="form-label" for="product-category">Categoría</label>
+              <select id="product-category" class="form-select" required>
+                <option value="">Selecciona una categoría</option>
+                <option value="Hombre">Hombre</option>
+                <option value="Mujer">Mujer</option>
+                <option value="Accesorios">Accesorios</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label class="form-label">Imagen del Producto</label>
-              <input type="file" class="form-input" accept="image/*">
+              <label class="form-label" for="product-image">Imagen del Producto</label>
+              <input type="file" id="product-image" class="form-input" accept="image/*">
             </div>
 
             <div style="display: flex; gap: var(--spacing-lg);">
@@ -306,22 +167,247 @@
   </div>
 
   <script>
-    document.querySelectorAll('.admin-table-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        if(this.classList.contains('delete')) {
-          if(confirm('¿Estás seguro de que quieres eliminar este producto?')) {
-            alert('Producto eliminado');
-          }
+    (function() {
+      var products = [
+        { id: '001', name: 'Camiseta Running Pro', category: 'Hombre', price: 45000, stock: 45, sold: 234, description: 'Camiseta deportiva de secado rápido.' },
+        { id: '002', name: 'Short Training Pro', category: 'Hombre', price: 55000, stock: 23, sold: 156, description: 'Short cómodo para entrenamientos intensos.' },
+        { id: '003', name: 'Leggings Fitness Elite', category: 'Mujer', price: 65000, stock: 0, sold: 189, description: 'Leggings de compresión de alta calidad.' },
+        { id: '004', name: 'Chaqueta Térmica Winter', category: 'Hombre', price: 125000, stock: 12, sold: 67, description: 'Chaqueta térmica resistente al agua.' },
+        { id: '005', name: 'Sudadera Deportiva Classic', category: 'Mujer', price: 75000, stock: 34, sold: 145, description: 'Sudadera suave y versátil para cualquier clima.' }
+      ];
+
+      var productTableBody = document.getElementById('admin-table-body');
+      var searchInput = document.getElementById('admin-search');
+      var categorySelect = document.getElementById('admin-category-filter');
+      var stockSelect = document.getElementById('admin-stock-filter');
+      var filterBtn = document.getElementById('admin-filter-btn');
+      var totalCount = document.getElementById('total-products-count');
+      var inStockCount = document.getElementById('in-stock-count');
+      var outStockCount = document.getElementById('out-stock-count');
+      var newProductBtn = document.getElementById('new-product-btn');
+      var modal = document.getElementById('modal-producto');
+      var modalTitle = document.getElementById('modal-title');
+      var productForm = document.getElementById('product-form');
+      var productIdField = document.getElementById('product-id');
+      var nameField = document.getElementById('product-name');
+      var descriptionField = document.getElementById('product-description');
+      var priceField = document.getElementById('product-price');
+      var stockField = document.getElementById('product-stock');
+      var categoryField = document.getElementById('product-category');
+
+      function formatCurrency(value) {
+        return '$ ' + Number(value).toLocaleString('es-CO');
+      }
+
+      function getStatus(product) {
+        return product.stock > 0
+          ? { label: 'Activo', class: 'status-success' }
+          : { label: 'Agotado', class: 'status-cancel' };
+      }
+
+      function renderTable(items) {
+        if (!productTableBody) return;
+
+        productTableBody.innerHTML = items
+          .map(function(product) {
+            var status = getStatus(product);
+            return (
+              '<tr data-id="' + product.id + '">' +
+              '<td>#' + product.id + '</td>' +
+              '<td><strong>' + product.name + '</strong></td>' +
+              '<td>' + product.category + '</td>' +
+              '<td>' + formatCurrency(product.price) + '</td>' +
+              '<td>' + product.stock + '</td>' +
+              '<td>' + product.sold + '</td>' +
+              '<td><span class="status-pill ' + status.class + '">' + status.label + '</span></td>' +
+              '<td><div class="admin-table-actions">' +
+              '<button class="admin-table-btn edit" data-action="edit" data-id="' + product.id + '">Editar</button>' +
+              '<button class="admin-table-btn delete" data-action="delete" data-id="' + product.id + '">Eliminar</button>' +
+              '</div></td>' +
+              '</tr>'
+            );
+          })
+          .join('');
+
+        attachTableListeners();
+      }
+
+      function attachTableListeners() {
+        var buttons = productTableBody.querySelectorAll('.admin-table-btn');
+        buttons.forEach(function(button) {
+          button.addEventListener('click', function() {
+            var action = this.dataset.action;
+            var id = this.dataset.id;
+            if (action === 'edit') {
+              openEditor(id);
+            } else {
+              deleteProduct(id);
+            }
+          });
+        });
+      }
+
+      function openEditor(id) {
+        var product = products.find(function(item) {
+          return item.id === id;
+        });
+        if (!product) return;
+
+        modalTitle.textContent = 'Editar Producto';
+        productIdField.value = product.id;
+        nameField.value = product.name;
+        descriptionField.value = product.description || '';
+        priceField.value = product.price;
+        stockField.value = product.stock;
+        categoryField.value = product.category;
+        modal.style.display = 'flex';
+      }
+
+      function deleteProduct(id) {
+        if (!confirm('¿Deseas eliminar este producto?')) return;
+        products = products.filter(function(product) {
+          return product.id !== id;
+        });
+        applyFilters();
+      }
+
+      function updateStats() {
+        totalCount.textContent = products.length;
+        inStockCount.textContent = products.filter(function(product) {
+          return product.stock > 0;
+        }).length;
+        outStockCount.textContent = products.filter(function(product) {
+          return product.stock === 0;
+        }).length;
+      }
+
+      function applyFilters() {
+        var searchValue = searchInput.value.trim().toLowerCase();
+        var categoryValue = categorySelect.value;
+        var stockValue = stockSelect.value;
+
+        var filtered = products.filter(function(product) {
+          var matchesSearch =
+            !searchValue ||
+            product.name.toLowerCase().includes(searchValue) ||
+            product.id.toLowerCase().includes(searchValue);
+          var matchesCategory =
+            categoryValue === 'all' || product.category === categoryValue;
+          var matchesStock =
+            stockValue === 'all' ||
+            (stockValue === 'in_stock' && product.stock > 0) ||
+            (stockValue === 'out_of_stock' && product.stock === 0);
+
+          return matchesSearch && matchesCategory && matchesStock;
+        });
+
+        renderTable(filtered);
+        updateStats();
+      }
+
+      function resetModal() {
+        productForm.reset();
+        productIdField.value = '';
+        modalTitle.textContent = 'Nuevo Producto';
+      }
+
+      function generateProductId() {
+        var nextId = products.length + 1;
+        while (products.some(function(product) { return product.id === String(nextId).padStart(3, '0'); })) {
+          nextId++;
+        }
+        return String(nextId).padStart(3, '0');
+      }
+
+      newProductBtn.addEventListener('click', function() {
+        resetModal();
+        modal.style.display = 'flex';
+      });
+
+      filterBtn.addEventListener('click', applyFilters);
+      searchInput.addEventListener('input', applyFilters);
+      categorySelect.addEventListener('change', applyFilters);
+      stockSelect.addEventListener('change', applyFilters);
+
+      productForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var id = productIdField.value;
+        var productData = {
+          id: id || generateProductId(),
+          name: nameField.value.trim(),
+          description: descriptionField.value.trim(),
+          price: Number(priceField.value),
+          stock: Number(stockField.value),
+          category: categoryField.value,
+          sold: id ? products.find(function(product) { return product.id === id; }).sold : 0
+        };
+
+        if (!productData.name || !productData.price || !productData.category) {
+          alert('Por favor completa nombre, precio y categoría.');
+          return;
+        }
+
+        if (id) {
+          products = products.map(function(product) {
+            return product.id === id ? productData : product;
+          });
         } else {
-          alert('Abriendo editor de producto...');
+          products.unshift(productData);
+        }
+
+        modal.style.display = 'none';
+        applyFilters();
+      });
+
+      document.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
         }
       });
-    });
 
-    function closeModal() {
-      document.getElementById('modal-producto').style.display = 'none';
-    }
+      updateStats();
+      applyFilters();
+    })();
   </script>
   <script src="../js/main.js"></script>
+
+if (window.location.pathname.includes('admin-productos.html')) {
+
+  var isAdmin = localStorage.getItem("isAdmin");
+
+  if (isAdmin !== "true") {
+    alert("No tienes acceso a esta página");
+
+    if (window.location.pathname.includes('/pages/')) {
+      window.location.href = 'login.html';
+    } else {
+      window.location.href = 'pages/login.html';
+    }
+  }
+}
+  
 </body>
+
+<script>
+var logoutBtn = document.getElementById('logout-btn');
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // 🔥 borrar sesión
+    localStorage.removeItem("isAdmin");
+
+    alert("Sesión cerrada");
+
+    // 🔁 redirigir al login
+    if (window.location.pathname.includes('/pages/')) {
+      window.location.href = 'login.html';
+    } else {
+      window.location.href = 'pages/login.html';
+    }
+  });
+}
+</script>
 </html>
+

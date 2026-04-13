@@ -11,7 +11,9 @@
   <header class="navbar">
     <div class="navbar__left">
       <div class="logo">S</div>
-      <div class="brand">SportShop</div>
+      <a href="../index.html" class="brand-link">
+  <div class="brand">Sportswear</div>
+</a>
     </div>
 
     <div class="navbar__center">
@@ -28,59 +30,78 @@
         <a href="login.html">Iniciar Sesión</a>
       </div>
       <div class="nav-icons">
-        <a href="/pages/carrito.html" class="icon" aria-label="Carrito"><img src="/assets/icons/cart.svg" alt="Carrito"></a>
-        <a href="/pages/admin-productos.html" class="icon" aria-label="Cuenta"><img src="/assets/icons/user.svg" alt="Cuenta"></a>
+        <a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+        <a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
         <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
       </div>
       <!-- mobile menu (hidden by default) -->
       <div class="mobile-menu" aria-hidden="true">
-        <a href="/pages/productos.html">Productos</a>
-        <a href="/pages/productos.html?category=hombre">Hombre</a>
-        <a href="/pages/productos.html?category=mujer">Mujer</a>
-        <a href="/pages/login.html">Iniciar Sesión</a>
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
       </div>
     </nav>
   </header>
 
   <!-- HERO SECTION -->
   <section class="hero">
-    <div class="hero-content">
-      <h1>Ropa Deportiva de Alta Calidad</h1>
-      <p>Equipamos a atletas de todos los niveles con prendas cómodas y resistentes</p>
-      <a href="productos.html" class="btn btn-primary btn-lg">Ver Productos</a>
-    </div>
     <div class="hero-image">
-      <img src="../assets/images/hero-banner.jpg" alt="Ropa deportiva premium">
+      <img src="../assets/images/deporte.jpg" alt="Ropa deportiva premium">
+    </div>
+    <div class="hero-content">
+      <h1>Viste tu pasión deportiva</h1>
+      <p>Descubre nuestra colección completa de ropa deportiva de alta calidad</p>
+      <a href="productos.html" class="btn btn-primary btn-lg">Explorar Tienda</a>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="section" style="border-top: 1px solid var(--color-neutral-200); border-bottom: 1px solid var(--color-neutral-200); padding: var(--spacing-3xl) 0;">
+    <div class="container">
+      <div class="grid grid-cols-3" style="gap: var(--spacing-2xl);">
+        <div style="text-align: center;">
+          <div class="feature-icon" style="margin-bottom: var(--spacing-md);">
+            <img src="../assets/icons/fast.svg" alt="Envío Gratis" width="48" height="48">
+          </div>
+          <h3 style="font-size: var(--font-size-base); margin: 0; font-weight: var(--font-weight-semibold);">Envío gratis</h3>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin: var(--spacing-sm) 0 0 0;">En compras mayores a $100.000</p>
+        </div>
+
+        <div style="text-align: center;">
+          <div class="feature-icon" style="margin-bottom: var(--spacing-md);">
+            <img src="../assets/icons/pay.svg" alt="Compras Seguras" width="48" height="48">
+          </div>
+          <h3 style="font-size: var(--font-size-base); margin: 0; font-weight: var(--font-weight-semibold);">Compras seguras</h3>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin: var(--spacing-sm) 0 0 0;">Tus datos protegidos</p>
+        </div>
+
+        <div style="text-align: center;">
+          <div class="feature-icon" style="margin-bottom: var(--spacing-md);">
+            <img src="../assets/icons/return.svg" alt="Mejor Calidad" width="48" height="48">
+          </div>
+          <h3 style="font-size: var(--font-size-base); margin: 0; font-weight: var(--font-weight-semibold);">Mejor calidad</h3>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin: var(--spacing-sm) 0 0 0;">Materiales premium</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- CATEGORÍAS -->
   <section class="section">
     <div class="container">
-      <h2 class="section-title">Nuestras Categorías</h2>
-      <div class="grid grid-cols-3">
-        <a href="productos.html?category=hombre" class="category-card">
-          <div class="category-image">
-            <img src="../assets/images/categoria-hombre.jpg" alt="Ropa para Hombre">
-          </div>
-          <h3>Hombre</h3>
-          <p>Descubre nuestra colección para hombre</p>
+      <h2 class="section-title">Compra por categoría</h2>
+      <div class="grid grid-cols-3" style="gap: var(--spacing-xl);">
+        <a href="productos.html?category=camisetas" class="category-card" style="background-color: #000; color: #fff; text-decoration: none; border-radius: var(--radius-xl); padding: var(--spacing-3xl); display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 300px;">
+          <h3 style="font-size: var(--font-size-2xl); margin: 0; font-weight: var(--font-weight-bold);">Hombre</h3>
         </a>
 
-        <a href="productos.html?category=mujer" class="category-card">
-          <div class="category-image">
-            <img src="../assets/images/categoria-mujer.jpg" alt="Ropa para Mujer">
-          </div>
-          <h3>Mujer</h3>
-          <p>Explora estilos modernos y cómodos</p>
+        <a href="productos.html?category=mujer" class="category-card" style="background-color: #000; color: #fff; text-decoration: none; border-radius: var(--radius-xl); padding: var(--spacing-3xl); display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 300px;">
+          <h3 style="font-size: var(--font-size-2xl); margin: 0; font-weight: var(--font-weight-bold);">Mujer</h3>
         </a>
 
-        <a href="productos.html?category=accesorios" class="category-card">
-          <div class="category-image">
-            <img src="../assets/images/categoria-accesorios.jpg" alt="Accesorios Deportivos">
-          </div>
-          <h3>Accesorios</h3>
-          <p>Complementa tu look deportivo</p>
+        <a href="productos.html?category=accesorios" class="category-card" style="background-color: #000; color: #fff; text-decoration: none; border-radius: var(--radius-xl); padding: var(--spacing-3xl); display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 300px;">
+          <h3 style="font-size: var(--font-size-2xl); margin: 0; font-weight: var(--font-weight-bold);">Unisex</h3>
         </a>
       </div>
     </div>
@@ -89,12 +110,15 @@
   <!-- PRODUCTOS DESTACADOS -->
   <section class="section" style="background-color: #F9FAFB;">
     <div class="container">
-      <h2 class="section-title">Productos Destacados</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-2xl);">
+        <h2 class="section-title" style="margin: 0;">Productos destacados</h2>
+        <a href="productos.html" style="color: var(--color-primary-dark); font-weight: var(--font-weight-semibold); text-decoration: none;">Ver todos →</a>
+      </div>
       <div class="grid grid-cols-4">
         <!-- Producto 1 -->
         <div class="product-card">
           <div class="product-card-image">
-            <img src="../assets/images/producto-1.jpg" alt="Camiseta Running Pro">
+            <img src="../assets/images/camiseta running.webp" alt="Camiseta Running Pro">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">Camiseta Running Pro</h3>
@@ -113,7 +137,7 @@
         <!-- Producto 2 -->
         <div class="product-card">
           <div class="product-card-image">
-            <img src="../assets/images/producto-2.jpg" alt="Short Training Pro">
+            <img src="../assets/images/short.webp" alt="Short Training Pro">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">Short Training Pro</h3>
@@ -132,7 +156,7 @@
         <!-- Producto 3 -->
         <div class="product-card">
           <div class="product-card-image">
-            <img src="../assets/images/producto-3.jpg" alt="Leggings Fitness Elite">
+            <img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">Leggings Fitness Elite</h3>
@@ -151,7 +175,7 @@
         <!-- Producto 4 -->
         <div class="product-card">
           <div class="product-card-image">
-            <img src="../assets/images/producto-4.jpg" alt="Chaqueta Térmica Winter">
+            <img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">Chaqueta Térmica Winter</h3>
@@ -167,45 +191,10 @@
           </div>
         </div>
       </div>
-      <div style="text-align: center; margin-top: 3rem;">
-        <a href="productos.html" class="btn btn-outline">Ver Todos los Productos</a>
-      </div>
     </div>
   </section>
 
-  <!-- BANNER PROMOCIONAL -->
-  <section class="promo-banner">
-    <div class="promo-content">
-      <h2>¡Oferta Especial!</h2>
-      <p>Obtén 20% de descuento en tu primer compra</p>
-      <a href="productos.html" class="btn btn-primary btn-lg">Comprar Ahora</a>
-    </div>
-  </section>
-
-  <!-- VENTAJAS -->
-  <section class="section">
-    <div class="container">
-      <div class="grid grid-cols-3">
-        <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <h3>Envío Rápido</h3>
-          <p>Entrega en 2-3 días hábiles a todo el país</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔄</div>
-          <h3>Devoluciones Fáciles</h3>
-          <p>30 días para devolver sin preguntas</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">💳</div>
-          <h3>Pago Seguro</h3>
-          <p>Múltiples opciones de pago seguras</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+<!-- FOOTER -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
@@ -226,9 +215,9 @@
       <div class="footer-section">
         <h3>Atención al Cliente</h3>
         <ul>
-          <li><a href="#">Preguntas Frecuentes</a></li>
-          <li><a href="#">Política de Devoluciones</a></li>
-          <li><a href="#">Términos y Condiciones</a></li>
+          <li><a href="faq.html">Preguntas Frecuentes</a></li>
+          <li><a href="politica-devoluciones.html">Política de Devoluciones</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
           <li><a href="#">Contacto</a></li>
         </ul>
       </div>
@@ -236,15 +225,15 @@
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📍</span>
+          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
           <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
         </div>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📞</span>
+          <span><img src="../assets/icons/telef.svg" alt="Teléfono"></span>
           <p>+57 300 123 6754</p>
         </div>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📧</span>
+          <span><img src="../assets/icons/email.svg" alt="Email"></span>
           <p>info@sportswear.com</p>
         </div>
       </div>
@@ -255,9 +244,15 @@
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Twitter">𝕏</a>
-        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="facebook">
+          <img src="../assets/icons/facebook.svg" alt="facebook">
+        </a>
+        <a href="#" aria-label="twitter">
+          <img src="../assets/icons/twitter.svg" alt="twitter">
+        </a>
+        <a href="#" aria-label="Instagram">
+          <img src="../assets/icons/insta.svg" alt="Instagram">
+        </a>
       </div>
     </div>
   </footer>
@@ -265,3 +260,4 @@
   <script src="../js/main.js"></script>
 </body>
 </html>
+

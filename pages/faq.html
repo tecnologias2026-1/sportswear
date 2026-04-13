@@ -6,112 +6,16 @@
   <meta name="description" content="Preguntas Frecuentes - SportSwear">
   <title>Preguntas Frecuentes - SportSwear</title>
   <link rel="stylesheet" href="../css/styles.css">
-  <style>
-    .page-content {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: var(--spacing-5xl) var(--spacing-2xl);
-    }
 
-    .faq-container {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-2xl);
-    }
 
-    .faq-item {
-      background-color: var(--color-white);
-      border: 1px solid var(--color-neutral-200);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: var(--transition-base);
-    }
-
-    .faq-item:hover {
-      box-shadow: var(--shadow-md);
-    }
-
-    .faq-question {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--spacing-xl);
-      background-color: var(--color-neutral-50);
-      cursor: pointer;
-      user-select: none;
-      font-weight: var(--font-weight-semibold);
-      color: var(--color-text-dark);
-    }
-
-    .faq-question:hover {
-      background-color: var(--color-neutral-100);
-    }
-
-    .faq-toggle {
-      font-size: 20px;
-      color: var(--color-primary-dark);
-      transition: transform var(--transition-base);
-    }
-
-    .faq-item.open .faq-toggle {
-      transform: rotate(180deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height var(--transition-base);
-      background-color: var(--color-white);
-    }
-
-    .faq-item.open .faq-answer {
-      max-height: 500px;
-    }
-
-    .faq-answer-content {
-      padding: var(--spacing-xl);
-      color: var(--color-text-secondary);
-      line-height: var(--line-height-relaxed);
-    }
-
-    .breadcrumb {
-      display: flex;
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-2xl);
-      font-size: var(--font-size-sm);
-      color: var(--color-text-secondary);
-    }
-
-    .breadcrumb a {
-      color: var(--color-primary-dark);
-      text-decoration: none;
-    }
-
-    .breadcrumb a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .page-content {
-        padding: var(--spacing-3xl) var(--spacing-lg);
-      }
-
-      .faq-question {
-        padding: var(--spacing-lg);
-        font-size: var(--font-size-base);
-      }
-
-      .faq-answer-content {
-        padding: var(--spacing-lg);
-      }
-    }
-  </style>
 </head>
 <body>
   <header class="navbar">
     <div class="navbar__left">
       <div class="logo">S</div>
-      <div class="brand">SportShop</div>
+      <a href="../index.html" class="brand-link">
+  <div class="brand">Sportswear</div>
+</a>
     </div>
 
     <div class="navbar__center">
@@ -122,22 +26,22 @@
 
 			<nav class="navbar__right">
 				<div class="nav-links">
-					<a href="/pages/productos.html">Productos</a>
-					<a href="/pages/productos.html?category=hombre">Hombre</a>
-					<a href="/pages/productos.html?category=mujer">Mujer</a>
-					<a href="/pages/login.html">Iniciar Sesión</a>
+					<a href="productos.html">Productos</a>
+					<a href="productos.html?category=hombre">Hombre</a>
+					<a href="productos.html?category=mujer">Mujer</a>
+					<a href="login.html">Iniciar Sesión</a>
 				</div>
 				<div class="nav-icons">
-					<a href="/pages/carrito.html" class="icon" aria-label="Carrito"><img src="/assets/icons/cart.svg" alt="Carrito"></a>
-					<a href="/pages/admin-productos.html" class="icon" aria-label="Cuenta"><img src="/assets/icons/user.svg" alt="Cuenta"></a>
+					<a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+					<a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
 					<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
 				</div>
 				<!-- mobile menu (hidden by default) -->
 				<div class="mobile-menu" aria-hidden="true">
-					<a href="/pages/productos.html">Productos</a>
-					<a href="/pages/productos.html?category=hombre">Hombre</a>
-					<a href="/pages/productos.html?category=mujer">Mujer</a>
-					<a href="/pages/login.html">Iniciar Sesión</a>
+					<a href="productos.html">Productos</a>
+					<a href="productos.html?category=hombre">Hombre</a>
+					<a href="productos.html?category=mujer">Mujer</a>
+					<a href="login.html">Iniciar Sesión</a>
 				</div>
 			</nav>
   </header>
@@ -333,15 +237,15 @@
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📍</span>
+          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
           <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
         </div>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📞</span>
+          <span><img src="../assets/icons/telef.svg" alt="Teléfono"></span>
           <p>+57 300 123 6754</p>
         </div>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📧</span>
+          <span><img src="../assets/icons/email.svg" alt="Email"></span>
           <p>info@sportswear.com</p>
         </div>
       </div>
@@ -352,9 +256,15 @@
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Twitter">𝕏</a>
-        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="facebook">
+          <img src="../assets/icons/facebook.svg" alt="facebook">
+        </a>
+        <a href="#" aria-label="twitter">
+          <img src="../assets/icons/twitter.svg" alt="twitter">
+        </a>
+        <a href="#" aria-label="Instagram">
+          <img src="../assets/icons/insta.svg" alt="Instagram">
+        </a>
       </div>
     </div>
   </footer>
@@ -368,3 +278,8 @@
   </script>
 </body>
 </html>
+
+
+
+
+

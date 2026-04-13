@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Pedidos - SportSwear</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar__left">
+      <div class="logo">S</div>
+      <a href="../index.html" class="brand-link">
+  <div class="brand">Sportswear</div>
+</a>
+    </div>
+
+    <div class="navbar__center">
+      <form class="search" role="search">
+        <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
+      </form>
+    </div>
+
+    <nav class="navbar__right">
+      <div class="nav-links">
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
+      </div>
+      <div class="nav-icons">
+        <a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+        <a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
+        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <h1>Mis Pedidos</h1>
+    </div>
+  </section>
+
+  <div class="container orders-page">
+    <div class="orders-list">
+
+      <!-- Pedido ejemplo 1 -->
+      <article class="order-card">
+          <header class="order-card-header">
+            <div class="order-header-left">
+              <div class="order-title">
+                <strong>Pedido #ORD - 001</strong>
+                <div class="order-date">Realizado el 9 de febrero de 2026</div>
+              </div>
+            </div>
+
+            <div class="order-header-right">
+              <div class="status-box status-completed">Enviado</div>
+            </div>
+          </header>
+
+        <div class="order-body">
+          <ul class="order-items">
+            <li class="order-item">
+              <img src="../assets/images/camiseta running.webp" alt="Camiseta Running Pro">
+              <div class="order-item-info">
+                <div class="name">Camiseta Running Pro</div>
+                <div class="order-item-details">
+                  <div class="detail"><span class="label">Talla:</span> M</div>
+                  <div class="detail"><span class="label">Color:</span> Negro</div>
+                  <div class="detail"><span class="label">Cantidad:</span> 1</div>
+                </div>
+              </div>
+              <div class="order-item-price">$45.000</div>
+            </li>
+
+            <li class="order-item">
+              <img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite">
+              <div class="order-item-info">
+                <div class="name">Leggings Fitness Elite</div>
+                <div class="order-item-details">
+                  <div class="detail"><span class="label">Talla:</span> S</div>
+                  <div class="detail"><span class="label">Color:</span> Azul</div>
+                  <div class="detail"><span class="label">Cantidad:</span> 1</div>
+                </div>
+              </div>
+              <div class="order-item-price">$65.000</div>
+            </li>
+          </ul>
+
+    
+            <div class="order-actions-right">
+                <div class="order-total">Total: <strong>$100.000</strong></div>
+                  <a href="#" class="btn btn-outline">Ver detalles</a>
+                </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Pedido ejemplo 2 -->
+      <article class="order-card">
+        <header class="order-card-header">
+          <div class="order-header-left">
+            <div class="order-title">
+              <strong>Pedido #ORD - 002</strong>
+              <div class="order-date">Realizado el 22 de marzo de 2026</div>
+            </div>
+          </div>
+
+          <div class="order-header-right">
+            <div class="status-box status-shipped">Recibido</div>
+          </div>
+        </header>
+
+        <div class="order-body">
+          <ul class="order-items">
+            <li class="order-item">
+              <img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter">
+              <div class="order-item-info">
+                <div class="name">Chaqueta Térmica Winter</div>
+                <div class="order-item-details">
+                  <div class="detail"><span class="label">Talla:</span> L</div>
+                  <div class="detail"><span class="label">Color:</span> Gris</div>
+                  <div class="detail"><span class="label">Cantidad:</span> 1</div>
+                </div>
+              </div>
+              <div class="order-item-price">$125.000</div>
+            </li>
+          </ul>
+
+            <div class="order-actions-right">
+                <div class="order-total">Total: <strong>$125.000</strong></div>
+              <a href="#" class="btn btn-outline">Ver detalles</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>SportSwear</h3>
+        <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Enlaces Rápidos</h3>
+        <ul>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="productos.html?category=hombre">Hombre</a></li>
+          <li><a href="productos.html?category=mujer">Mujer</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Atención al Cliente</h3>
+        <ul>
+          <li><a href="faq.html">Preguntas Frecuentes</a></li>
+          <li><a href="politica-devoluciones.html">Política de Devoluciones</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <div class="footer-contact">
+          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
+          <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
+        </div>
+        <div class="footer-contact">
+          <span><img src="../assets/icons/telef.svg" alt="Teléfono"></span>
+          <p>+57 300 123 6754</p>
+        </div>
+        <div class="footer-contact">
+          <span><img src="../assets/icons/email.svg" alt="Email"></span>
+          <p>info@sportswear.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="facebook">
+          <img src="../assets/icons/facebook.svg" alt="facebook">
+        </a>
+        <a href="#" aria-label="twitter">
+          <img src="../assets/icons/twitter.svg" alt="twitter">
+        </a>
+        <a href="#" aria-label="Instagram">
+          <img src="../assets/icons/insta.svg" alt="Instagram">
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
+

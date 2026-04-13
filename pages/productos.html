@@ -11,7 +11,9 @@
   <header class="navbar">
     <div class="navbar__left">
       <div class="logo">S</div>
-      <div class="brand">SportShop</div>
+      <a href="../index.html" class="brand-link">
+  <div class="brand">Sportswear</div>
+</a>
     </div>
 
     <div class="navbar__center">
@@ -24,22 +26,22 @@
      
 			<nav class="navbar__right">
 				<div class="nav-links">
-					<a href="/pages/productos.html">Productos</a>
-					<a href="/pages/productos.html?category=hombre">Hombre</a>
-					<a href="/pages/productos.html?category=mujer">Mujer</a>
-					<a href="/pages/login.html">Iniciar Sesión</a>
+					<a href="productos.html">Productos</a>
+					<a href="productos.html?category=hombre">Hombre</a>
+					<a href="productos.html?category=mujer">Mujer</a>
+					<a href="login.html">Iniciar Sesión</a>
 				</div>
 				<div class="nav-icons">
-					<a href="/pages/carrito.html" class="icon" aria-label="Carrito"><img src="/assets/icons/cart.svg" alt="Carrito"></a>
-					<a href="/pages/admin-productos.html" class="icon" aria-label="Cuenta"><img src="/assets/icons/user.svg" alt="Cuenta"></a>
+					<a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+					<a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
 					<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
 				</div>
 				<!-- mobile menu (hidden by default) -->
 				<div class="mobile-menu" aria-hidden="true">
-					<a href="/pages/productos.html">Productos</a>
-					<a href="/pages/productos.html?category=hombre">Hombre</a>
-					<a href="/pages/productos.html?category=mujer">Mujer</a>
-					<a href="/pages/login.html">Iniciar Sesión</a>
+					<a href="productos.html">Productos</a>
+					<a href="productos.html?category=hombre">Hombre</a>
+					<a href="productos.html?category=mujer">Mujer</a>
+					<a href="login.html">Iniciar Sesión</a>
 				</div>
 			</nav>
   </header>
@@ -63,64 +65,98 @@
         <div class="filter-group">
           <h4>Categoría</h4>
           <label class="filter-checkbox">
-            <input type="checkbox" name="category" value="hombre">
-            <span>Hombre</span>
+            <input type="checkbox" name="category" value="camisetas">
+            <span>Camisetas</span>
           </label>
           <label class="filter-checkbox">
-            <input type="checkbox" name="category" value="mujer">
-            <span>Mujer</span>
+            <input type="checkbox" name="category" value="zapatos">
+            <span>Zapatos</span>
           </label>
           <label class="filter-checkbox">
-            <input type="checkbox" name="category" value="accesorios">
-            <span>Accesorios</span>
+            <input type="checkbox" name="category" value="chaquetas">
+            <span>Chaquetas</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="category" value="leggings">
+            <span>Leggings</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="category" value="shorts">
+            <span>Shorts</span>
+          </label>
+        </div>
+
+        <!-- Marcas -->
+        <div class="filter-group">
+          <h4>Marcas</h4>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="brand" value="spomay">
+            <span>SpoMay</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="brand" value="futbo">
+            <span>Fútbo</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="brand" value="nike">
+            <span>Nike</span>
           </label>
         </div>
 
         <!-- Rango de Precios -->
         <div class="filter-group">
-          <h4>Precio</h4>
+          <h4>PRECIO</h4>
           <div class="price-range">
-            <div class="price-inputs">
-              <input type="number" id="priceMin" placeholder="Min" min="0" max="200000">
-              <span>-</span>
-              <input type="number" id="priceMax" placeholder="Max" min="0" max="200000">
-            </div>
             <div class="price-slider">
               <input type="range" id="minRange" min="0" max="200000" value="0">
               <input type="range" id="maxRange" min="0" max="200000" value="200000">
             </div>
-            <p class="price-display">$ 0 - $ 200.000</p>
+            <div class="price-inputs">
+              <div class="price-input-group">
+                <label>Min.</label>
+                <input type="number" id="priceMin" value="0" min="0" max="200000">
+              </div>
+              <span>-</span>
+              <div class="price-input-group">
+                <label>Máx.</label>
+                <input type="number" id="priceMax" value="200000" min="0" max="200000">
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Color -->
         <div class="filter-group">
-          <h4>Color</h4>
+          <h4>Colores</h4>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="color" value="lavanda">
+            <span>Lavanda</span>
+          </label>
           <label class="filter-checkbox">
             <input type="checkbox" name="color" value="negro">
             <span>Negro</span>
-          </label>
-          <label class="filter-checkbox">
-            <input type="checkbox" name="color" value="blanco">
-            <span>Blanco</span>
           </label>
           <label class="filter-checkbox">
             <input type="checkbox" name="color" value="azul">
             <span>Azul</span>
           </label>
           <label class="filter-checkbox">
-            <input type="checkbox" name="color" value="rojo">
-            <span>Rojo</span>
+            <input type="checkbox" name="color" value="verde">
+            <span>Verde</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="color" value="cafe">
+            <span>Café</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="color" value="amarillo">
+            <span>Amarillo</span>
           </label>
         </div>
 
         <!-- Talla -->
         <div class="filter-group">
-          <h4>Talla</h4>
-          <label class="filter-checkbox">
-            <input type="checkbox" name="size" value="xs">
-            <span>XS</span>
-          </label>
+          <h4>Tallas</h4>
           <label class="filter-checkbox">
             <input type="checkbox" name="size" value="s">
             <span>S</span>
@@ -163,11 +199,11 @@
         </div>
 
         <!-- GRID DE PRODUCTOS -->
-        <div class="grid grid-cols-4">
+        <div class="grid grid-cols-4" id="products-grid">
           <!-- Producto 1 -->
-          <div class="product-card">
+          <div class="product-card" data-category="camisetas" data-gender="hombre" data-color="negro" data-price="45000">
             <div class="product-card-image">
-              <img src="../assets/images/camiseta.png" alt="Camiseta Running Pro">
+              <img src="../assets/images/camiseta running.webp" alt="Camiseta Running Pro">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Camiseta Running Pro</h3>
@@ -177,16 +213,16 @@
                 <div class="product-card-rating">★★★★★</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=1" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=1" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 2 -->
-          <div class="product-card">
+          <div class="product-card" data-category="shorts" data-gender="hombre" data-color="azul" data-price="55000">
             <div class="product-card-image">
-              <img src="../assets/images/shorts.png" alt="Short Training Pro">
+              <img src="../assets/images/short.webp" alt="Short Training Pro">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Short Training Pro</h3>
@@ -196,16 +232,16 @@
                 <div class="product-card-rating">★★★★☆</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=2" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=2" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 3 -->
-          <div class="product-card">
+          <div class="product-card" data-category="leggings" data-gender="mujer" data-color="negro" data-price="65000">
             <div class="product-card-image">
-              <img src="../assets/images/pantalontela.png" alt="Leggings Fitness Elite">
+              <img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Leggings Fitness Elite</h3>
@@ -215,16 +251,16 @@
                 <div class="product-card-rating">★★★★★</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=3" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=3" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 4 -->
-          <div class="product-card">
+          <div class="product-card" data-category="chaquetas" data-gender="hombre" data-color="negro" data-price="125000">
             <div class="product-card-image">
-              <img src="../assets/images/chaqueta.png" alt="Chaqueta Térmica Winter">
+              <img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Chaqueta Térmica Winter</h3>
@@ -234,16 +270,16 @@
                 <div class="product-card-rating">★★★★★</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 5 -->
-          <div class="product-card">
+          <div class="product-card" data-category="camisetas" data-gender="mujer" data-color="verde" data-price="75000">
             <div class="product-card-image">
-              <img src="../assets/images/sweater.png" alt="Sudadera Deportiva Classic">
+              <img src="../assets/images/sudadera deportiva.webp" alt="Sudadera Deportiva Classic">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Sudadera Deportiva Classic</h3>
@@ -253,16 +289,16 @@
                 <div class="product-card-rating">★★★★☆</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=5" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=5" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 6 -->
-          <div class="product-card">
+          <div class="product-card" data-category="shorts" data-gender="hombre" data-color="azul" data-price="85000">
             <div class="product-card-image">
-              <img src="../assets/images/pantalon.png" alt="Pantalón Jogger Comfort">
+              <img src="../assets/images/jogger.webp" alt="Pantalón Jogger Comfort">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Pantalón Jogger Comfort</h3>
@@ -272,16 +308,16 @@
                 <div class="product-card-rating">★★★★★</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=6" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=6" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 7 -->
-          <div class="product-card">
+          <div class="product-card" data-category="camisetas" data-gender="mujer" data-color="blanco" data-price="50000">
             <div class="product-card-image">
-              <img src="../assets/images/top.png" alt="Top Deportivo CrossFit">
+              <img src="../assets/images/top.webp" alt="Top Deportivo CrossFit">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Top Deportivo CrossFit</h3>
@@ -291,16 +327,16 @@
                 <div class="product-card-rating">★★★★★</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=7" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=7" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 8 -->
-          <div class="product-card">
+          <div class="product-card" data-category="shorts" data-gender="hombre,mujer" data-color="negro" data-price="25000">
             <div class="product-card-image">
-              <img src="../assets/images/calcetines.png" alt="Calcetines Sports Pro">
+              <img src="../assets/images/calcetines.webp" alt="Calcetines Sports Pro">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Calcetines Sports Pro</h3>
@@ -310,16 +346,16 @@
                 <div class="product-card-rating">★★★★☆</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=8" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=8" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 9 -->
-          <div class="product-card">
+          <div class="product-card" data-category="shorts" data-gender="hombre,mujer" data-color="negro" data-price="35000">
             <div class="product-card-image">
-              <img src="../assets/images/gorro.png" alt="Gorro Deportivo Winter">
+              <img src="../assets/images/gorro.jpg" alt="Gorro Deportivo Winter">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Gorro Deportivo Winter</h3>
@@ -329,16 +365,16 @@
                 <div class="product-card-rating">★★★★★</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=9" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=9" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 10 -->
-          <div class="product-card">
+          <div class="product-card" data-category="shorts" data-gender="hombre,mujer" data-color="negro" data-price="95000">
             <div class="product-card-image">
-              <img src="../assets/images/mochila.png" alt="Mochila Deportiva Urban">
+              <img src="../assets/images/mochila1.jpg" alt="Mochila Deportiva Urban">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Mochila Deportiva Urban</h3>
@@ -348,16 +384,16 @@
                 <div class="product-card-rating">★★★★☆</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=10" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=10" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 11 -->
-          <div class="product-card">
+          <div class="product-card" data-category="shorts" data-gender="hombre,mujer" data-color="rojo" data-price="30000">
             <div class="product-card-image">
-              <img src="../assets/images/brazalete.png" alt="Brazalete Deportivo">
+              <img src="../assets/images/brazalete.webp" alt="Brazalete Deportivo">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Brazalete Deportivo</h3>
@@ -367,16 +403,16 @@
                 <div class="product-card-rating">★★★★★</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=11" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=11" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
           </div>
 
           <!-- Producto 12 -->
-          <div class="product-card">
+          <div class="product-card" data-category="shorts" data-gender="hombre,mujer" data-color="negro" data-price="40000">
             <div class="product-card-image">
-              <img src="../assets/images/guantes.png" alt="Guantes Deportivos">
+              <img src="../assets/images/guantes.webp" alt="Guantes Deportivos">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">Guantes Deportivos</h3>
@@ -386,7 +422,7 @@
                 <div class="product-card-rating">★★★★☆</div>
               </div>
               <div class="product-card-actions">
-                <a href="/pages/detalle-producto.html?id=12" class="product-card-btn product-card-add">Ver Detalles</a>
+                <a href="detalle-producto.html?id=12" class="product-card-btn product-card-add">Ver Detalles</a>
                 <button class="product-card-btn product-card-heart">♡</button>
               </div>
             </div>
@@ -405,7 +441,7 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+<!-- FOOTER -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
@@ -426,9 +462,9 @@
       <div class="footer-section">
         <h3>Atención al Cliente</h3>
         <ul>
-          <li><a href="#">Preguntas Frecuentes</a></li>
-          <li><a href="#">Política de Devoluciones</a></li>
-          <li><a href="#">Términos y Condiciones</a></li>
+          <li><a href="faq.html">Preguntas Frecuentes</a></li>
+          <li><a href="politica-devoluciones.html">Política de Devoluciones</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
           <li><a href="#">Contacto</a></li>
         </ul>
       </div>
@@ -436,15 +472,15 @@
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📍</span>
+          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
           <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
         </div>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📞</span>
+          <span><img src="../assets/icons/telef.svg" alt="Teléfono"></span>
           <p>+57 300 123 6754</p>
         </div>
         <div class="footer-contact">
-          <span class="footer-contact-icon">📧</span>
+          <span><img src="../assets/icons/email.svg" alt="Email"></span>
           <p>info@sportswear.com</p>
         </div>
       </div>
@@ -455,13 +491,39 @@
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Twitter">𝕏</a>
-        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="facebook">
+          <img src="../assets/icons/facebook.svg" alt="facebook">
+        </a>
+        <a href="#" aria-label="twitter">
+          <img src="../assets/icons/twitter.svg" alt="twitter">
+        </a>
+        <a href="#" aria-label="Instagram">
+          <img src="../assets/icons/insta.svg" alt="Instagram">
+        </a>
       </div>
     </div>
   </footer>
 
   <script src="../js/main.js"></script>
+
+  var products = getProducts();
+
+var grid = document.getElementById("products-grid");
+
+if (products.length > 0) {
+  grid.innerHTML = "";
+
+  products.forEach(function(product) {
+    grid.innerHTML += `
+      <div class="product-card">
+        <img src="${product.image}">
+        <h3>${product.name}</h3>
+        <p>${product.price}</p>
+      </div>
+    `;
+  });
+}
 </body>
 </html>
+
+
