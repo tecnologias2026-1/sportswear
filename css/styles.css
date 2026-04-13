@@ -2162,9 +2162,10 @@ a {
   display: flex;
   gap: var(--spacing-md);
   margin-top: var(--spacing-md);
-  align-items: center;
+  align-items: flex-start; 
   justify-content: center;
 }
+
 
 .carousel-container {
   width: 300px;
@@ -2671,7 +2672,7 @@ a {
 .admin-sidebar {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-3xl);
   overflow-y: auto;
 }
 
@@ -2747,6 +2748,15 @@ a {
   color: var(--color-primary-dark);
 }
 
+.admin-filters {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px; 
+  
+}
+.admin-filters button {
+  width: fit-content;
+}
 .admin-table-container {
   background-color: var(--color-white);
   border-radius: var(--radius-lg);
@@ -2756,8 +2766,36 @@ a {
 
 .admin-table {
   width: 100%;
+  border-collapse: collapse;
+  min-width: 900px; 
+}
+.admin-table th {
+  padding: 14px 18px;
+  text-align: left;
 }
 
+.admin-table td {
+  padding: 20px 18px;
+  vertical-align: middle;
+}
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+/* PRODUCTO (imagen + nombre alineado) */
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-cell img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
 .admin-table thead {
   background-color: var(--color-neutral-100);
 }
