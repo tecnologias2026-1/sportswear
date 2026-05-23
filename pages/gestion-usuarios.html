@@ -41,48 +41,63 @@
         <h1>Gestión de usuarios</h1>
         <p class="muted">Visualiza todos los usuarios registrados</p>
 
-        <div class="search-panel">
-          <input type="search" placeholder="Buscar por usuarios por nombre, email o telefono" />
+        <div class="search-panel" style="max-width: 100%; width: 100%;">
+          <input type="search" id="user-search-input" placeholder="Buscar por nombre o email..." style="width: 100%; max-width: 600px; padding: 10px; border-radius: 6px; border: 1px solid var(--color-neutral-300);" />
         </div>
 
         <div class="table-card">
           <table class="users-table">
             <thead>
               <tr>
-                <th>Nombre</th>
+                <th>Usuario</th>
                 <th>Email</th>
-                <th>Teléfono</th>
                 <th>Rol</th>
-                <th>Direcciones</th>
+                <th>Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td data-label="Nombre">Carlos Perez</td>
-                <td data-label="Email">usuario@ejemplo.com</td>
-                <td data-label="Teléfono">+57 300 123 4567</td>
-                <td data-label="Rol"><span class="badge">Usuario</span></td>
-                <td data-label="Direcciones">Bogotá</td>
-              </tr>
-              <tr>
-                <td data-label="Nombre">Ana Gómez</td>
-                <td data-label="Email">ana@ejemplo.com</td>
-                <td data-label="Teléfono">+57 310 987 6543</td>
-                <td data-label="Rol"><span class="badge">Usuario</span></td>
-                <td data-label="Direcciones">Medellín</td>
-              </tr>
-              <tr>
-                <td data-label="Nombre">María Ruiz</td>
-                <td data-label="Email">maria@ejemplo.com</td>
-                <td data-label="Teléfono">+57 320 555 1234</td>
-                <td data-label="Rol"><span class="badge">Admin</span></td>
-                <td data-label="Direcciones">Cali</td>
-              </tr>
+            <tbody id="users-table-body">
+              <!-- Cargado dinámicamente -->
             </tbody>
           </table>
         </div>
+        <!-- PAGINACIÓN -->
+        <div class="pagination" id="user-pagination" style="margin-top: var(--spacing-lg);">
+          <!-- Cargado dinámicamente -->
+        </div>
       </section>
     </main>
+  </div>
+
+  <!-- Modal para editar usuario -->
+  <div id="modal-usuario" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1200; align-items: center; justify-content: center;">
+    <div class="auth-card" style="max-width: 500px; width: 90%; position: relative;">
+      <button type="button" onclick="closeUserModal()" style="position: absolute; top: var(--spacing-md); right: var(--spacing-md); background: none; border: none; font-size: 24px; cursor: pointer; color: var(--color-neutral-500);">&times;</button>
+      
+      <h2 id="modal-user-title" style="margin-bottom: var(--spacing-xl); text-align: center;">Editar Usuario</h2>
+      
+      <form id="user-form">
+        <input type="hidden" id="edit-user-id">
+        <div class="form-group">
+          <label class="form-label" for="edit-user-name">Nombre</label>
+          <input type="text" id="edit-user-name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-user-email">Correo</label>
+          <input type="email" id="edit-user-email" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-user-role">Rol</label>
+          <select id="edit-user-role" class="form-select" required>
+            <option value="Usuario">Usuario</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: var(--spacing-lg); margin-top: var(--spacing-lg);">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Guardar Cambios</button>
+          <button type="button" class="btn btn-secondary" onclick="closeUserModal()" style="flex: 1;">Cancelar</button>
+        </div>
+      </form>
+    </div>
   </div>
 
 </body>
@@ -106,6 +121,197 @@ if (logoutBtn) {
     }
   });
 }
+
+// LOGICA DE USUARIOS (CRUD)
+const API_BASE = "http://localhost/back-sportswear";
+let allUsers = [];
+let users = [];
+let currentPage = 1;
+const itemsPerPage = 6;
+const usersTableBody = document.getElementById('users-table-body');
+const userPagination = document.getElementById('user-pagination');
+const modalUsuario = document.getElementById('modal-usuario');
+const userForm = document.getElementById('user-form');
+const userSearchInput = document.getElementById('user-search-input');
+
+// Función para obtener iniciales
+function getInitials(name) {
+  if (!name) return 'U';
+  const parts = name.trim().split(' ');
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+}
+
+// 1. GET: Listar Usuarios
+function fetchUsers() {
+  fetch(API_BASE + '/routes/GET/lista-usuarios.php')
+    .then(res => res.json())
+    .then(data => {
+      allUsers = data;
+      users = [...allUsers];
+      currentPage = 1; // Resetear página al cargar
+      renderUsersTable();
+    })
+    .catch(err => console.error('Error al obtener usuarios:', err));
+}
+
+// Buscador
+if (userSearchInput) {
+  userSearchInput.addEventListener('input', function(e) {
+    const searchTerm = e.target.value.trim().toLowerCase();
+    
+    if (!searchTerm) {
+      users = [...allUsers];
+    } else {
+      users = allUsers.filter(u => {
+        const nombre = (u.nombre || u.name || '').toLowerCase();
+        const email = (u.correo || u.email || '').toLowerCase();
+        return nombre.includes(searchTerm) || email.includes(searchTerm);
+      });
+    }
+    
+    currentPage = 1;
+    renderUsersTable();
+  });
+}
+
+function renderUsersTable() {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const itemsToRender = users.slice(startIndex, endIndex);
+
+  usersTableBody.innerHTML = itemsToRender.map(user => {
+    // Adaptar nombres de campos según BD
+    const id = user.id || '';
+    const nombre = user.nombre || user.name || 'Sin nombre';
+    const email = user.correo || user.email || '';
+    const rol = user.rol || user.role || 'Usuario';
+    const initials = getInitials(nombre);
+    
+    return `
+      <tr>
+        <td data-label="Usuario">
+          <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #f0f5ff; color: black; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+              ${initials}
+            </div>
+            <span>${nombre}</span>
+          </div>
+        </td>
+        <td data-label="Email">${email}</td>
+        <td data-label="Rol"><span class="badge ${rol === 'Admin' ? 'status-success' : ''}">${rol}</span></td>
+        <td data-label="Acciones">
+          <div class="admin-table-actions">
+            <button class="admin-table-btn edit" onclick="openEditModal(${id})">Editar</button>
+            <button class="admin-table-btn delete" onclick="deleteUser(${id})">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  renderUserPagination();
+}
+
+function renderUserPagination() {
+  if (!userPagination) return;
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+  
+  let html = '<button class="pagination-btn prev" ' + (currentPage === 1 ? 'disabled' : '') + '>&laquo;</button>';
+  for (let i = 1; i <= totalPages; i++) {
+    html += '<button class="pagination-btn ' + (currentPage === i ? 'active' : '') + '">' + i + '</button>';
+  }
+  html += '<button class="pagination-btn next" ' + (currentPage === totalPages || totalPages === 0 ? 'disabled' : '') + '>&raquo;</button>';
+  
+  userPagination.innerHTML = html;
+
+  const btns = userPagination.querySelectorAll('.pagination-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      if(this.classList.contains('disabled') || this.hasAttribute('disabled')) return;
+      
+      if(this.classList.contains('prev')) {
+        if (currentPage > 1) currentPage--;
+      } else if(this.classList.contains('next')) {
+        if (currentPage < totalPages) currentPage++;
+      } else {
+        currentPage = parseInt(this.textContent);
+      }
+      renderUsersTable();
+    });
+  });
+}
+
+// 2. PUT: Actualizar Usuario
+function openEditModal(id) {
+  const user = users.find(u => String(u.id) === String(id));
+  if (!user) return;
+  
+  document.getElementById('edit-user-id').value = user.id;
+  document.getElementById('edit-user-name').value = user.nombre || user.name || '';
+  document.getElementById('edit-user-email').value = user.correo || user.email || '';
+  
+  let userRole = user.rol || user.role || 'Usuario';
+  if (userRole.toLowerCase() === 'user' || userRole.toLowerCase() === 'usuario') {
+    userRole = 'Usuario';
+  } else if (userRole.toLowerCase() === 'admin') {
+    userRole = 'Admin';
+  } else {
+    // Si trajera un rol inesperado, por defecto a Usuario
+    userRole = 'Usuario';
+  }
+  document.getElementById('edit-user-role').value = userRole;
+  
+  modalUsuario.style.display = 'flex';
+}
+
+function closeUserModal() {
+  modalUsuario.style.display = 'none';
+}
+
+userForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const id = document.getElementById('edit-user-id').value;
+  const payload = {
+    nombre: document.getElementById('edit-user-name').value.trim(),
+    correo: document.getElementById('edit-user-email').value.trim(),
+    rol: document.getElementById('edit-user-role').value
+  };
+
+  fetch(API_BASE + '/routes/PUT/actualizar-usuario.php?id=' + id, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log('Actualizar:', data);
+      closeUserModal();
+      fetchUsers();
+    })
+    .catch(err => console.error('Error:', err));
+});
+
+// 3. DELETE: Eliminar Usuario
+function deleteUser(id) {
+  if (!confirm('¿Seguro que deseas eliminar este usuario?')) return;
+  
+  fetch(API_BASE + '/routes/DELETE/borrar-usuario.php?id=' + id, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log('Borrar:', data);
+      fetchUsers();
+    })
+    .catch(err => console.error('Error:', err));
+}
+
+// Inicializar lista de usuarios al cargar la página
+document.addEventListener('DOMContentLoaded', fetchUsers);
 </script>
 </html>
 

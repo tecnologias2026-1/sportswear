@@ -167,7 +167,47 @@
   <script>
     document.getElementById('register-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('¡Cuenta creada exitosamente! Bienvenido a SportSwear');
+
+      const name = document.getElementById('first-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword) {
+        alert('Las contraseñas no coinciden.');
+        return;
+      }
+
+      if (password.length > 8) {
+        alert('La contraseña debe tener máximo 8 caracteres.');
+        return;
+      }
+
+      fetch('http://localhost/back-sportswear/routes/POST/registro-usuario.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: name, 
+          correo: email, 
+          contraseña: password,
+          rol: "Admin" 
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Asumiendo que el éxito puede ser id, message, succes
+        if (data.id || data.message || data.success || data.mensaje) {
+          alert('¡Cuenta creada exitosamente! Bienvenido a SportSwear');
+          window.location.href = 'login.html';
+        } else {
+          alert('Error al crear la cuenta: ' + (data.error || data.mensaje || 'Inténtalo de nuevo.'));
+        }
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        alert('Error de conexión al crear la cuenta.');
+      });
     });
   </script>
   <script src="../js/main.js"></script>

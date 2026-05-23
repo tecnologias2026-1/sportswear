@@ -51,22 +51,31 @@
   </div>
 
   <!-- FILTROS -->
-  <div class="admin-filters">
-    <input id="admin-search" type="text" placeholder="Buscar producto..." class="form-input">
+  <div class="admin-filters" style="display: flex; flex-direction: row; gap: var(--spacing-sm); align-items: center; background: white; padding: var(--spacing-md); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); margin-bottom: var(--spacing-lg);">
+    <div style="flex: 2; position: relative;">
+      <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px;">🔍</span>
+      <input id="admin-search" type="text" placeholder="Buscar producto..." class="form-input" style="padding-left: 35px; width: 100%; border-radius: 6px; border: 1px solid var(--color-neutral-300); margin-bottom: 0;">
+    </div>
 
-    <select id="admin-category-filter" class="form-select">
-      <option value="all">Todas las categorías</option>
-      <option value="Hombre">Hombre</option>
-      <option value="Mujer">Mujer</option>
-    </select>
+    <div style="flex: 1;">
+      <select id="admin-category-filter" class="form-select" style="width: 100%; border-radius: 6px; border: 1px solid var(--color-neutral-300); margin-bottom: 0;">
+        <option value="all">Todas las categorías</option>
+        <option value="Hombre">Hombre</option>
+        <option value="Mujer">Mujer</option>
+      </select>
+    </div>
 
-    <select id="admin-stock-filter" class="form-select">
-      <option value="all">Todas</option>
-      <option value="in_stock">En Stock</option>
-      <option value="out_of_stock">Agotado</option>
-    </select>
+    <div style="flex: 1;">
+      <select id="admin-stock-filter" class="form-select" style="width: 100%; border-radius: 6px; border: 1px solid var(--color-neutral-300); margin-bottom: 0;">
+        <option value="all">Todos los estados</option>
+        <option value="in_stock">En Stock</option>
+        <option value="out_of_stock">Agotado</option>
+      </select>
+    </div>
 
-    <button id="admin-filter-btn" class="btn btn-secondary">Filtrar</button>
+    <div>
+      <button id="admin-filter-btn" class="btn btn-secondary" style="border-radius: 6px; padding: 10px 16px; margin-bottom: 0;">Filtrar</button>
+    </div>
   </div>
 
   <div class="admin-table-container">
@@ -79,7 +88,6 @@
         <th>Categoría</th>
         <th>Precio</th>
         <th>Stock</th>
-        <th>Vendidos</th>
         <th>Estado</th>
         <th>Acciones</th>
       </tr>
@@ -98,7 +106,6 @@
         <td>Hombre</td>
         <td>$45.000</td>
         <td>45</td>
-        <td>234</td>
 
         <td>
           <span class="status-pill status-success">Activo</span>
@@ -123,7 +130,6 @@
         <td>Hombre</td>
         <td>$45.000</td>
         <td>45</td>
-        <td>234</td>
 
         <td>
           <span class="status-pill status-success">Activo</span>
@@ -175,54 +181,120 @@
 
 </main>
 
-      <!-- MODAL CREAR/EDITAR PRODUCTO (OCULTO) -->
+      <!-- MODAL WIZARD CREAR/EDITAR PRODUCTO (OCULTO) -->
       <div id="modal-producto" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1200; align-items: center; justify-content: center;">
-        <div class="auth-card" style="max-width: 600px; width: 90%;">
-          <h2 id="modal-title">Nuevo Producto</h2>
+        <div class="auth-card" style="max-width: 600px; width: 90%; position: relative;">
+          <button type="button" onclick="closeModal()" style="position: absolute; top: var(--spacing-md); right: var(--spacing-md); background: none; border: none; font-size: 24px; cursor: pointer; color: var(--color-neutral-500);">&times;</button>
+          
+          <h2 id="modal-title" style="margin-bottom: var(--spacing-xl); text-align: center;">Nuevo Producto</h2>
+
+          <!-- WIZARD HEADER -->
+          <div class="wizard-header">
+            <div class="wizard-progress-bar">
+              <div class="wizard-progress-bar-fill" id="wizard-progress"></div>
+            </div>
+            <div class="wizard-step-indicator active" id="step-indicator-1">
+              <div class="wizard-step-circle">1</div>
+              <span class="wizard-step-label">Información</span>
+            </div>
+            <div class="wizard-step-indicator" id="step-indicator-2">
+              <div class="wizard-step-circle">2</div>
+              <span class="wizard-step-label">Precio</span>
+            </div>
+            <div class="wizard-step-indicator" id="step-indicator-3">
+              <div class="wizard-step-circle">3</div>
+              <span class="wizard-step-label">Imagen</span>
+            </div>
+          </div>
           
           <form id="product-form">
             <input type="hidden" id="product-id">
-            <div class="form-group">
-              <label class="form-label" for="product-name">Nombre del Producto</label>
-              <input type="text" id="product-name" class="form-input" placeholder="Ej: Camiseta Running Pro" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="product-description">Descripción</label>
-              <textarea id="product-description" class="form-textarea" placeholder="Describe el producto..."></textarea>
-            </div>
-
-            <div class="form-group-row">
+            
+            <!-- STEP 1: START -->
+            <div class="wizard-step-content active" id="step-content-1">
               <div class="form-group">
-                <label class="form-label" for="product-price">Precio ($ COP)</label>
-                <input type="number" id="product-price" class="form-input" placeholder="45000" required>
+                <label class="form-label" for="product-name">Nombre del Producto</label>
+                <input type="text" id="product-name" class="form-input" placeholder="Ej: Camiseta Running Pro" required>
               </div>
-
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label class="form-label" for="product-category">Categoría</label>
+                  <select id="product-category" class="form-select" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Hombre">Hombre</option>
+                    <option value="Mujer">Mujer</option>
+                    <option value="Accesorios">Accesorios</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="product-marca">Marca</label>
+                  <input type="text" id="product-marca" class="form-input" placeholder="Ej: Nike, Adidas" required>
+                </div>
+              </div>
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label class="form-label" for="product-talla">Talla</label>
+                  <select id="product-talla" class="form-select" required>
+                    <option value="">Selecciona una talla</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="Unica">Única</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="product-color">Color</label>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="color" id="product-color" class="form-input" style="padding: 0; width: 50px; height: 40px; cursor: pointer;" value="#000000" required>
+                    <span id="color-hex-display" style="font-family: monospace; font-size: 14px;">#000000</span>
+                  </div>
+                </div>
+              </div>
               <div class="form-group">
-                <label class="form-label" for="product-stock">Stock</label>
-                <input type="number" id="product-stock" class="form-input" placeholder="50" required>
+                <label class="form-label" for="product-description">Descripción</label>
+                <textarea id="product-description" class="form-textarea" placeholder="Describe el producto..."></textarea>
+              </div>
+              <div style="display: flex; justify-content: flex-end; margin-top: var(--spacing-lg);">
+                <button type="button" class="btn btn-primary" onclick="nextStep(2)">Siguiente</button>
+              </div>
+            </div>
+            
+            <!-- STEP 2: PRICE & STOCK -->
+            <div class="wizard-step-content" id="step-content-2">
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label class="form-label" for="product-price">Precio ($ COP)</label>
+                  <input type="number" id="product-price" class="form-input" placeholder="45000" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="product-stock">Stock</label>
+                  <input type="number" id="product-stock" class="form-input" placeholder="50" required>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-top: var(--spacing-lg);">
+                <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Atrás</button>
+                <button type="button" class="btn btn-primary" onclick="nextStep(3)">Siguiente</button>
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="product-category">Categoría</label>
-              <select id="product-category" class="form-select" required>
-                <option value="">Selecciona una categoría</option>
-                <option value="Hombre">Hombre</option>
-                <option value="Mujer">Mujer</option>
-                <option value="Accesorios">Accesorios</option>
-              </select>
+            <!-- STEP 3: IMAGE && SUBMIT -->
+            <div class="wizard-step-content" id="step-content-3">
+              <div class="form-group">
+                <label class="form-label">Imagen del Producto (Arrastrar o seleccionar)</label>
+                <div class="drop-zone" id="drop-zone">
+                  <div class="drop-zone-icon">📷</div>
+                  <div class="drop-zone-text">Arrastra una imagen aquí o haz clic para subir</div>
+                  <input type="file" id="product-image" class="form-input" accept="image/*" style="display: none;">
+                  <img id="image-preview" class="image-preview" alt="Vista previa">
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-top: var(--spacing-lg);">
+                <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Atrás</button>
+                <button type="submit" class="btn btn-primary" id="btn-save-product">Guardar Producto</button>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="product-image">Imagen del Producto</label>
-              <input type="file" id="product-image" class="form-input" accept="image/*">
-            </div>
-
-            <div style="display: flex; gap: var(--spacing-lg);">
-              <button type="submit" class="btn btn-primary" style="flex: 1;">Guardar Producto</button>
-              <button type="button" class="btn btn-secondary" onclick="closeModal()" style="flex: 1;">Cancelar</button>
-            </div>
           </form>
         </div>
       </div>
@@ -231,13 +303,14 @@
 
   <script>
     (function() {
-      var products = [
-        { id: '001', name: 'Camiseta Running Pro', category: 'Hombre', price: 45000, stock: 45, sold: 234, description: 'Camiseta deportiva de secado rápido.' },
-        { id: '002', name: 'Short Training Pro', category: 'Hombre', price: 55000, stock: 23, sold: 156, description: 'Short cómodo para entrenamientos intensos.' },
-        { id: '003', name: 'Leggings Fitness Elite', category: 'Mujer', price: 65000, stock: 0, sold: 189, description: 'Leggings de compresión de alta calidad.' },
-        { id: '004', name: 'Chaqueta Térmica Winter', category: 'Hombre', price: 125000, stock: 12, sold: 67, description: 'Chaqueta térmica resistente al agua.' },
-        { id: '005', name: 'Sudadera Deportiva Classic', category: 'Mujer', price: 75000, stock: 34, sold: 145, description: 'Sudadera suave y versátil para cualquier clima.' }
-      ];
+      // Usar variable de ambiente para la API base
+      const API_BASE = "http://localhost/back-sportswear";
+
+      var products = [];
+      var filteredProducts = [];
+      var currentPage = 1;
+      var itemsPerPage = 10;
+      var currentStep = 1;
 
       var productTableBody = document.getElementById('admin-table-body');
       var searchInput = document.getElementById('admin-search');
@@ -257,31 +330,129 @@
       var priceField = document.getElementById('product-price');
       var stockField = document.getElementById('product-stock');
       var categoryField = document.getElementById('product-category');
+      var paginationContainer = document.querySelector('.pagination');
+      
+      var imageInput = document.getElementById('product-image');
+      var dropZone = document.getElementById('drop-zone');
+      var imagePreview = document.getElementById('image-preview');
+
+      // Drag & Drop
+      if(dropZone) {
+        dropZone.addEventListener('click', () => imageInput.click());
+        dropZone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropZone.classList.remove('dragover');
+          if(e.dataTransfer.files && e.dataTransfer.files[0]) {
+            imageInput.files = e.dataTransfer.files;
+            previewImage(imageInput.files[0]);
+          }
+        });
+        imageInput.addEventListener('change', function() {
+          if(this.files && this.files[0]) previewImage(this.files[0]);
+        });
+      }
+
+      function previewImage(file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+
+      // Wizard Controls
+      window.nextStep = function(step) {
+        if (currentStep === 1) {
+          if (!nameField.value.trim() || !categoryField.value) {
+            alert('Por favor, completa el nombre y la categoría antes de continuar.');
+            return;
+          }
+        } else if (currentStep === 2) {
+          if (!priceField.value || !stockField.value) {
+            alert('Por favor, ingresa el precio y el stock antes de continuar.');
+            return;
+          }
+        }
+        currentStep = step;
+        updateWizardUI();
+      };
+      window.prevStep = function(step) {
+        currentStep = step;
+        updateWizardUI();
+      };
+
+      function updateWizardUI() {
+        // Update Steps
+        document.querySelectorAll('.wizard-step-content').forEach(el => el.classList.remove('active'));
+        document.getElementById('step-content-' + currentStep).classList.add('active');
+
+        // Update Indicators & Progress Line
+        let progress = ((currentStep - 1) / 2) * 100;
+        document.getElementById('wizard-progress').style.width = progress + '%';
+
+        document.querySelectorAll('.wizard-step-indicator').forEach((el, index) => {
+          let stepNum = index + 1;
+          el.classList.remove('active', 'completed');
+          if (stepNum === currentStep) {
+            el.classList.add('active');
+          } else if (stepNum < currentStep) {
+            el.classList.add('completed');
+          }
+        });
+      }
+
+      // Cargar productos de la base de datos
+      function fetchProducts() {
+        fetch(API_BASE + '/routes/GET/lista-productos.php')
+          .then(res => res.json())
+          .then(data => {
+            products = data;
+            applyFilters();
+          })
+          .catch(err => console.error("Error al cargar productos:", err));
+      }
 
       function formatCurrency(value) {
         return '$ ' + Number(value).toLocaleString('es-CO');
       }
 
-      function getStatus(product) {
-        return product.stock > 0
+      function getStatus(stockStr) {
+        let stockNum = isNaN(Number(stockStr)) ? 1 : Number(stockStr);
+        return stockNum > 0
           ? { label: 'Activo', class: 'status-success' }
           : { label: 'Agotado', class: 'status-cancel' };
       }
 
-      function renderTable(items) {
+      function renderTable() {
         if (!productTableBody) return;
+        
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+        var itemsToRender = filteredProducts.slice(startIndex, endIndex);
 
-        productTableBody.innerHTML = items
+        productTableBody.innerHTML = itemsToRender
           .map(function(product) {
-            var status = getStatus(product);
+            let stockNum = isNaN(Number(product.stock)) ? 0 : Number(product.stock);
+            var status = getStatus(stockNum);
+            let productName = product.nombre || product.name || 'Sin nombre';
+            let productCat = product.categoria || product.category || 'Sin categoría';
+            let productPrice = product.precio || product.price || 0;
+
             return (
               '<tr data-id="' + product.id + '">' +
               '<td>#' + product.id + '</td>' +
-              '<td><strong>' + product.name + '</strong></td>' +
-              '<td>' + product.category + '</td>' +
-              '<td>' + formatCurrency(product.price) + '</td>' +
-              '<td>' + product.stock + '</td>' +
-              '<td>' + product.sold + '</td>' +
+              '<td class="product-cell">' + 
+              '<img src="' + (product.imageUrl || product.imagen || '../assets/images/placeholder.webp') + '" alt="' + productName + '" width="40" height="40" style="border-radius: 4px; object-fit: cover;"> ' +
+              '<span>' + productName + '</span></td>' +
+              '<td>' + productCat + '</td>' +
+              '<td>' + formatCurrency(productPrice) + '</td>' +
+              '<td>' + stockNum + '</td>' +
               '<td><span class="status-pill ' + status.class + '">' + status.label + '</span></td>' +
               '<td><div class="admin-table-actions">' +
               '<button class="admin-table-btn edit" data-action="edit" data-id="' + product.id + '">Editar</button>' +
@@ -293,6 +464,36 @@
           .join('');
 
         attachTableListeners();
+        renderPagination();
+      }
+
+      function renderPagination() {
+        if (!paginationContainer) return;
+        var totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+        
+        var html = '<button class="pagination-btn prev" ' + (currentPage === 1 ? 'disabled' : '') + '>&laquo;</button>';
+        for (var i = 1; i <= totalPages; i++) {
+          html += '<button class="pagination-btn ' + (currentPage === i ? 'active' : '') + '">' + i + '</button>';
+        }
+        html += '<button class="pagination-btn next" ' + (currentPage === totalPages || totalPages === 0 ? 'disabled' : '') + '>&raquo;</button>';
+        
+        paginationContainer.innerHTML = html;
+
+        var btns = paginationContainer.querySelectorAll('.pagination-btn');
+        btns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            if(this.classList.contains('disabled') || this.hasAttribute('disabled')) return;
+            
+            if(this.classList.contains('prev')) {
+              if (currentPage > 1) currentPage--;
+            } else if(this.classList.contains('next')) {
+              if (currentPage < totalPages) currentPage++;
+            } else {
+              currentPage = parseInt(this.textContent);
+            }
+            renderTable();
+          });
+        });
       }
 
       function attachTableListeners() {
@@ -310,61 +511,113 @@
         });
       }
 
+      window.closeModal = function() {
+        modal.style.display = 'none';
+      };
+
       function openEditor(id) {
-        var product = products.find(function(item) {
-          return item.id === id;
-        });
+        var product = products.find(p => String(p.id) === String(id));
         if (!product) return;
 
         modalTitle.textContent = 'Editar Producto';
         productIdField.value = product.id;
-        nameField.value = product.name;
-        descriptionField.value = product.description || '';
-        priceField.value = product.price;
-        stockField.value = product.stock;
-        categoryField.value = product.category;
+        nameField.value = product.nombre || product.name || '';
+        descriptionField.value = product.descripcion || product.description || '';
+        priceField.value = product.precio || product.price || '';
+        stockField.value = product.stock !== undefined ? product.stock : '';
+        categoryField.value = product.categoria || product.category || 'Hombre';
+        
+        let marcaField = document.getElementById('product-marca');
+        let colorField = document.getElementById('product-color');
+        let colorDisplay = document.getElementById('color-hex-display');
+        let tallaField = document.getElementById('product-talla');
+
+        if (marcaField) marcaField.value = product.marca || '';
+        if (tallaField) tallaField.value = product.talla || '';
+        
+        let colorValue = product.color || '#000000';
+        if (!colorValue.startsWith('#')) {
+          colorValue = '#000000'; // Default if invalid format
+        }
+        if (colorField) colorField.value = colorValue;
+        if (colorDisplay) colorDisplay.textContent = colorValue;
+
+        let existingImage = product.imagen || product.imageUrl;
+        if (existingImage) {
+          imagePreview.src = existingImage;
+          imagePreview.style.display = 'block';
+        } else {
+          imagePreview.style.display = 'none';
+          imagePreview.src = '';
+        }
+        
+        currentStep = 1;
+        updateWizardUI();
+
         modal.style.display = 'flex';
       }
 
       function deleteProduct(id) {
         if (!confirm('¿Deseas eliminar este producto?')) return;
-        products = products.filter(function(product) {
-          return product.id !== id;
+        
+        fetch(API_BASE + '/routes/DELETE/borrar-producto.php?id=' + id, {
+          method: 'DELETE'
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Error en servidor al eliminar");
+          return res.json();
+        })
+        .then(data => {
+          fetchProducts(); 
+        })
+        .catch(err => {
+          console.error(err);
+          products = products.filter(p => String(p.id) !== String(id));
+          applyFilters();
         });
-        applyFilters();
       }
 
       function updateStats() {
-        totalCount.textContent = products.length;
-        inStockCount.textContent = products.filter(function(product) {
-          return product.stock > 0;
+        if(totalCount) totalCount.textContent = filteredProducts.length; // o products.length si se quiere la bd total
+        if(inStockCount) inStockCount.textContent = filteredProducts.filter(function(product) {
+          let s = Number(product.stock);
+          return !isNaN(s) && s > 0;
         }).length;
-        outStockCount.textContent = products.filter(function(product) {
-          return product.stock === 0;
+        if(outStockCount) outStockCount.textContent = filteredProducts.filter(function(product) {
+          let s = Number(product.stock);
+          return isNaN(s) || s === 0;
         }).length;
       }
 
       function applyFilters() {
+        if(!searchInput || !categorySelect || !stockSelect) {
+          filteredProducts = products;
+          currentPage = 1;
+          renderTable();
+          updateStats();
+          return;
+        }
+
         var searchValue = searchInput.value.trim().toLowerCase();
         var categoryValue = categorySelect.value;
         var stockValue = stockSelect.value;
 
-        var filtered = products.filter(function(product) {
-          var matchesSearch =
-            !searchValue ||
-            product.name.toLowerCase().includes(searchValue) ||
-            product.id.toLowerCase().includes(searchValue);
-          var matchesCategory =
-            categoryValue === 'all' || product.category === categoryValue;
-          var matchesStock =
-            stockValue === 'all' ||
-            (stockValue === 'in_stock' && product.stock > 0) ||
-            (stockValue === 'out_of_stock' && product.stock === 0);
+        filteredProducts = products.filter(function(product) {
+          let productName = (product.nombre || product.name || '').toLowerCase();
+          let productCat = product.categoria || product.category || '';
+          let stockNum = isNaN(Number(product.stock)) ? 0 : Number(product.stock);
+
+          var matchesSearch = !searchValue || productName.includes(searchValue) || String(product.id).includes(searchValue);
+          var matchesCategory = categoryValue === 'all' || productCat === categoryValue;
+          var matchesStock = stockValue === 'all' ||
+            (stockValue === 'in_stock' && stockNum > 0) ||
+            (stockValue === 'out_of_stock' && stockNum === 0);
 
           return matchesSearch && matchesCategory && matchesStock;
         });
 
-        renderTable(filtered);
+        currentPage = 1;
+        renderTable();
         updateStats();
       }
 
@@ -372,55 +625,98 @@
         productForm.reset();
         productIdField.value = '';
         modalTitle.textContent = 'Nuevo Producto';
+        imagePreview.style.display = 'none';
+        imagePreview.src = '';
+        
+        // Reset color picker
+        let colorDisplay = document.getElementById('color-hex-display');
+        if (colorDisplay) colorDisplay.textContent = '#000000';
+        
+        currentStep = 1;
+        updateWizardUI();
       }
 
-      function generateProductId() {
-        var nextId = products.length + 1;
-        while (products.some(function(product) { return product.id === String(nextId).padStart(3, '0'); })) {
-          nextId++;
-        }
-        return String(nextId).padStart(3, '0');
+      if(newProductBtn) {
+        newProductBtn.addEventListener('click', function() {
+          resetModal();
+          modal.style.display = 'flex';
+        });
       }
 
-      newProductBtn.addEventListener('click', function() {
-        resetModal();
-        modal.style.display = 'flex';
-      });
+      if(filterBtn) filterBtn.addEventListener('click', applyFilters);
+      if(searchInput) searchInput.addEventListener('input', applyFilters);
+      if(categorySelect) categorySelect.addEventListener('change', applyFilters);
+      if(stockSelect) stockSelect.addEventListener('change', applyFilters);
 
-      filterBtn.addEventListener('click', applyFilters);
-      searchInput.addEventListener('input', applyFilters);
-      categorySelect.addEventListener('change', applyFilters);
-      stockSelect.addEventListener('change', applyFilters);
+      // Color picker events
+      let colorPicker = document.getElementById('product-color');
+      let colorDisplay = document.getElementById('color-hex-display');
+      if (colorPicker && colorDisplay) {
+        colorPicker.addEventListener('input', function() {
+          colorDisplay.textContent = this.value;
+        });
+      }
 
-      productForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        var id = productIdField.value;
-        var productData = {
-          id: id || generateProductId(),
-          name: nameField.value.trim(),
-          description: descriptionField.value.trim(),
-          price: Number(priceField.value),
-          stock: Number(stockField.value),
-          category: categoryField.value,
-          sold: id ? products.find(function(product) { return product.id === id; }).sold : 0
-        };
+      if(productForm) {
+        productForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+          var id = productIdField.value;
+          
+          let marcaInput = document.getElementById('product-marca');
+          let colorInput = document.getElementById('product-color');
+          let tallaInput = document.getElementById('product-talla');
 
-        if (!productData.name || !productData.price || !productData.category) {
-          alert('Por favor completa nombre, precio y categoría.');
-          return;
-        }
+          var productData = {
+            nombre: nameField.value.trim(),
+            descripcion: descriptionField.value.trim(),
+            precio: Number(priceField.value),
+            stock: Number(stockField.value),
+            categoria: categoryField.value,
+            marca: marcaInput ? marcaInput.value.trim() : '',
+            color: colorInput ? colorInput.value : '',
+            talla: tallaInput ? tallaInput.value : ''
+          };
 
-        if (id) {
-          products = products.map(function(product) {
-            return product.id === id ? productData : product;
-          });
-        } else {
-          products.unshift(productData);
-        }
+          // Si hay una imagen seleccionada (Base64), se añade al payload
+          if (imagePreview.src && imagePreview.src.startsWith('data:image')) {
+            productData.imagen = imagePreview.src;
+          } else if (imagePreview.src && !imagePreview.src.includes('placeholder')) {
+            // En caso de que se necesite enviar la URL actual
+            productData.imagen = imagePreview.src;
+          }
 
-        modal.style.display = 'none';
-        applyFilters();
-      });
+          if (!productData.nombre || !productData.precio || !productData.categoria || !productData.marca || !productData.talla) {
+            alert('Por favor completa los campos obligatorios (nombre, precio, categoría, marca, talla).');
+            return;
+          }
+
+          if (id) {
+            fetch(API_BASE + '/routes/PUT/actualizar-producto.php?id=' + id, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(productData)
+            })
+            .then(res => res.json())
+            .then(data => {
+              fetchProducts(); 
+              modal.style.display = 'none';
+            })
+            .catch(err => console.error("Error al actualizar:", err));
+          } else {
+            fetch(API_BASE + '/routes/POST/crear-producto.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(productData)
+            })
+            .then(res => res.json())
+            .then(data => {
+              fetchProducts(); 
+              modal.style.display = 'none';
+            })
+            .catch(err => console.error("Error al crear:", err));
+          }
+        });
+      }
 
       document.addEventListener('click', function(event) {
         if (event.target === modal) {
@@ -428,8 +724,8 @@
         }
       });
 
-      updateStats();
-      applyFilters();
+      // Inicializar
+      fetchProducts();
     })();
   </script>
   <script src="../js/main.js"></script>

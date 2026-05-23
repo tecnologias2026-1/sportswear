@@ -114,82 +114,8 @@
         <h2 class="section-title" style="margin: 0;">Productos destacados</h2>
         <a href="productos.html" style="color: var(--color-primary-dark); font-weight: var(--font-weight-semibold); text-decoration: none;">Ver todos →</a>
       </div>
-      <div class="grid grid-cols-4">
-        <!-- Producto 1 -->
-        <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/camiseta running.webp" alt="Camiseta Running Pro">
-          </div>
-          <div class="product-card-content">
-            <h3 class="product-card-name">Camiseta Running Pro</h3>
-            <p class="product-card-description">Camiseta deportiva de secado rápido.</p>
-            <div class="product-card-price">
-              <span class="product-card-price-value">$ 45.000</span>
-              <div class="product-card-rating">★★★★★</div>
-            </div>
-            <div class="product-card-actions">
-              <button class="product-card-btn product-card-add">Añadir</button>
-              <button class="product-card-btn product-card-heart">♡</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Producto 2 -->
-        <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/short.webp" alt="Short Training Pro">
-          </div>
-          <div class="product-card-content">
-            <h3 class="product-card-name">Short Training Pro</h3>
-            <p class="product-card-description">Short cómodo para entrenamientos intensos.</p>
-            <div class="product-card-price">
-              <span class="product-card-price-value">$ 55.000</span>
-              <div class="product-card-rating">★★★★☆</div>
-            </div>
-            <div class="product-card-actions">
-              <button class="product-card-btn product-card-add">Añadir</button>
-              <button class="product-card-btn product-card-heart">♡</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Producto 3 -->
-        <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite">
-          </div>
-          <div class="product-card-content">
-            <h3 class="product-card-name">Leggings Fitness Elite</h3>
-            <p class="product-card-description">Leggings ajustados con excelente soporte.</p>
-            <div class="product-card-price">
-              <span class="product-card-price-value">$ 65.000</span>
-              <div class="product-card-rating">★★★★★</div>
-            </div>
-            <div class="product-card-actions">
-              <button class="product-card-btn product-card-add">Añadir</button>
-              <button class="product-card-btn product-card-heart">♡</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Producto 4 -->
-        <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter">
-          </div>
-          <div class="product-card-content">
-            <h3 class="product-card-name">Chaqueta Térmica Winter</h3>
-            <p class="product-card-description">Chaqueta aislante para clima frío.</p>
-            <div class="product-card-price">
-              <span class="product-card-price-value">$ 125.000</span>
-              <div class="product-card-rating">★★★★★</div>
-            </div>
-            <div class="product-card-actions">
-              <button class="product-card-btn product-card-add">Añadir</button>
-              <button class="product-card-btn product-card-heart">♡</button>
-            </div>
-          </div>
-        </div>
+      <div class="grid grid-cols-4" id="featured-products-grid">
+        <!-- Los productos se cargarán aquí dinámicamente -->
       </div>
     </div>
   </section>
@@ -258,6 +184,41 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+    fetch('http://localhost/back-sportswear/routes/GET/lista-productos.php')
+      .then(res => res.json())
+      .then(data => {
+        var grid = document.getElementById("featured-products-grid");
+        if (data && data.length > 0) {
+          // Tomar solo los primeros 4 productos
+          const featuredProducts = data.slice(0, 4);
+          grid.innerHTML = "";
+
+          featuredProducts.forEach(function(product) {
+            grid.innerHTML += `
+              <div class="product-card" data-category="${product.categoria || ''}" data-gender="${product.genero || ''}" data-color="${product.color || ''}" data-price="${product.precio || ''}">
+                <div class="product-card-image">
+                  <img src="${product.imageUrl || product.imagen || '../assets/images/placeholder.webp'}" alt="${product.nombre}">
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-name">${product.nombre}</h3>
+                  <p class="product-card-description">${product.descripcion || ''}</p>
+                  <div class="product-card-price">
+                    <span class="product-card-price-value">$ ${product.precio}</span>
+                    <div class="product-card-rating">★★★★★</div>
+                  </div>
+                  <div class="product-card-actions">
+                    <a href="detalle-producto.html?id=${product.id}" class="product-card-btn product-card-add">Ver Detalles</a>
+                    <button class="product-card-btn product-card-heart">♡</button>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+        }
+      })
+      .catch(err => console.error('Error cargando productos destacados:', err));
+  </script>
 </body>
 </html>
 
