@@ -11,35 +11,33 @@
     <div class="navbar__left">
       <div class="logo">S</div>
       <a href="../index.html" class="brand-link">
-  <div class="brand">Sportswear</div>
-</a>
+        <div class="brand">Sportswear</div>
+      </a>
     </div>
-
     <div class="navbar__center">
       <form class="search" role="search">
         <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
       </form>
     </div>
-			<nav class="navbar__right">
-				<div class="nav-links">
-					<a href="productos.html">Productos</a>
-					<a href="productos.html?category=hombre">Hombre</a>
-					<a href="productos.html?category=mujer">Mujer</a>
-					<a href="login.html">Iniciar Sesión</a>
-				</div>
-				<div class="nav-icons">
-					<a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
-					<a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
-					<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
-				</div>
-				<!-- mobile menu (hidden by default) -->
-				<div class="mobile-menu" aria-hidden="true">
-					<a href="productos.html">Productos</a>
-					<a href="productos.html?category=hombre">Hombre</a>
-					<a href="productos.html?category=mujer">Mujer</a>
-					<a href="login.html">Iniciar Sesión</a>
-				</div>
-			</nav>
+    <nav class="navbar__right">
+      <div class="nav-links">
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
+      </div>
+      <div class="nav-icons">
+        <a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+        <a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
+        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu" aria-hidden="true">
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
+      </div>
+    </nav>
   </header>
 
   <!-- ENCABEZADO -->
@@ -52,101 +50,40 @@
   <!-- CONTENIDO DEL CARRITO -->
   <div class="container">
     <div class="cart-container">
-      <!-- ITEMS EN EL CARRITO -->
-      <div class="cart-items">
-        <!-- Item 1 -->
-        <div class="cart-item">
-          <div class="cart-item-image">
-            <img src="../assets/images/camiseta running.webp" alt="Camiseta Running Pro">
-          </div>
-          <div class="cart-item-info">
-            <h3 class="cart-item-name">Camiseta Running Pro</h3>
-            <div class="cart-item-details">
-              Talle: M | Color: Negro
-            </div>
-            <div class="cart-item-price">$ 45.000</div>
-            <div class="cart-item-quantity">
-              <button>−</button>
-              <input type="number" value="1" min="1">
-              <button>+</button>
-            </div>
-            <div style="margin-top: var(--spacing-md);">
-              <a href="#" class="cart-item-remove">Eliminar</a>
-            </div>
-          </div>
-        </div>
 
-        <!-- Item 2 -->
-        <div class="cart-item">
-          <div class="cart-item-image">
-            <img src="../assets/images/sudadera deportiva.webp" alt="Sudadera Deportiva Classic">
-          </div>
-          <div class="cart-item-info">
-            <h3 class="cart-item-name">Sudadera Deportiva Classic</h3>
-            <div class="cart-item-details">
-              Talle: L | Color: Blanco
-            </div>
-            <div class="cart-item-price">$ 75.000</div>
-            <div class="cart-item-quantity">
-              <button>−</button>
-              <input type="number" value="1" min="1">
-              <button>+</button>
-            </div>
-            <div style="margin-top: var(--spacing-md);">
-              <a href="#" class="cart-item-remove">Eliminar</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="cart-item">
-          <div class="cart-item-image">
-            <img src="../assets/images/short.webp" alt="Short Training Pro">
-          </div>
-          <div class="cart-item-info">
-            <h3 class="cart-item-name">Short Training Pro</h3>
-            <div class="cart-item-details">
-              Talle: M | Color: Azul
-            </div>
-            <div class="cart-item-price">$ 55.000</div>
-            <div class="cart-item-quantity">
-              <button>−</button>
-              <input type="number" value="2" min="1">
-              <button>+</button>
-            </div>
-            <div style="margin-top: var(--spacing-md);">
-              <a href="#" class="cart-item-remove">Eliminar</a>
-            </div>
-          </div>
-        </div>
+      <!-- ITEMS EN EL CARRITO — se llenan dinámicamente desde la API -->
+      <div class="cart-items" id="cart-items">
+        <p id="cart-loading" style="color: var(--color-text-secondary);">Cargando carrito...</p>
+        <p id="cart-empty" style="display:none; color: var(--color-text-secondary);">Tu carrito está vacío. <a href="productos.html">Ver productos</a></p>
       </div>
 
       <!-- RESUMEN DEL CARRITO -->
       <div class="cart-summary">
         <h3>Resumen del Pedido</h3>
-        
+
         <div class="summary-row">
           <span>Subtotal:</span>
-          <span>$ 230.000</span>
+          <span id="resumen-subtotal">$ 0</span>
         </div>
-
         <div class="summary-row">
-          <span>Impuesto (IVA):</span>
-          <span>$ 43.700</span>
+          <span>Impuesto (IVA 19%):</span>
+          <span id="resumen-iva">$ 0</span>
         </div>
-
         <div class="summary-row">
           <span>Envío:</span>
           <span class="text-success">Gratis</span>
         </div>
         <div class="summary-row total">
           <span>Total:</span>
-          <span>$ 273.700</span>
+          <span id="resumen-total">$ 0</span>
         </div>
 
         <div class="cart-actions">
-          <a href="checkout.html" class="btn btn-primary btn-lg">Proceder al Pago</a>
+          <a href="finalizar-compra.html" class="btn btn-primary btn-lg">Proceder al Pago</a>
           <a href="productos.html" class="btn btn-secondary" style="width: 100%;">Seguir Comprando</a>
+          <button onclick="vaciarCarrito()" class="btn btn-secondary" style="width: 100%; margin-top: 8px; color: red;">
+            Vaciar Carrito
+          </button>
         </div>
 
         <div style="text-align: center; margin-top: var(--spacing-xl); font-size: var(--font-size-xs); color: var(--color-text-secondary);">
@@ -167,7 +104,6 @@
           <h3 style="font-size: var(--font-size-lg); margin: 0;">Envío Rápido</h3>
           <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Entrega en 2-3 días hábiles</p>
         </div>
-
         <div style="text-align: center;">
           <div class="feature-icon" style="margin-bottom: var(--spacing-sm);">
             <img src="../assets/icons/return.svg" alt="Devoluciones Fáciles" width="48" height="48">
@@ -175,7 +111,6 @@
           <h3 style="font-size: var(--font-size-lg); margin: 0;">Devoluciones Fáciles</h3>
           <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">30 días para devolver</p>
         </div>
-
         <div style="text-align: center;">
           <div class="feature-icon" style="margin-bottom: var(--spacing-sm);">
             <img src="../assets/icons/pay.svg" alt="Pago Seguro" width="48" height="48">
@@ -193,9 +128,7 @@
       <h2 class="section-title">Quizás También Te Interese</h2>
       <div class="grid grid-cols-4">
         <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite">
-          </div>
+          <div class="product-card-image"><img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite"></div>
           <div class="product-card-content">
             <h3 class="product-card-name">Leggings Fitness Elite</h3>
             <p class="product-card-description">Leggings con soporte.</p>
@@ -209,11 +142,8 @@
             </div>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/jogger.webp" alt="Pantalón Jogger Comfort">
-          </div>
+          <div class="product-card-image"><img src="../assets/images/jogger.webp" alt="Pantalón Jogger Comfort"></div>
           <div class="product-card-content">
             <h3 class="product-card-name">Pantalón Jogger Comfort</h3>
             <p class="product-card-description">Pantalón jogger cómodo.</p>
@@ -227,11 +157,8 @@
             </div>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/top.webp" alt="Top Deportivo CrossFit">
-          </div>
+          <div class="product-card-image"><img src="../assets/images/top.webp" alt="Top Deportivo CrossFit"></div>
           <div class="product-card-content">
             <h3 class="product-card-name">Top Deportivo CrossFit</h3>
             <p class="product-card-description">Top deportivo resistente.</p>
@@ -245,11 +172,8 @@
             </div>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter">
-          </div>
+          <div class="product-card-image"><img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter"></div>
           <div class="product-card-content">
             <h3 class="product-card-name">Chaqueta Térmica Winter</h3>
             <p class="product-card-description">Chaqueta para clima frío.</p>
@@ -274,7 +198,6 @@
         <h3>SportSwear</h3>
         <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
       </div>
-
       <div class="footer-section">
         <h3>Enlaces Rápidos</h3>
         <ul>
@@ -284,7 +207,6 @@
           <li><a href="carrito.html">Carrito</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Atención al Cliente</h3>
         <ul>
@@ -294,11 +216,10 @@
           <li><a href="#">Contacto</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
-          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
+          <span><img src="../assets/icons/ubi.svg" alt="Ubicación"></span>
           <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
         </div>
         <div class="footer-contact">
@@ -311,26 +232,140 @@
         </div>
       </div>
     </div>
-
     <div class="footer-divider"></div>
-
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#" aria-label="facebook">
-          <img src="../assets/icons/facebook.svg" alt="facebook">
-        </a>
-        <a href="#" aria-label="twitter">
-          <img src="../assets/icons/twitter.svg" alt="twitter">
-        </a>
-        <a href="#" aria-label="Instagram">
-          <img src="../assets/icons/insta.svg" alt="Instagram">
-        </a>
+        <a href="#" aria-label="facebook"><img src="../assets/icons/facebook.svg" alt="facebook"></a>
+        <a href="#" aria-label="twitter"><img src="../assets/icons/twitter.svg" alt="twitter"></a>
+        <a href="#" aria-label="Instagram"><img src="../assets/icons/insta.svg" alt="Instagram"></a>
       </div>
     </div>
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+    const API = "https://back-sportswear.onrender.com";
+
+    // Temporal para pruebas. Cuando tengas login listo cámbialo por:
+    // const usuario_id = JSON.parse(localStorage.getItem("usuario")).id;
+    const usuario_id = 1;
+
+    // ── 1. VER CARRITO ──────────────────────────────────────────
+    async function cargarCarrito() {
+      try {
+        const res = await fetch(`${API}/routes/GET/ver-carrito.php?usuario_id=${usuario_id}`);
+        const items = await res.json();
+
+        const contenedor = document.getElementById("cart-items");
+        const loading    = document.getElementById("cart-loading");
+        const empty      = document.getElementById("cart-empty");
+
+        loading.style.display = "none";
+
+        if (!items || items.length === 0) {
+          empty.style.display = "block";
+          actualizarResumen([]);
+          return;
+        }
+
+        contenedor.innerHTML = "";
+        items.forEach(item => {
+          contenedor.innerHTML += `
+            <div class="cart-item" id="item-${item.id}">
+              <div class="cart-item-image">
+                <img src="${item.imagen || '../assets/images/camiseta running.webp'}" alt="${item.nombre}">
+              </div>
+              <div class="cart-item-info">
+                <h3 class="cart-item-name">${item.nombre}</h3>
+                <div class="cart-item-price">$ ${Number(item.precio).toLocaleString("es-CO")}</div>
+                <div class="cart-item-quantity">
+                  <button onclick="cambiarCantidad(${item.id}, ${item.cantidad - 1})">−</button>
+                  <input type="number" value="${item.cantidad}" min="1"
+                    onchange="cambiarCantidad(${item.id}, this.value)">
+                  <button onclick="cambiarCantidad(${item.id}, ${item.cantidad + 1})">+</button>
+                </div>
+                <div style="margin-top: var(--spacing-md);">
+                  <a href="#" class="cart-item-remove"
+                    onclick="eliminarItem(${item.id}); return false;">Eliminar</a>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        actualizarResumen(items);
+
+      } catch (error) {
+        console.error("Error al cargar el carrito:", error);
+        document.getElementById("cart-loading").textContent = "Error al cargar el carrito.";
+      }
+    }
+
+    // ── 2. ACTUALIZAR CANTIDAD ──────────────────────────────────
+    async function cambiarCantidad(id, nuevaCantidad) {
+      nuevaCantidad = parseInt(nuevaCantidad);
+      if (nuevaCantidad < 1) {
+        if (confirm("¿Quieres eliminar este producto del carrito?")) {
+          eliminarItem(id);
+        }
+        return;
+      }
+      try {
+        await fetch(`${API}/routes/PUT/actualizar-carrito.php`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, cantidad: nuevaCantidad })
+        });
+        cargarCarrito();
+      } catch (error) {
+        console.error("Error al actualizar cantidad:", error);
+      }
+    }
+
+    // ── 3. ELIMINAR PRODUCTO ────────────────────────────────────
+    async function eliminarItem(id) {
+      try {
+        await fetch(`${API}/routes/DELETE/eliminar-carrito.php`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id })
+        });
+        cargarCarrito();
+      } catch (error) {
+        console.error("Error al eliminar producto:", error);
+      }
+    }
+
+    // ── 4. VACIAR CARRITO ───────────────────────────────────────
+    async function vaciarCarrito() {
+      if (!confirm("¿Seguro que quieres vaciar el carrito?")) return;
+      try {
+        await fetch(`${API}/routes/DELETE/vaciar-carrito.php`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ usuario_id })
+        });
+        cargarCarrito();
+      } catch (error) {
+        console.error("Error al vaciar el carrito:", error);
+      }
+    }
+
+    // ── RESUMEN ─────────────────────────────────────────────────
+    function actualizarResumen(items) {
+      const subtotal = items.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+      const iva      = subtotal * 0.19;
+      const total    = subtotal + iva;
+      const fmt      = n => `$ ${Math.round(n).toLocaleString("es-CO")}`;
+
+      document.getElementById("resumen-subtotal").textContent = fmt(subtotal);
+      document.getElementById("resumen-iva").textContent      = fmt(iva);
+      document.getElementById("resumen-total").textContent    = fmt(total);
+    }
+
+    // Carga el carrito al abrir la página
+    cargarCarrito();
+  </script>
 </body>
 </html>
-

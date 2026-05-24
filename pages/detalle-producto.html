@@ -115,9 +115,9 @@
 
         <!-- Botones de Acción -->
         <div class="product-detail-actions">
-         <a href="carrito.html" class="btn btn-primary btn-lg">
-           Agregar al Carrito
-            </a>
+         <button onclick="agregarAlCarrito()" class="btn btn-primary btn-lg">
+          Agregar al Carrito
+          </button>
         </div>
 
         <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
@@ -328,6 +328,46 @@
     });
   </script>
   <script src="../js/main.js"></script>
+  <script>
+
+async function agregarAlCarrito() {
+
+    const cantidad = document.getElementById("quantity").value;
+
+    try {
+
+        const respuesta = await fetch(
+            "https://back-sportswear.onrender.com/routes/POST/agregar-carrito.php",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    usuario_id: 1,
+                    producto_id: 1,
+                    cantidad: cantidad
+                })
+            }
+        );
+
+        const data = await respuesta.json();
+
+        console.log(data);
+
+        alert("Producto agregado al carrito");
+
+        window.location.href = "carrito.html";
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert("Error agregando producto");
+    }
+}
+
+</script>
 </body>
 </html>
 
