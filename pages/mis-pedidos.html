@@ -11,16 +11,14 @@
     <div class="navbar__left">
       <div class="logo">S</div>
       <a href="../index.html" class="brand-link">
-  <div class="brand">Sportswear</div>
-</a>
+        <div class="brand">Sportswear</div>
+      </a>
     </div>
-
     <div class="navbar__center">
       <form class="search" role="search">
         <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
       </form>
     </div>
-
     <nav class="navbar__right">
       <div class="nav-links">
         <a href="productos.html">Productos</a>
@@ -43,100 +41,12 @@
   </section>
 
   <div class="container orders-page">
-    <div class="orders-list">
-
-      <!-- Pedido ejemplo 1 -->
-      <article class="order-card">
-          <header class="order-card-header">
-            <div class="order-header-left">
-              <div class="order-title">
-                <strong>Pedido #ORD - 001</strong>
-                <div class="order-date">Realizado el 9 de febrero de 2026</div>
-              </div>
-            </div>
-
-            <div class="order-header-right">
-              <div class="status-box status-completed">Enviado</div>
-            </div>
-          </header>
-
-        <div class="order-body">
-          <ul class="order-items">
-            <li class="order-item">
-              <img src="../assets/images/camiseta running.webp" alt="Camiseta Running Pro">
-              <div class="order-item-info">
-                <div class="name">Camiseta Running Pro</div>
-                <div class="order-item-details">
-                  <div class="detail"><span class="label">Talla:</span> M</div>
-                  <div class="detail"><span class="label">Color:</span> Negro</div>
-                  <div class="detail"><span class="label">Cantidad:</span> 1</div>
-                </div>
-              </div>
-              <div class="order-item-price">$45.000</div>
-            </li>
-
-            <li class="order-item">
-              <img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite">
-              <div class="order-item-info">
-                <div class="name">Leggings Fitness Elite</div>
-                <div class="order-item-details">
-                  <div class="detail"><span class="label">Talla:</span> S</div>
-                  <div class="detail"><span class="label">Color:</span> Azul</div>
-                  <div class="detail"><span class="label">Cantidad:</span> 1</div>
-                </div>
-              </div>
-              <div class="order-item-price">$65.000</div>
-            </li>
-          </ul>
-
-    
-            <div class="order-actions-right">
-                <div class="order-total">Total: <strong>$100.000</strong></div>
-                  <a href="#" class="btn btn-outline">Ver detalles</a>
-                </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Pedido ejemplo 2 -->
-      <article class="order-card">
-        <header class="order-card-header">
-          <div class="order-header-left">
-            <div class="order-title">
-              <strong>Pedido #ORD - 002</strong>
-              <div class="order-date">Realizado el 22 de marzo de 2026</div>
-            </div>
-          </div>
-
-          <div class="order-header-right">
-            <div class="status-box status-shipped">Recibido</div>
-          </div>
-        </header>
-
-        <div class="order-body">
-          <ul class="order-items">
-            <li class="order-item">
-              <img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter">
-              <div class="order-item-info">
-                <div class="name">Chaqueta Térmica Winter</div>
-                <div class="order-item-details">
-                  <div class="detail"><span class="label">Talla:</span> L</div>
-                  <div class="detail"><span class="label">Color:</span> Gris</div>
-                  <div class="detail"><span class="label">Cantidad:</span> 1</div>
-                </div>
-              </div>
-              <div class="order-item-price">$125.000</div>
-            </li>
-          </ul>
-
-            <div class="order-actions-right">
-                <div class="order-total">Total: <strong>$125.000</strong></div>
-              <a href="#" class="btn btn-outline">Ver detalles</a>
-            </div>
-          </div>
-        </div>
-      </article>
-
+    <!-- Los pedidos se cargan dinámicamente -->
+    <div class="orders-list" id="orders-list">
+      <p id="orders-loading" style="color: var(--color-text-secondary);">Cargando pedidos...</p>
+      <p id="orders-empty" style="display:none; color: var(--color-text-secondary);">
+        No tienes pedidos aún. <a href="productos.html">¡Empieza a comprar!</a>
+      </p>
     </div>
   </div>
 
@@ -147,7 +57,6 @@
         <h3>SportSwear</h3>
         <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
       </div>
-
       <div class="footer-section">
         <h3>Enlaces Rápidos</h3>
         <ul>
@@ -157,7 +66,6 @@
           <li><a href="carrito.html">Carrito</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Atención al Cliente</h3>
         <ul>
@@ -167,11 +75,10 @@
           <li><a href="#">Contacto</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
-          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
+          <span><img src="../assets/icons/ubi.svg" alt="Ubicación"></span>
           <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
         </div>
         <div class="footer-contact">
@@ -184,26 +91,123 @@
         </div>
       </div>
     </div>
-
     <div class="footer-divider"></div>
-
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#" aria-label="facebook">
-          <img src="../assets/icons/facebook.svg" alt="facebook">
-        </a>
-        <a href="#" aria-label="twitter">
-          <img src="../assets/icons/twitter.svg" alt="twitter">
-        </a>
-        <a href="#" aria-label="Instagram">
-          <img src="../assets/icons/insta.svg" alt="Instagram">
-        </a>
+        <a href="#" aria-label="facebook"><img src="../assets/icons/facebook.svg" alt="facebook"></a>
+        <a href="#" aria-label="twitter"><img src="../assets/icons/twitter.svg" alt="twitter"></a>
+        <a href="#" aria-label="Instagram"><img src="../assets/icons/insta.svg" alt="Instagram"></a>
       </div>
     </div>
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+    const API = "https://back-sportswear.onrender.com";
+
+    // Temporal para pruebas. Cuando tengas login listo cámbialo por:
+    // const usuario_id = JSON.parse(localStorage.getItem("usuario")).id;
+    const usuario_id = 1;
+
+    // ── COLORES POR ESTADO ──────────────────────────────────────
+    const estiloEstado = {
+      'pendiente':   { clase: 'status-pending',   texto: 'Pendiente'   },
+      'en proceso':  { clase: 'status-processing', texto: 'En Proceso'  },
+      'enviado':     { clase: 'status-shipped',    texto: 'Enviado'     },
+      'entregado':   { clase: 'status-completed',  texto: 'Entregado'   },
+      'cancelado':   { clase: 'status-cancelled',  texto: 'Cancelado'   },
+    };
+
+    // ── FORMATEAR FECHA ─────────────────────────────────────────
+    function formatearFecha(fechaStr) {
+      const fecha = new Date(fechaStr);
+      return fecha.toLocaleDateString("es-CO", {
+        day: "numeric", month: "long", year: "numeric"
+      });
+    }
+
+    // ── 1. VER PEDIDOS — GET /api/pedidos?usuario_id= ───────────
+    async function cargarPedidos() {
+      try {
+        const res = await fetch(`${API}/api/pedidos?usuario_id=${usuario_id}`);
+        const pedidos = await res.json();
+
+        const contenedor = document.getElementById("orders-list");
+        const loading    = document.getElementById("orders-loading");
+        const empty      = document.getElementById("orders-empty");
+
+        loading.style.display = "none";
+
+        if (!pedidos || pedidos.length === 0) {
+          empty.style.display = "block";
+          return;
+        }
+
+        contenedor.innerHTML = "";
+        pedidos.forEach(pedido => {
+          const estado = estiloEstado[pedido.estado] || { clase: '', texto: pedido.estado };
+          const numero = String(pedido.id).padStart(3, '0');
+
+          contenedor.innerHTML += `
+            <article class="order-card" id="pedido-${pedido.id}">
+              <header class="order-card-header">
+                <div class="order-header-left">
+                  <div class="order-title">
+                    <strong>Pedido #ORD-${numero}</strong>
+                    <div class="order-date">Realizado el ${formatearFecha(pedido.fecha)}</div>
+                  </div>
+                </div>
+                <div class="order-header-right">
+                  <div class="status-box ${estado.clase}">${estado.texto}</div>
+                </div>
+              </header>
+
+              <div class="order-body">
+                <div class="order-actions-right">
+                  <div class="order-total">
+                    Total: <strong>$ ${Number(pedido.total).toLocaleString("es-CO")}</strong>
+                  </div>
+                  ${pedido.estado === 'pendiente' ? `
+                    <button onclick="cancelarPedido(${pedido.id})" class="btn btn-outline"
+                      style="color: red; border-color: red;">
+                      Cancelar pedido
+                    </button>
+                  ` : ''}
+                  <a href="detalles-orden.html?id=${pedido.id}" class="btn btn-outline">
+                    Ver detalles
+                  </a>
+                </div>
+              </div>
+            </article>
+          `;
+        });
+
+      } catch (error) {
+        console.error("Error al cargar pedidos:", error);
+        document.getElementById("orders-loading").textContent = "Error al cargar los pedidos.";
+      }
+    }
+
+    // ── 2. CANCELAR PEDIDO — DELETE /api/pedidos ────────────────
+    async function cancelarPedido(id) {
+      if (!confirm("¿Seguro que quieres cancelar este pedido?")) return;
+      try {
+        const res = await fetch(`${API}/api/pedidos`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id })
+        });
+        const data = await res.json();
+        alert(data.mensaje);
+        cargarPedidos();
+      } catch (error) {
+        console.error("Error al cancelar pedido:", error);
+      }
+    }
+
+    // Carga los pedidos al abrir la página
+    cargarPedidos();
+  </script>
 </body>
 </html>
-

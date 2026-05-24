@@ -16,7 +16,7 @@
     </div>
     <div class="navbar__center">
       <div class="search">
-        <input type="search" placeholder="Buscar pedidos, ID..." />
+        <input type="search" id="buscador" placeholder="Buscar por ID de pedido..." oninput="filtrarPedidos()" />
       </div>
     </div>
     <div class="navbar__right">
@@ -30,9 +30,9 @@
   <div class="admin-layout">
     <aside class="sidebar">
       <div class="sidebar__menu">
-         <a href="admin-productos.html" class="btn-ghost">Productos</a>
-<a href="gestion-pedidos.html" class="btn-ghost active">Pedidos</a>
-<a href="gestion-usuarios.html" class="btn-ghost">Usuarios</a>
+        <a href="admin-productos.html" class="btn-ghost">Productos</a>
+        <a href="gestion-pedidos.html" class="btn-ghost active">Pedidos</a>
+        <a href="gestion-usuarios.html" class="btn-ghost">Usuarios</a>
       </div>
     </aside>
 
@@ -41,56 +41,22 @@
         <h1>Gestión de pedidos</h1>
         <p class="muted">Visualiza y gestiona todos los pedidos</p>
 
-        <div class="search-panel">
-          <input type="search" placeholder="Buscar por ID ..." />
-        </div>
-
         <div class="table-card">
           <div class="table-wrapper">
             <table class="orders-table">
               <thead>
                 <tr>
-                  <th>ID pedido</th>
-                  <th>fecha</th>
-                  <th>producto</th>
+                  <th>ID Pedido</th>
+                  <th>Usuario</th>
+                  <th>Fecha</th>
                   <th>Total</th>
                   <th>Estado</th>
-                  <th>Metodo de pago</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <!-- Ejemplos -->
+              <tbody id="tabla-pedidos">
                 <tr>
-                  <td><strong>ORD-001</strong></td>
-                  <td>9 feb 2026</td>
-                  <td>2 Items</td>
-                  <td>$100.000</td>
-                  <td><span class="status-pill status-success">Enviado</span></td>
-                  <td>Mercado pago</td>
-                </tr>
-                <tr>
-                  <td><strong>ORD-002</strong></td>
-                  <td>8 feb 2026</td>
-                  <td>1 Item</td>
-                  <td>$50.000</td>
-                  <td><span class="status-pill status-pending">Pendiente</span></td>
-                  <td>Tarjeta</td>
-                </tr>
-                <tr>
-                  <td><strong>ORD-003</strong></td>
-                  <td>1 feb 2026</td>
-                  <td>3 Items</td>
-                  <td>$150.000</td>
-                  <td><span class="status-pill status-success">Enviado</span></td>
-                  <td>Mercado pago</td>
-                </tr>
-                <tr>
-                  <td><strong>ORD-004</strong></td>
-                  <td>28 ene 2026</td>
-                  <td>2 Items</td>
-                  <td>$120.000</td>
-                  <td><span class="status-pill status-cancel">Cancelado</span></td>
-                  <td>Transferencia</td>
+                  <td colspan="6" style="text-align:center; color: gray;">Cargando pedidos...</td>
                 </tr>
               </tbody>
             </table>
@@ -100,28 +66,115 @@
     </main>
   </div>
 
-</body>
+  <script>
+    const API = "https://back-sportswear.onrender.com";
+    let todosPedidos = []; // guardamos todos para el filtro
 
-<script>
-var logoutBtn = document.getElementById('logout-btn');
+    // ── COLORES POR ESTADO ──────────────────────────────────────
+    const estiloEstado = {
+      'pendiente':  { clase: 'status-pending',  texto: 'Pendiente'  },
+      'en proceso': { clase: 'status-processing',texto: 'En Proceso' },
+      'enviado':    { clase: 'status-success',   texto: 'Enviado'    },
+      'entregado':  { clase: 'status-completed', texto: 'Entregado'  },
+      'cancelado':  { clase: 'status-cancel',    texto: 'Cancelado'  },
+    };
 
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // 🔥 borrar sesión
-    localStorage.removeItem("isAdmin");
-
-    alert("Sesión cerrada");
-
-    // 🔁 redirigir al login
-    if (window.location.pathname.includes('/pages/')) {
-      window.location.href = 'login.html';
-    } else {
-      window.location.href = 'pages/login.html';
+    function formatearFecha(fechaStr) {
+      const fecha = new Date(fechaStr);
+      return fecha.toLocaleDateString("es-CO", {
+        day: "numeric", month: "short", year: "numeric"
+      });
     }
-  });
-}
-</script>
-</html>
 
+    // ── 1. VER TODOS LOS PEDIDOS — GET /api/pedidos ─────────────
+    async function cargarPedidos() {
+      try {
+        const res = await fetch(`${API}/api/pedidos`);
+        const pedidos = await res.json();
+        todosPedidos = pedidos;
+        renderizarPedidos(pedidos);
+      } catch (error) {
+        console.error("Error al cargar pedidos:", error);
+        document.getElementById("tabla-pedidos").innerHTML = `
+          <tr><td colspan="6" style="text-align:center; color:red;">Error al cargar pedidos.</td></tr>
+        `;
+      }
+    }
+
+    function renderizarPedidos(pedidos) {
+      const tbody = document.getElementById("tabla-pedidos");
+
+      if (!pedidos || pedidos.length === 0) {
+        tbody.innerHTML = `
+          <tr><td colspan="6" style="text-align:center; color:gray;">No hay pedidos.</td></tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = "";
+      pedidos.forEach(pedido => {
+        const estado = estiloEstado[pedido.estado] || { clase: '', texto: pedido.estado };
+        const numero = String(pedido.id).padStart(3, '0');
+
+        tbody.innerHTML += `
+          <tr id="fila-${pedido.id}">
+            <td><strong>ORD-${numero}</strong></td>
+            <td>${pedido.usuario_nombre || 'Usuario #' + pedido.usuario_id}</td>
+            <td>${formatearFecha(pedido.fecha)}</td>
+            <td>$ ${Number(pedido.total).toLocaleString("es-CO")}</td>
+            <td><span class="status-pill ${estado.clase}">${estado.texto}</span></td>
+            <td>
+              <select onchange="cambiarEstado(${pedido.id}, this.value)" style="padding: 4px 8px; border-radius: 6px;">
+                <option value="">-- Cambiar estado --</option>
+                <option value="pendiente"  ${pedido.estado === 'pendiente'  ? 'selected' : ''}>Pendiente</option>
+                <option value="en proceso" ${pedido.estado === 'en proceso' ? 'selected' : ''}>En Proceso</option>
+                <option value="enviado"    ${pedido.estado === 'enviado'    ? 'selected' : ''}>Enviado</option>
+                <option value="entregado"  ${pedido.estado === 'entregado'  ? 'selected' : ''}>Entregado</option>
+                <option value="cancelado"  ${pedido.estado === 'cancelado'  ? 'selected' : ''}>Cancelado</option>
+              </select>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    // ── 2. CAMBIAR ESTADO — PUT /api/pedidos ────────────────────
+    async function cambiarEstado(id, nuevoEstado) {
+      if (!nuevoEstado) return;
+      try {
+        const res = await fetch(`${API}/api/pedidos`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, estado: nuevoEstado })
+        });
+        const data = await res.json();
+        alert(data.mensaje);
+        cargarPedidos();
+      } catch (error) {
+        console.error("Error al cambiar estado:", error);
+      }
+    }
+
+    // ── FILTRAR POR ID ──────────────────────────────────────────
+    function filtrarPedidos() {
+      const texto = document.getElementById("buscador").value.toLowerCase();
+      const filtrados = todosPedidos.filter(p =>
+        String(p.id).padStart(3, '0').includes(texto) ||
+        (p.usuario_nombre && p.usuario_nombre.toLowerCase().includes(texto))
+      );
+      renderizarPedidos(filtrados);
+    }
+
+    // ── LOGOUT ──────────────────────────────────────────────────
+    document.getElementById('logout-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem("isAdmin");
+      alert("Sesión cerrada");
+      window.location.href = 'login.html';
+    });
+
+    // Carga los pedidos al abrir
+    cargarPedidos();
+  </script>
+</body>
+</html>

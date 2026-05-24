@@ -176,7 +176,46 @@
       </div>
     </div>
   </footer>
+<script>
 
+async function cargarPedido() {
+
+    try {
+
+        const respuesta = await fetch(
+            "https://back-sportswear.onrender.com/routes/GET/ver-pedidos-usuario.php?usuario_id=1"
+        );
+
+        const pedidos = await respuesta.json();
+
+        console.log(pedidos);
+
+        if(pedidos.length > 0) {
+
+            const pedido = pedidos[0];
+
+            document.querySelector(".summary-total span:last-child")
+                .textContent = "$ " + pedido.total;
+
+            document.querySelector(".badge")
+                .textContent = pedido.estado;
+
+            document.querySelector(".order-header h3")
+                .textContent = "ORD - " + pedido.id;
+
+        }
+
+    } catch(error) {
+
+        console.error("Error cargando pedido:", error);
+
+    }
+
+}
+
+cargarPedido();
+
+</script> 
 </body>
 </html>
 

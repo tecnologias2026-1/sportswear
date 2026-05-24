@@ -211,6 +211,50 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script src="../js/main.js"></script>
+
+<script>
+
+document.getElementById("confirm-order").addEventListener("click", async () => {
+
+    const pedido = {
+        usuario_id: 1,
+        total: 55000,
+        estado: "pendiente"
+    };
+
+    try {
+
+        const respuesta = await fetch(
+            "https://back-sportswear.onrender.com/routes/POST/crear-pedido.php",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(pedido)
+            }
+        );
+
+        const data = await respuesta.json();
+
+        console.log(data);
+
+        alert("Pedido realizado correctamente");
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert("Error al crear pedido");
+    }
+
+});
+
+</script>
+
+</body>
+</html>
 </body>
 </html>
 
