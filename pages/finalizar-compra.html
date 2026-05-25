@@ -18,68 +18,67 @@
       <section class="checkout-left">
         <div class="card">
           <h2 class="card-title">Información Personal</h2>
-          <form class="checkout-form">
-            <div class="grid grid-cols-2 gap-md">
-              <div class="form-group">
-                <label class="form-label">Nombre</label>
-                <input class="form-input" type="text" placeholder="Carlos Pérez">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Correo</label>
-                <input class="form-input" type="email" placeholder="usuario@ejemplo.com">
-              </div>
-            </div>
-
+          <div class="grid grid-cols-2 gap-md">
             <div class="form-group">
-              <label class="form-label">Teléfono</label>
-              <input class="form-input" type="tel" placeholder="+57 300 123 4567">
-            </div>
-
-            <h2 class="card-title">Dirección de envío</h2>
+  <label class="form-label">Nombre</label>
+  <input class="form-input" type="text" id="nombre" placeholder="Carlos">
+</div>
+<div class="form-group">
+  <label class="form-label">Apellido</label>
+  <input class="form-input" type="text" id="apellido" placeholder="Pérez">
+</div>
             <div class="form-group">
-              <label class="form-label">Dirección</label>
-              <input class="form-input" type="text" placeholder="Calle 123 #45-67">
+              <label class="form-label">Correo</label>
+              <input class="form-input" type="email" id="correo" placeholder="usuario@ejemplo.com">
             </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono</label>
+            <input class="form-input" type="tel" id="telefono" placeholder="+57 300 123 4567">
+          </div>
 
-            <div class="grid grid-cols-2 gap-md">
-              <div class="form-group">
-                <label class="form-label">Ciudad</label>
-                <input class="form-input" type="text" placeholder="Bogotá">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Departamento</label>
-                <input class="form-input" type="text" placeholder="Cundinamarca">
-              </div>
+          <h2 class="card-title">Dirección de envío</h2>
+          <div class="form-group">
+            <label class="form-label">Dirección</label>
+            <input class="form-input" type="text" id="direccion" placeholder="Calle 123 #45-67">
+          </div>
+          <div class="grid grid-cols-2 gap-md">
+            <div class="form-group">
+              <label class="form-label">Ciudad</label>
+              <input class="form-input" type="text" id="ciudad" placeholder="Bogotá">
             </div>
-
-            <div class="grid grid-cols-2 gap-md">
-              <div class="form-group">
-                <label class="form-label">Código Postal</label>
-                <input class="form-input" type="text" placeholder="110111">
-              </div>
-              <div class="form-group">
-                <label class="form-label">País</label>
-                <input class="form-input" type="text" placeholder="Colombia">
-              </div>
+            <div class="form-group">
+              <label class="form-label">Departamento</label>
+              <input class="form-input" type="text" id="departamento" placeholder="Cundinamarca">
             </div>
-          </form>
+          </div>
+          <div class="grid grid-cols-2 gap-md">
+            <div class="form-group">
+              <label class="form-label">Código Postal</label>
+              <input class="form-input" type="text" id="postal" placeholder="110111">
+            </div>
+            <div class="form-group">
+              <label class="form-label">País</label>
+              <input class="form-input" type="text" id="pais" placeholder="Colombia">
+            </div>
+          </div>
         </div>
 
         <div class="card mt-lg">
           <h2 class="card-title">Método de Pago</h2>
           <div class="payment-methods">
             <label class="payment-method">
-              <input type="radio" name="pay" checked>
+              <input type="radio" name="pay" value="contraentrega" checked>
               <div class="payment-content">
-                <strong>Pago contrae ntrega</strong>
+                <strong>Pago contra entrega</strong>
                 <div class="muted">Paga cuando llegue tu pedido</div>
               </div>
             </label>
             <label class="payment-method">
-              <input type="radio" name="pay">
+              <input type="radio" name="pay" value="tarjeta">
               <div class="payment-content">
                 <strong>Tarjeta</strong>
-                <div class="muted">Credito/debito</div>
+                <div class="muted">Crédito/débito</div>
               </div>
             </label>
           </div>
@@ -89,25 +88,31 @@
       <aside class="checkout-right">
         <div class="card summary-card">
           <h3 class="card-title">Resumen del Pedido</h3>
-          <ul class="summary-items">
-            <li class="summary-item">
-              <img src="../assets/images/camiseta running.webp" alt="Camiseta Running Pro">
-              <div class="summary-item-info">
-                <div class="name">Camiseta Running Pro</div>
-                <div class="muted">Talla: M · Cantidad: 1</div>
-              </div>
-              <div class="price">$45.000</div>
-            </li>
+
+          <ul class="summary-items" id="resumen-items">
+            <li style="color: gray; list-style: none;">Cargando items...</li>
           </ul>
 
           <div class="summary-totals">
-            <div class="totals-row"><span>Subtotal</span><span>$45.000</span></div>
-            <div class="totals-row"><span>Envío</span><span>$10.000</span></div>
-            <div class="totals-row total"><strong>Total</strong><strong>$55.000</strong></div>
+            <div class="totals-row">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal">$ 0</span>
+            </div>
+            <div class="totals-row">
+              <span>IVA (19%)</span>
+              <span id="checkout-iva">$ 0</span>
+            </div>
+            <div class="totals-row">
+              <span>Envío</span>
+              <span class="text-success">Gratis</span>
+            </div>
+            <div class="totals-row total">
+              <strong>Total</strong>
+              <strong id="checkout-total">$ 0</strong>
+            </div>
           </div>
 
-          <button id="confirm-order" class="btn btn-primary btn-lg">Confirmar Pedido</button>
-          <p class="muted small mt-md">Al confirmar, aceptas nuestros términos y condiciones.</p>
+          <button type="button" id="btn-confirmar-pedido" class="btn btn-primary btn-lg">Confirmar Pedido</button>          <p class="muted small mt-md">Al confirmar, aceptas nuestros términos y condiciones.</p>
         </div>
       </aside>
     </div>
@@ -118,9 +123,8 @@
     <div class="footer-container">
       <div class="footer-section">
         <h3>SportSwear</h3>
-        <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
+        <p>Tu tienda de confianza para ropa deportiva de alta calidad.</p>
       </div>
-
       <div class="footer-section">
         <h3>Enlaces Rápidos</h3>
         <ul>
@@ -130,7 +134,6 @@
           <li><a href="carrito.html">Carrito</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Atención al Cliente</h3>
         <ul>
@@ -140,7 +143,6 @@
           <li><a href="#">Contacto</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
@@ -157,9 +159,7 @@
         </div>
       </div>
     </div>
-
     <div class="footer-divider"></div>
-
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
@@ -171,50 +171,107 @@
   </footer>
 
   <script src="../js/main.js"></script>
-  <script src="../js/main.js"></script>
+  <script>
+    const API = "https://back-sportswear.onrender.com/api";
 
-<script>
+    // Temporal — cámbialo por localStorage cuando tengas login
+    const usuario_id = 3;
 
-document.getElementById("confirm-order").addEventListener("click", async () => {
+    // ── CARGAR RESUMEN DESDE EL CARRITO ────────────────────────
+    async function cargarResumen() {
+      try {
+        const res = await fetch(`${API}/carrito?usuario_id=${usuario_id}`);
+        const items = await res.json();
 
-    const pedido = {
-        usuario_id: 1,
-        total: 55000,
-        estado: "pendiente"
-    };
+        const lista = document.getElementById("resumen-items");
 
-    try {
+        if (!items || items.length === 0) {
+          lista.innerHTML = `<li style="color:gray; list-style:none;">El carrito está vacío.</li>`;
+          document.getElementById("confirm-order").disabled = true;
+          return;
+        }
 
-        const respuesta = await fetch(
-            "https://back-sportswear.onrender.com/routes/POST/crear-pedido.php",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(pedido)
-            }
-        );
+        lista.innerHTML = "";
+        items.forEach(item => {
+          lista.innerHTML += `
+            <li class="summary-item">
+              <img src="${item.imagen || '../assets/images/camiseta running.webp'}" alt="${item.nombre}">
+              <div class="summary-item-info">
+                <div class="name">${item.nombre}</div>
+                <div class="muted">Cantidad: ${item.cantidad}</div>
+              </div>
+              <div class="price">$ ${Number(item.precio * item.cantidad).toLocaleString("es-CO")}</div>
+            </li>
+          `;
+        });
 
-        const data = await respuesta.json();
+        const subtotal = items.reduce((sum, i) => sum + (i.precio * i.cantidad), 0);
+        const iva      = subtotal * 0.19;
+        const total    = subtotal + iva;
+        const fmt      = n => `$ ${Math.round(n).toLocaleString("es-CO")}`;
 
-        console.log(data);
+        document.getElementById("checkout-subtotal").textContent = fmt(subtotal);
+        document.getElementById("checkout-iva").textContent      = fmt(iva);
+        document.getElementById("checkout-total").textContent    = fmt(total);
 
-        alert("Pedido realizado correctamente");
-
-    } catch(error) {
-
-        console.error(error);
-
-        alert("Error al crear pedido");
+      } catch (error) {
+        console.error("Error al cargar resumen:", error);
+      }
     }
 
-});
+    // ── CONFIRMAR PEDIDO ────────────────────────────────────────
+    document.getElementById("btn-confirmar-pedido").addEventListener("click", async function() {
+      const nombre    = document.getElementById("nombre").value.trim();
+      const correo    = document.getElementById("correo").value.trim();
+      const direccion = document.getElementById("direccion").value.trim();
 
-</script>
+      if (!nombre || !correo || !direccion) {
+        alert("Por favor completa tu nombre, correo y dirección.");
+        return;
+      }
 
+      this.disabled = true;
+      this.textContent = "Procesando...";
+
+      try {
+        const res = await fetch(`${API}/pedidos`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({
+  usuario_id,
+  nombre: document.getElementById("nombre").value.trim(),
+  apellido: document.getElementById("apellido").value.trim(),
+  telefono: document.getElementById("telefono").value.trim(),
+  direccion: document.getElementById("direccion").value.trim(),
+  ciudad: document.getElementById("ciudad").value.trim(),
+  departamento: document.getElementById("departamento").value.trim(),
+  codigo_postal: document.getElementById("postal").value.trim(),
+  pais: document.getElementById("pais").value.trim(),
+  metodo_pago: document.querySelector('input[name="pay"]:checked').value
+})
+
+        });
+
+        const data = await res.json();
+console.log("respuesta del servidor:", data); // ← aquí
+if (res.ok) {
+  alert(`¡Pedido confirmado! Total: $ ${Number(data.total).toLocaleString("es-CO")}`);
+  window.location.href = `detalles-orden.html?id=${data.id}`;
+        } else {
+          alert(data.mensaje || "No se pudo crear el pedido.");
+          this.disabled = false;
+          this.textContent = "Confirmar Pedido";
+        }
+
+      } catch (error) {
+        console.error("Error al confirmar pedido:", error);
+        alert("Error de conexión. Intenta de nuevo.");
+        this.disabled = false;
+        this.textContent = "Confirmar Pedido";
+      }
+    });
+
+    cargarResumen();
+  </script>
 </body>
 </html>
-</body>
-</html>
-

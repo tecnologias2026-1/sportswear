@@ -22,6 +22,10 @@
         <h1>Gestión de pedidos</h1>
         <p class="muted">Visualiza y gestiona todos los pedidos</p>
 
+        <div class="search-panel" style="margin-bottom: 1rem;">
+          <input type="search" id="buscador" placeholder="Buscar por ID o usuario..." oninput="filtrarPedidos()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; width: 300px;">
+        </div>
+
         <div class="table-card">
           <div class="table-wrapper">
             <table class="orders-table">
@@ -49,15 +53,14 @@
 
   <script>
     const API = "https://back-sportswear.onrender.com/api";
-    let todosPedidos = []; // guardamos todos para el filtro
+    let todosPedidos = [];
 
-    // ── COLORES POR ESTADO ──────────────────────────────────────
     const estiloEstado = {
-      'pendiente':  { clase: 'status-pending',  texto: 'Pendiente'  },
-      'en proceso': { clase: 'status-processing',texto: 'En Proceso' },
-      'enviado':    { clase: 'status-success',   texto: 'Enviado'    },
-      'entregado':  { clase: 'status-completed', texto: 'Entregado'  },
-      'cancelado':  { clase: 'status-cancel',    texto: 'Cancelado'  },
+      'pendiente':  { clase: 'status-pending',   texto: 'Pendiente'  },
+      'en proceso': { clase: 'status-processing', texto: 'En Proceso' },
+      'enviado':    { clase: 'status-success',    texto: 'Enviado'    },
+      'entregado':  { clase: 'status-completed',  texto: 'Entregado'  },
+      'cancelado':  { clase: 'status-cancel',     texto: 'Cancelado'  },
     };
 
     function formatearFecha(fechaStr) {
@@ -67,10 +70,9 @@
       });
     }
 
-    // ── 1. VER TODOS LOS PEDIDOS — GET /api/pedidos ─────────────
     async function cargarPedidos() {
       try {
-        const res = await fetch(`${API}/api/pedidos`);
+        const res = await fetch(`${API}/pedidos`);
         const pedidos = await res.json();
         todosPedidos = pedidos;
         renderizarPedidos(pedidos);
@@ -100,7 +102,7 @@
         tbody.innerHTML += `
           <tr id="fila-${pedido.id}">
             <td><strong>ORD-${numero}</strong></td>
-            <td>${pedido.usuario_nombre || 'Usuario #' + pedido.usuario_id}</td>
+            <td>${pedido.nombre || pedido.usuario_nombre || 'Usuario #' + pedido.usuario_id} ${pedido.apellido || ''}</td>
             <td>${formatearFecha(pedido.fecha)}</td>
             <td>$ ${Number(pedido.total).toLocaleString("es-CO")}</td>
             <td><span class="status-pill ${estado.clase}">${estado.texto}</span></td>
@@ -119,11 +121,10 @@
       });
     }
 
-    // ── 2. CAMBIAR ESTADO — PUT /api/pedidos ────────────────────
     async function cambiarEstado(id, nuevoEstado) {
       if (!nuevoEstado) return;
       try {
-        const res = await fetch(`${API}/api/pedidos`, {
+        const res = await fetch(`${API}/pedidos`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id, estado: nuevoEstado })
@@ -136,7 +137,6 @@
       }
     }
 
-    // ── FILTRAR POR ID ──────────────────────────────────────────
     function filtrarPedidos() {
       const texto = document.getElementById("buscador").value.toLowerCase();
       const filtrados = todosPedidos.filter(p =>
@@ -146,15 +146,6 @@
       renderizarPedidos(filtrados);
     }
 
-    // ── LOGOUT ──────────────────────────────────────────────────
-    document.getElementById('logout-btn').addEventListener('click', function(e) {
-      e.preventDefault();
-      localStorage.removeItem("isAdmin");
-      alert("Sesión cerrada");
-      window.location.href = 'login.html';
-    });
-
-    // Carga los pedidos al abrir
     cargarPedidos();
   </script>
 </body>

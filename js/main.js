@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function gotoCart() {
-    if (isInPages()) window.location.href = 'detalle-producto.html';
+    if (isInPages()) window.location.href = 'carrito.html';
     else window.location.href = 'pages/carrito.html';
   }
 
@@ -639,7 +639,7 @@ if (document.querySelector('.cart-items') && !document.querySelector('.cart-item
 
   var confirmOrderBtn = document.getElementById('confirm-order');
 
-if (confirmOrderBtn) {
+if (confirmOrderBtn && !window.location.pathname.includes('finalizar-compra')) {
   confirmOrderBtn.addEventListener('click', function () {
 
     var cart = JSON.parse(localStorage.getItem('cart') || '[]');

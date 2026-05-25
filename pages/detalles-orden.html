@@ -8,91 +8,77 @@
 </head>
 <body>
   <div class="container" style="margin: 1rem 0;">
-    <a href="mis-pedidos.html" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">← Volver</a>
+    <a href="mis-pedidos.html" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">← Volver a Mis Pedidos</a>
   </div>
 
   <main class="container order-page">
     <h2 class="section-title" style="text-align: left;">Detalles de orden</h2>
 
     <div class="order-container grid" id="orderContainer">
-      <!-- Columna principal -->
       <section class="order-main">
         <div class="order-card">
           <div class="order-header">
             <div>
               <small style="color:var(--color-text-secondary);">Pedido</small>
-              <h3>ORD - 001</h3>
-              <p style="color:var(--color-text-secondary); font-size: var(--font-size-sm);">Fecha de pedido: 9 de febrero de 2026 a las 19:00<br>Última actualización: 14 de febrero de 2026 a las 19:00<br>Número de seguimiento: TRACK - 12345678</p>
+              <h3 id="pedido-numero">ORD - ---</h3>
+              <p id="pedido-fecha" style="color:var(--color-text-secondary); font-size: var(--font-size-sm);"></p>
             </div>
             <div>
-              <span class="badge">Enviado</span>
+              <span class="badge" id="pedido-estado">Cargando...</span>
             </div>
           </div>
 
           <div class="order-tracking">
             <h4>Seguimiento de pedido</h4>
             <ul class="tracking-list">
-              <li class="done"><span class="dot">  <span><img src="../assets/icons/check.svg" alt="Carrito"></span></span> Pedido confirmado <small>9 de febrero</small></li>
-              <li class="done"><span class="dot">  <span><img src="../assets/icons/preparation.svg" alt="Carrito"></span></span> En preparación <small>14 de febrero</small></li>
-              <li class="done"><span class="dot">   <span><img src="../assets/icons/fast.svg" alt="Carrito"></span></span></span> En camino <small>14 de febrero</small></li>
-              <li><span class="dot">  <span><img src="../assets/icons/check.svg" alt="Carrito"></span></span> Entregado <small>pendiente</small></li>
+              <li class="done"><span class="dot"><span><img src="../assets/icons/check.svg" alt=""></span></span> Pedido confirmado</li>
+              <li id="track-preparacion"><span class="dot"><span><img src="../assets/icons/preparation.svg" alt=""></span></span> En preparación</li>
+              <li id="track-camino"><span class="dot"><span><img src="../assets/icons/fast.svg" alt=""></span></span> En camino</li>
+              <li id="track-entregado"><span class="dot"><span><img src="../assets/icons/check.svg" alt=""></span></span> Entregado</li>
             </ul>
           </div>
 
           <div class="order-items">
             <h4>Productos</h4>
-            <div class="order-item">
-              <img src="../assets/images/camiseta.png" alt="Camiseta" />
-              <div class="item-info">
-                <div class="item-name">Camiseta</div>
-                <div class="item-meta">Talle: M · Color: Azul · Cantidad: 1</div>
-              </div>
-              <div class="item-price">$ 45.000</div>
-            </div>
-
-            <div class="order-item">
-              <img src="../assets/images/chaqueta.png" alt="Chaqueta" />
-              <div class="item-info">
-                <div class="item-name">Chaqueta</div>
-                <div class="item-meta">Talle: M · Color: Azul · Cantidad: 1</div>
-              </div>
-              <div class="item-price">$ 125.000</div>
+            <div id="order-items-list">
+              <p style="color: gray;">Cargando productos...</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Columna lateral -->
       <aside class="order-sidebar">
         <div class="card summary-card">
           <h4>Resumen</h4>
-          <div class="summary-row"><span>Subtotal</span><span>$ 170.000</span></div>
+          <div class="summary-row"><span>Subtotal</span><span id="detalle-subtotal">$ --</span></div>
+          <div class="summary-row"><span>IVA (19%)</span><span id="detalle-iva">$ --</span></div>
           <div class="summary-row"><span>Envío</span><span>Gratis</span></div>
-          <div class="summary-total"><span>Total</span><span>$ 170.000</span></div>
+          <div class="summary-total"><span>Total</span><span id="detalle-total">$ --</span></div>
         </div>
 
         <div class="card address-card">
           <h4>Dirección de Envío</h4>
-          <p>Casa<br>Calle 123 #45-67<br>Bogotá, Cundinamarca<br>110111<br>Colombia</p>
+          <p id="detalle-direccion">Cargando...</p>
         </div>
 
         <div class="card payment-card">
           <h4>Método de pago</h4>
-          <p>Epayco</p>
+          <p id="detalle-pago">--</p>
         </div>
+
+        <a href="mis-pedidos.html" class="btn btn-secondary" style="width: 100%; margin-top: 1rem; text-align: center;">
+          Ver Mis Pedidos
+        </a>
       </aside>
     </div>
   </main>
 
- 
-<!-- FOOTER -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
         <h3>SportSwear</h3>
-        <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
+        <p>Tu tienda de confianza para ropa deportiva de alta calidad.</p>
       </div>
-
       <div class="footer-section">
         <h3>Enlaces Rápidos</h3>
         <ul>
@@ -102,7 +88,6 @@
           <li><a href="carrito.html">Carrito</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Atención al Cliente</h3>
         <ul>
@@ -112,11 +97,10 @@
           <li><a href="#">Contacto</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
-          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
+          <span><img src="../assets/icons/ubi.svg" alt="Ubicación"></span>
           <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
         </div>
         <div class="footer-contact">
@@ -129,64 +113,109 @@
         </div>
       </div>
     </div>
-
     <div class="footer-divider"></div>
-
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#" aria-label="facebook">
-          <img src="../assets/icons/facebook.svg" alt="facebook">
-        </a>
-        <a href="#" aria-label="twitter">
-          <img src="../assets/icons/twitter.svg" alt="twitter">
-        </a>
-        <a href="#" aria-label="Instagram">
-          <img src="../assets/icons/insta.svg" alt="Instagram">
-        </a>
+        <a href="#" aria-label="facebook"><img src="../assets/icons/facebook.svg" alt="facebook"></a>
+        <a href="#" aria-label="twitter"><img src="../assets/icons/twitter.svg" alt="twitter"></a>
+        <a href="#" aria-label="Instagram"><img src="../assets/icons/insta.svg" alt="Instagram"></a>
       </div>
     </div>
   </footer>
-<script>
 
-async function cargarPedido() {
+  <script src="../js/main.js"></script>
+  <script>
+    const API = "https://back-sportswear.onrender.com/api";
+    const usuario_id = 3;
 
-    try {
-
-        const respuesta = await fetch(
-            "https://back-sportswear.onrender.com/routes/GET/ver-pedidos-usuario.php?usuario_id=1"
-        );
-
-        const pedidos = await respuesta.json();
-
-        console.log(pedidos);
-
-        if(pedidos.length > 0) {
-
-            const pedido = pedidos[0];
-
-            document.querySelector(".summary-total span:last-child")
-                .textContent = "$ " + pedido.total;
-
-            document.querySelector(".badge")
-                .textContent = pedido.estado;
-
-            document.querySelector(".order-header h3")
-                .textContent = "ORD - " + pedido.id;
-
-        }
-
-    } catch(error) {
-
-        console.error("Error cargando pedido:", error);
-
+    function formatearFecha(fechaStr) {
+      const fecha = new Date(fechaStr);
+      return fecha.toLocaleDateString("es-CO", {
+        day: "numeric", month: "long", year: "numeric"
+      });
     }
 
-}
+    async function cargarDetallePedido() {
+      const params = new URLSearchParams(window.location.search);
+      const pedido_id = params.get("id");
 
-cargarPedido();
+      if (!pedido_id) {
+        document.getElementById("pedido-numero").textContent = "Pedido no encontrado";
+        return;
+      }
 
-</script> 
+      try {
+        // Cargar datos del pedido
+        const res = await fetch(`${API}/pedidos?usuario_id=${usuario_id}`);
+        const pedidos = await res.json();
+        const pedido = pedidos.find(p => p.id == pedido_id);
+
+        if (!pedido) {
+          document.getElementById("pedido-numero").textContent = "Pedido no encontrado";
+          return;
+        }
+
+        const numero = String(pedido.id).padStart(3, '0');
+        document.getElementById("pedido-numero").textContent = `ORD-${numero}`;
+        document.getElementById("pedido-fecha").textContent = `Fecha: ${formatearFecha(pedido.fecha)}`;
+        document.getElementById("pedido-estado").textContent = pedido.estado;
+
+        // Tracking según estado
+        const estados = ['pendiente', 'en proceso', 'enviado', 'entregado'];
+        const idx = estados.indexOf(pedido.estado);
+        if (idx >= 1) document.getElementById("track-preparacion").classList.add("done");
+        if (idx >= 2) document.getElementById("track-camino").classList.add("done");
+        if (idx >= 3) document.getElementById("track-entregado").classList.add("done");
+
+        // Totales
+        const subtotal = Math.round(pedido.total / 1.19);
+        const iva = pedido.total - subtotal;
+        document.getElementById("detalle-subtotal").textContent = `$ ${subtotal.toLocaleString("es-CO")}`;
+        document.getElementById("detalle-iva").textContent = `$ ${Math.round(iva).toLocaleString("es-CO")}`;
+        document.getElementById("detalle-total").textContent = `$ ${Number(pedido.total).toLocaleString("es-CO")}`;
+
+        // Dirección
+        document.getElementById("detalle-direccion").innerHTML = `
+          ${pedido.nombre || ''} ${pedido.apellido || ''}<br>
+          ${pedido.direccion || ''}<br>
+          ${pedido.ciudad || ''}, ${pedido.departamento || ''}<br>
+          ${pedido.codigo_postal || ''}<br>
+          ${pedido.pais || ''}
+        `;
+
+        // Método de pago
+        document.getElementById("detalle-pago").textContent = pedido.metodo_pago || '--';
+
+        // Cargar items del pedido
+        const resItems = await fetch(`${API}/pedido-items?pedido_id=${pedido_id}`);
+        const items = await resItems.json();
+
+        const lista = document.getElementById("order-items-list");
+        if (!items || items.length === 0) {
+          lista.innerHTML = `<p style="color: gray;">No hay productos registrados para este pedido.</p>`;
+        } else {
+          lista.innerHTML = "";
+          items.forEach(item => {
+            lista.innerHTML += `
+              <div class="order-item">
+                <img src="${item.imagen || '../assets/images/camiseta running.webp'}" alt="${item.nombre}" style="width:60px; height:60px; object-fit:cover; border-radius:8px;">
+                <div class="item-info">
+                  <div class="item-name">${item.nombre}</div>
+                  <div class="item-meta">Cantidad: ${item.cantidad}</div>
+                </div>
+                <div class="item-price">$ ${Number(item.precio * item.cantidad).toLocaleString("es-CO")}</div>
+              </div>
+            `;
+          });
+        }
+
+      } catch (error) {
+        console.error("Error cargando pedido:", error);
+      }
+    }
+
+    cargarDetallePedido();
+  </script>
 </body>
 </html>
-
