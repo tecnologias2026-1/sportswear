@@ -8,44 +8,6 @@
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="navbar__left">
-      <div class="logo">S</div>
-      <a href="../index.html" class="brand-link">
-  <div class="brand">Sportswear</div>
-</a>
-    </div>
-
-    <div class="navbar__center">
-      <form class="search" role="search">
-        <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
-      </form>
-    </div>
-
-    <nav class="navbar__right">
-     
-			<nav class="navbar__right">
-				<div class="nav-links">
-					<a href="productos.html">Productos</a>
-					<a href="productos.html?category=hombre">Hombre</a>
-					<a href="productos.html?category=mujer">Mujer</a>
-					<a href="login.html">Iniciar Sesión</a>
-				</div>
-				<div class="nav-icons">
-					<a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
-					<a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
-					<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
-				</div>
-				<!-- mobile menu (hidden by default) -->
-				<div class="mobile-menu" aria-hidden="true">
-					<a href="productos.html">Productos</a>
-					<a href="productos.html?category=hombre">Hombre</a>
-					<a href="productos.html?category=mujer">Mujer</a>
-					<a href="login.html">Iniciar Sesión</a>
-				</div>
-			</nav>
-  </header>
-
   <!-- ENCABEZADO -->
   <section class="page-header">
     <div class="container">
@@ -276,6 +238,7 @@
     </div>
   </footer>
 
+  <script src="../js/main.js"></script>
   <script>
     let allProducts = [];
     let currentPage = 1;
@@ -303,11 +266,42 @@
       }
 
       grid.innerHTML = "";
+      // helper to resolve image src from several possible fields and formats
+      function getProductImage(p) {
+        if (!p) return '../assets/images/placeholder.webp';
+        const keys = ['imageUrl','imagen','image','img','imagen_url','imagenBase64','imagen_base64','foto','photo'];
+        for (const k of keys) {
+          const v = p[k];
+          if (!v) continue;
+          if (typeof v === 'string') {
+            const s = v.trim();
+            if (s.startsWith('data:')) return s; // already a data URL
+            if (s.startsWith('http://') || s.startsWith('https://') || s.startsWith('/')) return s; // url or relative
+            // raw base64 without data: prefix -> assume png
+            const base64Pattern = /^[A-Za-z0-9+/=\n\r]+$/;
+            const maybe = s.replace(/\s+/g,'');
+            if (base64Pattern.test(maybe) && maybe.length > 100) {
+              return 'data:image/png;base64,' + maybe;
+            }
+          }
+          // if value is object with url
+          if (typeof v === 'object') {
+            if (v.url) return v.url;
+            if (v.data && typeof v.data === 'string') return v.data;
+          }
+        }
+        return '../assets/images/placeholder.webp';
+      }
+
+      // debug: log first product to help diagnose missing images
+      if (productsToShow.length > 0) console.log('productsToShow[0]=', productsToShow[0]);
+
       productsToShow.forEach(function(product) {
+        const imgSrc = getProductImage(product);
         grid.innerHTML += `
           <div class="product-card" data-category="${product.categoria || ''}" data-gender="${product.genero || ''}" data-color="${product.color || ''}" data-price="${product.precio || ''}">
             <div class="product-card-image">
-              <img src="${product.imageUrl || product.imagen || '../assets/images/placeholder.webp'}" alt="${product.nombre}">
+              <img src="${imgSrc}" alt="${product.nombre}">
             </div>
             <div class="product-card-content">
               <h3 class="product-card-name">${product.nombre}</h3>

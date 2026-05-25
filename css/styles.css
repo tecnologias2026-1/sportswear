@@ -293,6 +293,7 @@ a {
   display: flex;
   gap: var(--spacing-2xl);
   list-style: none;
+  align-items: center;
 }
 
 .nav-links a {
@@ -3339,4 +3340,38 @@ a {
   box-shadow: var(--shadow-sm);
   display: none;
   object-fit: cover;
+}
+
+/* Auth user in navbar */
+.nav-user { display:flex; align-items:center; gap:8px; }
+.nav-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--color-primary-dark, #111);
+  color: #fff; display: flex; align-items: center;
+  justify-content: center; font-weight: 700;
+  font-size: 14px;
+}
+.nav-username {
+  font-size: 14px; font-weight: 600; color: #111;
+  white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-width: 140px;
+}
+.nav-logout-icon {
+  background: transparent; border: 0; color: #111;
+  cursor: pointer; padding: 6px; border-radius: 8px;
+  display: inline-flex; align-items: center;
+  justify-content: center; transition: background 0.2s;
+}
+.nav-logout-icon:hover { background: rgba(0,0,0,0.05); }
+.nav-logout-icon svg { display: block; }
+@media (max-width: 800px) {
+  .nav-username { display: none; }
+  .nav-avatar { width: 32px; height: 32px; font-size: 12px; }
+}
+
+/* Fix for icons */
+.nav-icons .icon img, .nav-icons .icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
 }

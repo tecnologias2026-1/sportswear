@@ -7,26 +7,6 @@
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="navbar__left">
-      <a class="brand-link" href="#">
-        <div class="logo">A</div>
-        <h3 class="brand">Admin Panel</h3>
-      </a>
-    </div>
-    <div class="navbar__center">
-      <div class="search">
-        <input type="text" placeholder="Buscar por usuarios por nombre, email o telefono" aria-label="buscar" />
-      </div>
-    </div>
-    <div class="navbar__right">
-      <nav class="nav-links">
-        <a href="#">Ver Tienda</a>
-        <a href="#" id="logout-btn">Cerrar sesión</a>
-      </nav>
-    </div>
-  </header>
-
   <div class="admin-layout">
     <aside class="sidebar">
       <div class="sidebar__menu">
@@ -89,7 +69,7 @@
           <label class="form-label" for="edit-user-role">Rol</label>
           <select id="edit-user-role" class="form-select" required>
             <option value="Usuario">Usuario</option>
-            <option value="Admin">Admin</option>
+            <option value="Administrador">Administrador</option>
           </select>
         </div>
         <div style="display: flex; gap: var(--spacing-lg); margin-top: var(--spacing-lg);">
@@ -146,10 +126,14 @@ function getInitials(name) {
 
 // 1. GET: Listar Usuarios
 function fetchUsers() {
-  fetch(API_BASE + '/routes/GET/lista-usuarios.php')
-    .then(res => res.json())
+  fetch(API_BASE + '/users')
+    .then(async res => {
+      const text = await res.text();
+      try { return JSON.parse(text); } catch(e) { return { raw: text, ok: res.ok }; }
+    })
     .then(data => {
-      allUsers = data;
+      // data puede ser { raw: ... } si no es JSON
+      allUsers = Array.isArray(data) ? data : (data && data.users) ? data.users : (data.raw ? [] : []);
       users = [...allUsers];
       currentPage = 1; // Resetear página al cargar
       renderUsersTable();
@@ -201,11 +185,11 @@ function renderUsersTable() {
           </div>
         </td>
         <td data-label="Email">${email}</td>
-        <td data-label="Rol"><span class="badge ${rol === 'Admin' ? 'status-success' : ''}">${rol}</span></td>
+        <td data-label="Rol"><span class="badge ${rol === 'Administrador' ? 'status-success' : ''}">${rol}</span></td>
         <td data-label="Acciones">
           <div class="admin-table-actions">
             <button class="admin-table-btn edit" onclick="openEditModal(${id})">Editar</button>
-            <button class="admin-table-btn delete" onclick="deleteUser(${id})">Eliminar</button>
+            <button class="admin-table-btn delete" onclick="deleteUserUI(${id})">Eliminar</button>
           </div>
         </td>
       </tr>
@@ -256,8 +240,8 @@ function openEditModal(id) {
   let userRole = user.rol || user.role || 'Usuario';
   if (userRole.toLowerCase() === 'user' || userRole.toLowerCase() === 'usuario') {
     userRole = 'Usuario';
-  } else if (userRole.toLowerCase() === 'admin') {
-    userRole = 'Admin';
+  } else if (userRole.toLowerCase() === 'administrador' || userRole.toLowerCase() === 'admin') {
+    userRole = 'Administrador';
   } else {
     // Si trajera un rol inesperado, por defecto a Usuario
     userRole = 'Usuario';
@@ -280,34 +264,88 @@ userForm.addEventListener('submit', function(e) {
     rol: document.getElementById('edit-user-role').value
   };
 
-  fetch(API_BASE + '/routes/PUT/actualizar-usuario.php?id=' + id, {
+  // intentar obtener token desde localStorage o user object
+  let token = localStorage.getItem('token');
+  try {
+    const storedUser = JSON.parse(localStorage.getItem('user') || 'null');
+    if (!token && storedUser) token = storedUser.token || storedUser.access_token || storedUser.jwt || null;
+  } catch (e) {}
+
+  if (typeof window.updateUser === 'function') {
+    window.updateUser(id, payload, token)
+      .then(res => {
+        console.log('Actualizar:', res);
+        closeUserModal();
+        fetchUsers();
+      })
+      .catch(err => console.error('Error al actualizar usuario:', err));
+    return;
+  }
+
+  // Fallback: request directo si no está disponible updateUser
+  fetch(API_BASE + '/users/' + encodeURIComponent(id), {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: Object.assign({ 'Content-Type': 'application/json' }, token ? { 'Authorization': 'Bearer ' + token } : {}),
     body: JSON.stringify(payload)
   })
-    .then(res => res.json())
-    .then(data => {
-      console.log('Actualizar:', data);
-      closeUserModal();
-      fetchUsers();
-    })
+    .then(async res => { const text = await res.text(); try { return JSON.parse(text); } catch(e){ return { raw: text, ok: res.ok }; } })
+    .then(data => { console.log('Actualizar (fallback):', data); closeUserModal(); fetchUsers(); })
     .catch(err => console.error('Error:', err));
 });
 
 // 3. DELETE: Eliminar Usuario
-function deleteUser(id) {
+function deleteUserUI(id) {
   if (!confirm('¿Seguro que deseas eliminar este usuario?')) return;
-  
-  fetch(API_BASE + '/routes/DELETE/borrar-usuario.php?id=' + id, {
+  // obtener token si existe
+  let token = localStorage.getItem('token');
+  try { const su = JSON.parse(localStorage.getItem('user') || 'null'); if (!token && su) token = su.token || su.access_token || su.jwt || null; } catch(e) {}
+
+  if (typeof window.deleteUser === 'function') {
+    window.deleteUser(id, token)
+      .then(res => {
+        console.log('Borrar:', res);
+        // si backend devuelve mensaje de éxito, actualizar UI
+        const ok = (res && (res.ok || res.mensaje || res.message || (res.raw && res.raw.toLowerCase && res.raw.toLowerCase().includes('exitos'))));
+        if (ok) {
+          alert('Usuario eliminado correctamente');
+          // eliminar localmente para respuesta inmediata
+          allUsers = allUsers.filter(u => String(u.id) !== String(id));
+          users = users.filter(u => String(u.id) !== String(id));
+          renderUsersTable();
+          return;
+        }
+        alert('Respuesta del servidor: ' + (res.mensaje || res.message || JSON.stringify(res)));
+        fetchUsers();
+      })
+      .catch(err => console.error('Error al borrar usuario:', err));
+    return;
+  }
+
+  // Fallback directo
+  const url = API_BASE + '/users/' + encodeURIComponent(id);
+  console.log('DELETE', url, 'token present?', !!token);
+  fetch(url, {
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' }
+    headers: token ? { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' }
   })
-    .then(res => res.json())
+    .then(async res => {
+      const text = await res.text();
+      try { return JSON.parse(text); } catch (e) { return { raw: text, ok: res.ok } }
+    })
     .then(data => {
-      console.log('Borrar:', data);
+      console.log('Borrar (fallback):', data);
+      const ok = (data && (data.ok || data.mensaje || data.message || (data.raw && data.raw.toLowerCase && data.raw.toLowerCase().includes('exitos'))));
+      if (ok) {
+        alert('Usuario eliminado correctamente');
+        allUsers = allUsers.filter(u => String(u.id) !== String(id));
+        users = users.filter(u => String(u.id) !== String(id));
+        renderUsersTable();
+        return;
+      }
+      alert('Respuesta del servidor: ' + (data.mensaje || data.message || JSON.stringify(data)));
       fetchUsers();
     })
-    .catch(err => console.error('Error:', err));
+    .catch(err => { console.error('Error:', err); alert('Error al borrar usuario: ' + err); });
 }
 
 // Inicializar lista de usuarios al cargar la página

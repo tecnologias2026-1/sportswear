@@ -1,6 +1,53 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
   function isInPages() {
     return window.location.pathname.includes('/pages/');
+  }
+
+  // Load shared navbar from /navbar.html and replace any existing header.navbar
+  function loadSharedNavbar() {
+    const inPages = isInPages();
+    const basePath = inPages ? '' : 'pages/';
+    const indexLink = inPages ? '../index.html' : 'index.html';
+    
+    const header = document.createElement('header');
+    header.className = 'navbar';
+    header.innerHTML = `
+      <div class="navbar__left">
+        <div class="logo">S</div>
+        <a href="${indexLink}" class="brand-link">
+          <div class="brand">Sportswear</div>
+        </a>
+      </div>
+      <div class="navbar__center">
+        <form class="search" role="search" onsubmit="event.preventDefault(); window.location.href='${basePath}productos.html?search='+this.querySelector('input').value">
+          <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
+        </form>
+      </div>
+      <nav class="navbar__right">
+        <div class="nav-links">
+          <a href="${basePath}productos.html">Productos</a>
+          <a href="${basePath}productos.html?category=hombre">Hombre</a>
+          <a href="${basePath}productos.html?category=mujer">Mujer</a>
+          <a href="${basePath}login.html" class="login-link">Iniciar Sesión</a>
+        </div>
+        <div class="nav-icons">
+          <a href="${basePath}carrito.html" class="icon" aria-label="Carrito"><img src="${inPages ? '../' : ''}assets/icons/cart.svg" alt="Carrito"></a>
+          <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+        </div>
+        <div class="mobile-menu" aria-hidden="true">
+          <a href="${basePath}productos.html">Productos</a>
+          <a href="${basePath}productos.html?category=hombre">Hombre</a>
+          <a href="${basePath}productos.html?category=mujer">Mujer</a>
+          <a href="${basePath}login.html" class="mobile-login-link">Iniciar Sesión</a>
+        </div>
+      </nav>
+    `;
+
+    // remove existing headers to avoid duplicates
+    document.querySelectorAll('header.navbar').forEach(h => h.remove());
+
+    // insert the shared header at top of body
+    document.body.insertBefore(header, document.body.firstChild);
   }
 
   function gotoCart() {
@@ -28,6 +75,73 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var urlCategoryFilter = getUrlCategoryFilter();
   var urlSearchTerm = getUrlSearchTerm();
+
+  // Mostrar estado de sesión en la navbar: si hay `user` en localStorage, mostrar avatar+nombre+logout
+  function renderNavbarAuth() {
+    try {
+      const userRaw = localStorage.getItem('user');
+      const container = document.querySelector('.navbar__right') || document.querySelector('nav.navbar-right') || document.querySelector('.nav-links');
+      if (!container) return;
+
+      // remove any previous nav-user globally to avoid duplicates
+      document.querySelectorAll('.nav-user').forEach(n => n.remove());
+
+      // find and remove existing login link (if any)
+      const loginLink = container.querySelector('a[href*="login.html"], a.nav-link');
+      if (userRaw) {
+        const user = JSON.parse(userRaw);
+        const name = (user.nombre || user.name || (user.correo || '').split('@')[0] || 'Usuario').trim();
+        const initials = (name.split(' ').map(n=>n[0]).slice(0,2).join('') || 'U').toUpperCase();
+
+        const userContainer = document.createElement('div');
+        userContainer.className = 'nav-user';
+
+        const avatar = document.createElement('div');
+        avatar.className = 'nav-avatar';
+        avatar.textContent = initials;
+
+        const nameEl = document.createElement('span');
+        nameEl.className = 'nav-username';
+        nameEl.textContent = name;
+
+        const logoutBtn = document.createElement('button');
+        logoutBtn.className = 'nav-logout-icon';
+        logoutBtn.setAttribute('aria-label', 'Cerrar sesión');
+        logoutBtn.title = 'Cerrar sesión';
+        // svg icon (logout)
+        logoutBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        logoutBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          localStorage.removeItem('user');
+          localStorage.removeItem('isAdmin');
+          if (window.location.pathname.includes('/pages/')) window.location.href = 'home.html';
+          else window.location.href = 'pages/home.html';
+        });
+
+        userContainer.appendChild(avatar);
+        userContainer.appendChild(nameEl);
+        userContainer.appendChild(logoutBtn);
+
+        if (loginLink && loginLink.parentNode) loginLink.parentNode.replaceChild(userContainer, loginLink);
+        else container.appendChild(userContainer);
+      } else {
+        // ensure login link exists only once
+        if (!loginLink) {
+          const a = document.createElement('a');
+          a.className = 'nav-link';
+          a.href = isInPages() ? 'login.html' : 'pages/login.html';
+          a.textContent = 'Iniciar Sesión';
+          container.appendChild(a);
+        }
+      }
+    } catch (e) {
+      // silent
+    }
+  }
+
+  // load shared navbar then render auth UI
+  loadSharedNavbar();
+  renderNavbarAuth();
 
   if (urlCategoryFilter && document.querySelector('.page-header h1')) {
     var headerTitle = document.querySelector('.page-header h1');
@@ -540,26 +654,114 @@ if (confirmOrderBtn) {
 var loginBtn = document.querySelector('.btn-login');
 
 if (loginBtn) {
-  loginBtn.addEventListener('click', function () {
+  loginBtn.addEventListener('click', function (e) {
+    e.preventDefault();
 
-    var email = document.querySelector('input[type="email"]').value;
+    var email = document.querySelector('input[type="email"]').value.trim();
     var password = document.querySelector('input[type="password"]').value;
 
-    // usuario admin falso
-    if (email === "admin@sportswear.com" && password === "1234") {
+    fetch('https://back-sportswear.onrender.com/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, password: password })
+    })
+    .then(async function(res) { const text = await res.text(); try { return JSON.parse(text); } catch(e) { return { raw: text, ok: res.ok }; } })
+    .then(function(data) {
+      var success = data && (data.success || data.token || data.user || data.id || data.ok || (data.raw && data.raw.toLowerCase().includes('success')));
+      if (success) {
+        var id = (data && data.user && data.user.id) || data.id || null;
+        // try to capture token too
+        var token = (data && (data.token || data.access_token || data.jwt)) || (data.user && (data.user.token || data.user.access_token)) || null;
 
-      alert("Bienvenido administrador");
-
-      if (window.location.pathname.includes('/pages/')) {
-        window.location.href = 'admin-productos.html';
+        if (id) {
+          fetch('https://back-sportswear.onrender.com/api/users/' + id, token ? { headers: { 'Authorization': 'Bearer ' + token } } : {})
+            .then(async function(res) { const text = await res.text(); try { return JSON.parse(text); } catch(e) { return { raw: text, ok: res.ok }; } })
+            .then(function(userData) {
+              var u = userData.user || userData || data.user || data;
+              localStorage.setItem('user', JSON.stringify(u));
+              var isAdmin = (u && (u.rol === 'Administrador' || u.role === 'Administrador')) || userData.isAdmin || userData.rol === 'Administrador' || (userData.raw && userData.raw.toLowerCase().includes('administrador'));
+              if (isAdmin) {
+                localStorage.setItem('isAdmin', 'true');
+                if (window.location.pathname.includes('/pages/')) {
+                  window.location.href = 'admin-productos.html';
+                } else {
+                  window.location.href = 'pages/admin-productos.html';
+                }
+              } else {
+                if (window.location.pathname.includes('/pages/')) {
+                  window.location.href = 'home.html';
+                } else {
+                  window.location.href = 'pages/home.html';
+                }
+              }
+            })
+            .catch(function(err) {
+              console.error('Error fetching user by id:', err);
+              // fallback
+              var user = data.user || data;
+              localStorage.setItem('user', JSON.stringify(user));
+              if (window.location.pathname.includes('/pages/')) {
+                window.location.href = 'home.html';
+              } else {
+                window.location.href = 'pages/home.html';
+              }
+            });
+        } else {
+          // fallback: buscar usuario por correo/email si auth no devolvió id
+          var fallbackEmail = (data && data.user && (data.user.correo || data.user.email)) || data.correo || data.email || email;
+          var url = 'https://back-sportswear.onrender.com/api/users?correo=' + encodeURIComponent(fallbackEmail) + '&email=' + encodeURIComponent(fallbackEmail);
+          var opts = token ? { headers: { 'Authorization': 'Bearer ' + token } } : {};
+          fetch(url, opts)
+            .then(async function(res) { const text = await res.text(); try { return JSON.parse(text); } catch(e) { return { raw: text, ok: res.ok }; } })
+            .then(function(userData) {
+              var u = (userData && (userData.user || (Array.isArray(userData) && userData[0]) || userData)) || null;
+              if (u) {
+                localStorage.setItem('user', JSON.stringify(u));
+                var isAdmin = (u && (u.rol === 'Administrador' || u.role === 'Administrador')) || userData.isAdmin || userData.rol === 'Administrador' || (userData.raw && userData.raw.toLowerCase().includes('administrador'));
+                if (isAdmin) {
+                  localStorage.setItem('isAdmin', 'true');
+                  if (window.location.pathname.includes('/pages/')) {
+                    window.location.href = 'admin-productos.html';
+                  } else {
+                    window.location.href = 'pages/admin-productos.html';
+                  }
+                } else {
+                  if (window.location.pathname.includes('/pages/')) {
+                    window.location.href = 'home.html';
+                  } else {
+                    window.location.href = 'pages/home.html';
+                  }
+                }
+                return;
+              }
+              // final fallback
+              var user = data.user || data;
+              localStorage.setItem('user', JSON.stringify(user));
+              if (window.location.pathname.includes('/pages/')) {
+                window.location.href = 'home.html';
+              } else {
+                window.location.href = 'pages/home.html';
+              }
+            })
+            .catch(function(err) {
+              console.error('Error fetching user by email:', err);
+              var user = data.user || data;
+              localStorage.setItem('user', JSON.stringify(user));
+              if (window.location.pathname.includes('/pages/')) {
+                window.location.href = 'home.html';
+              } else {
+                window.location.href = 'pages/home.html';
+              }
+            });
+        }
       } else {
-        window.location.href = 'pages/admin-productos.html';
+        alert('Usuario o contraseña incorrectos: ' + (data.message || data.mensaje || data.raw || ''));
       }
-
-    } else {
-      alert("Usuario o contraseña incorrectos");
-    }
-
+    })
+    .catch(function(err) {
+      console.error(err);
+      alert('Error de conexión al iniciar sesión.');
+    });
   });
 }
 function getProducts() {
@@ -570,32 +772,56 @@ function saveProducts(products) {
   localStorage.setItem("products", JSON.stringify(products));
 }
 
-var loginBtn = document.querySelector('.btn-login');
-
-if (loginBtn) {
-  loginBtn.addEventListener('click', function (e) {
-
-    e.preventDefault(); // 🚨 CLAVE
-
-    var email = document.querySelector('input[type="email"]').value;
-    var password = document.querySelector('input[type="password"]').value;
-
-    if (email === "admin@sportswear.com" && password === "1234") {
-
-      localStorage.setItem("isAdmin", "true");
-
-      alert("Bienvenido administrador");
-
-      if (window.location.pathname.includes('/pages/')) {
-        window.location.href = 'admin-productos.html';
-      } else {
-        window.location.href = 'pages/admin-productos.html';
+/* login handler moved/merged above to use API */
+  // Utility: actualizar usuario via PUT a /api/users/:id
+  async function updateUser(id, payload, token) {
+    if (!id) throw new Error('updateUser: id required');
+    const url = 'https://back-sportswear.onrender.com/api/users/' + encodeURIComponent(id);
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    try {
+      const res = await fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(payload) });
+      const text = await res.text();
+      try {
+        const parsed = JSON.parse(text);
+        console.log('updateUser parsed:', parsed);
+        return parsed;
+      } catch (e) {
+        console.log('updateUser raw:', text);
+        return { raw: text, ok: res.ok };
       }
-
-    } else {
-      alert("Usuario o contraseña incorrectos");
+    } catch (err) {
+      console.error('updateUser error:', err);
+      throw err;
     }
+  }
 
-  });
-}
+  // Expose for pages to call: window.updateUser(id, payload, token)
+  // Delete user via DELETE /api/users/:id
+  async function deleteUser(id, token) {
+    if (!id) throw new Error('deleteUser: id required');
+    const url = 'https://back-sportswear.onrender.com/api/users/' + encodeURIComponent(id);
+    const headers = {};
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    try {
+      const res = await fetch(url, { method: 'DELETE', headers });
+      const text = await res.text();
+      try {
+        const parsed = JSON.parse(text);
+        console.log('deleteUser parsed:', parsed);
+        return parsed;
+      } catch (e) {
+        console.log('deleteUser raw:', text);
+        return { raw: text, ok: res.ok };
+      }
+    } catch (err) {
+      console.error('deleteUser error:', err);
+      throw err;
+    }
+  }
+
+  // Expose for pages to call: window.updateUser(id, payload, token) and window.deleteUser(id, token)
+  window.updateUser = updateUser;
+  window.deleteUser = deleteUser;
+
 });

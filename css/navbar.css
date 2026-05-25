@@ -74,6 +74,27 @@ body{font-family:Inter, system-ui, -apple-system, "Helvetica Neue", Arial; margi
 .mobile-menu a{display:block;padding:12px 18px;color:#111;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.04)}
 .mobile-menu a:last-child{border-bottom:0}
 
+/* Auth user in navbar */
+.nav-user{display:flex;align-items:center;gap:10px}
+.nav-avatar{width:36px;height:36px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:0 0 36px}
+.nav-username{font-size:14px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.nav-logout{background:#0f1724;color:#fff;border-radius:8px;padding:8px 12px;border:0;cursor:pointer;font-weight:600}
+.nav-logout:hover{opacity:0.95}
+
+/* compact icon logout */
+.nav-logout-icon{background:transparent;border:0;color:#0f1724;cursor:pointer;padding:6px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center}
+.nav-logout-icon svg{display:block}
+
+@media (max-width:800px){
+  .nav-username{display:none}
+  .nav-avatar{width:32px;height:32px;font-size:12px}
+  .nav-logout-icon{padding:8px}
+}
+
+/* ensure nav-user aligns to right and doesn't wrap */
+.navbar__right .nav-user{margin-left:8px;display:flex;align-items:center;gap:8px}
+.nav-user .nav-username{line-height:1}
+
 @media (max-width:800px){
   .search{display:none}
   .navbar{padding:12px 16px}

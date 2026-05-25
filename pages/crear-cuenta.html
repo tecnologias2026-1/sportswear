@@ -7,98 +7,63 @@
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="navbar__left">
-      <div class="logo">S</div>
-      <a href="../index.html" class="brand-link">
-  <div class="brand">Sportswear</div>
-</a>
-    </div>
-
-    <div class="navbar__center">
-      <form class="search" role="search">
-        <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
-      </form>
-    </div>
-
-    <nav class="navbar__right">
-      <div class="nav-links">
-        <a href="productos.html">Productos</a>
-        <a href="productos.html?category=hombre">Hombre</a>
-        <a href="productos.html?category=mujer">Mujer</a>
-        <a href="login.html">Iniciar Sesión</a>
-      </div>
-      <div class="nav-icons">
-        <a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
-        <a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
-        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
-      </div>
-      <!-- mobile menu (hidden by default) -->
-      <div class="mobile-menu" aria-hidden="true">
-        <a href="productos.html">Productos</a>
-        <a href="productos.html?category=hombre">Hombre</a>
-        <a href="productos.html?category=mujer">Mujer</a>
-        <a href="login.html">Iniciar Sesión</a>
-      </div>
-    </nav>
-  </header>
-
   <!-- CONTENEDOR AUTH -->
   <main class="auth-page">
     <div class="auth-container">
-      <div class="auth-card">
-        <h1>Bienvenido a SportSwear</h1>
+      <section class="auth-card" aria-labelledby="create-title">
+        <h1 id="create-title">Bienvenido a SportSwear</h1>
         <p class="auth-card-subtitle">Inicia sesión o crea una cuenta</p>
 
-      <div class="auth-tabs">
-        <button class="auth-tab" onclick="window.location.href='login.html'">Iniciar Sesión</button>
-        <button class="auth-tab active">Registrarse</button>
-      </div>
-
-      <div class="form-header">
-        <h2>Crear Cuenta</h2>
-        <p>Completa el formulario para registrarte</p>
-      </div>
-
-      <form id="register-form">
-        <div class="form-group">
-          <label class="form-label" for="first-name">Nombre completo</label>
-          <input type="text" id="first-name" class="form-input" placeholder="Juan Pérez" required>
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+          <button type="button" class="auth-tab active" aria-selected="true">Registrarse</button>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="email">Correo Electrónico</label>
-          <input type="email" id="email" class="form-input" placeholder="tu@email.com" required>
+        <div class="form-header">
+          <h2>Crear Cuenta</h2>
+          <p>Completa el formulario para registrarte</p>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="phone">Teléfono</label>
-          <input type="tel" id="phone" class="form-input" placeholder="+57 300 123 4567">
-        </div>
+        <form id="register-form" class="auth-form">
+          <div class="form-row">
+            <div class="form-group" style="flex:1; min-width: 160px;">
+              <label class="form-label" for="first-name">Nombre completo</label>
+              <input type="text" id="first-name" class="form-input" placeholder="Juan Pérez" required>
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label class="form-label" for="password">Contraseña</label>
-          <input type="password" id="password" class="form-input" placeholder="••••••••" required>
-        </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Correo Electrónico</label>
+            <input type="email" id="email" class="form-input" placeholder="tu@email.com" required>
+          </div>
 
-        <div class="form-group">
-          <label class="form-label" for="confirm-password">Confirmar Contraseña</label>
-          <input type="password" id="confirm-password" class="form-input" placeholder="••••••••" required>
-        </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Teléfono</label>
+            <input type="tel" id="phone" class="form-input" placeholder="+57 300 123 4567">
+          </div>
 
-        <label class="filter-checkbox" style="margin-bottom: var(--spacing-lg);">
-          <input type="checkbox" id="terms" required>
-          <span>Acepto los <a href="#" style="color: var(--color-primary-dark);">términos y condiciones</a></span>
-        </label>
+          <div class="form-row">
+            <div class="form-group" style="flex:1; margin-right:10px;">
+              <label class="form-label" for="password">Contraseña</label>
+              <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label class="form-label" for="confirm-password">Confirmar Contraseña</label>
+              <input type="password" id="confirm-password" class="form-input" placeholder="••••••••" required>
+            </div>
+          </div>
 
-        <button type="submit" class="btn btn-primary btn-lg">Crear cuenta</button>
+          <label class="filter-checkbox" style="margin-bottom: var(--spacing-lg); display:flex; gap:10px; align-items:center;">
+            <input type="checkbox" id="terms" required>
+            <span>Acepto los <a href="#" style="color: var(--color-primary-dark);">términos y condiciones</a></span>
+          </label>
 
-        <p class="auth-footer">
-          ¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a>
-        </p>
-      </form>
+          <button type="submit" class="btn btn-primary btn-lg">Crear cuenta</button>
+
+          <p class="auth-footer" style="margin-top:12px;">¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+        </form>
+      </section>
     </div>
-  </div>
   </main>
 
 <!-- FOOTER -->
@@ -184,24 +149,22 @@
         return;
       }
 
-      fetch('https://back-sportswear.onrender.com/routes/POST/registro-usuario.php', {
+      fetch('https://back-sportswear.onrender.com/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nombre: name, 
-          correo: email, 
-          contraseña: password,
-          rol: "Admin" 
-        })
+        body: JSON.stringify({ nombre: name, correo: email, contraseña: password, rol: 'Usuario' })
       })
-      .then(res => res.json())
+      .then(async res => {
+        const text = await res.text();
+        try { return JSON.parse(text); } catch (e) { return { raw: text, ok: res.ok }; }
+      })
       .then(data => {
-        // Asumiendo que el éxito puede ser id, message, succes
-        if (data.id || data.message || data.success || data.mensaje) {
+        const created = data && (data.id || data.message || data.success || data.mensaje || (data.raw && data.raw.toLowerCase().includes('success')) || data.ok);
+        if (created) {
           alert('¡Cuenta creada exitosamente! Bienvenido a SportSwear');
           window.location.href = 'login.html';
         } else {
-          alert('Error al crear la cuenta: ' + (data.error || data.mensaje || 'Inténtalo de nuevo.'));
+          alert('Error al crear la cuenta: ' + (data.error || data.mensaje || data.raw || JSON.stringify(data)));
         }
       })
       .catch(err => {

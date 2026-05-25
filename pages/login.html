@@ -7,209 +7,52 @@
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="navbar__left">
-      <div class="logo">S</div>
-      <a href="../index.html" class="brand-link">
-  <div class="brand">Sportswear</div>
-</a>
-    </div>
+  <main>
+    <div class="auth-page">
+      <div class="auth-container">
+        <section class="auth-card" aria-labelledby="auth-title">
+          <h1 id="auth-title">Bienvenido a SportSwear</h1>
+          <p class="auth-card-subtitle">Accede a tu cuenta o crea una nueva</p>
 
-    <div class="navbar__center">
-      <form class="search" role="search">
-        <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
-      </form>
-    </div>
-
-    <nav class="navbar__right">
-      
-			<nav class="navbar__right">
-				<div class="nav-links">
-					<a href="productos.html">Productos</a>
-					<a href="productos.html?category=hombre">Hombre</a>
-					<a href="productos.html?category=mujer">Mujer</a>
-					<a href="login.html">Iniciar Sesión</a>
-				</div>
-				<div class="nav-icons">
-					<a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
-					<a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
-					<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
-				</div>
-				<!-- mobile menu (hidden by default) -->
-				<div class="mobile-menu" aria-hidden="true">
-					<a href="productos.html">Productos</a>
-					<a href="productos.html?category=hombre">Hombre</a>
-					<a href="productos.html?category=mujer">Mujer</a>
-					<a href="login.html">Iniciar Sesión</a>
-				</div>
-			</nav>
-  </header>
-
-  <!-- CONTENEDOR AUTH -->
-  <div class="auth-container">
-    <div class="auth-card">
-      <h1>Bienvenido a SportSwear</h1>
-      <p class="auth-card-subtitle">Accede a tu cuenta o crea una nueva</p>
-
-      <!-- TABS -->
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="login-tab">Iniciar Sesión</button>
-        <button class="auth-tab" id="register-tab">Crear Cuenta</button>
-      </div>
-
-      <!-- FORMULARIO LOGIN -->
-      <form id="login-form" style="display: block;">
-        <div class="form-group">
-          <label class="form-label" for="email">Correo Electrónico</label>
-          <input type="email" id="email" class="form-input" placeholder="tu@email.com" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="password">Contraseña</label>
-          <input type="password" id="password" class="form-input" placeholder="••••••••" required>
-        </div>
-
-        <label class="filter-checkbox" style="margin-bottom: var(--spacing-lg);">
-          <input type="checkbox" id="remember">
-          <span>Recuérdame</span>
-        </label>
-
-        <button type="submit" class="btn btn-primary btn-lg btn-login">
-  Iniciar Sesión
-</button>
-
-        <p class="auth-footer" style="margin-top: var(--spacing-lg);">
-          ¿Olvidaste tu contraseña? <a href="#">Restablecerla</a>
-        </p>
-      </form>
-
-      <!-- FORMULARIO REGISTRO -->
-      <form id="register-form" style="display: none;">
-        <div class="form-group-row">
-          <div class="form-group">
-            <label class="form-label" for="first-name">Nombre</label>
-            <input type="text" id="first-name" class="form-input" placeholder="Tu nombre" required>
+          <div class="auth-tabs" role="tablist" aria-label="Auth tabs">
+            <button type="button" class="auth-tab active" id="login-tab" aria-selected="true">Iniciar Sesión</button>
+            <button type="button" class="auth-tab" id="register-tab" aria-selected="false">Crear Cuenta</button>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="last-name">Apellido</label>
-            <input type="text" id="last-name" class="form-input" placeholder="Tu apellido" required>
+          <div class="auth-forms">
+            <form id="login-form" class="auth-form" style="display:block;" aria-labelledby="login-tab">
+              <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input id="email" type="email" class="form-input" placeholder="tu@email.com" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input id="password" type="password" class="form-input" placeholder="••••••••" required>
+              </div>
+              <div style="display:flex; gap:12px; align-items:center; justify-content:space-between;">
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                <a href="recuperar-contrasena.html" class="link-muted">¿Olvidaste tu contraseña?</a>
+              </div>
+            </form>
+
+            <form id="register-form" class="auth-form" style="display:none;" aria-labelledby="register-tab">
+              <div class="form-group"><label for="first-name">Nombre</label><input id="first-name" type="text" class="form-input" placeholder="Juan" required></div>
+              <div class="form-group"><label for="last-name">Apellido</label><input id="last-name" type="text" class="form-input" placeholder="Pérez" required></div>
+              <div class="form-group"><label for="register-email">Correo</label><input id="register-email" type="email" class="form-input" placeholder="tu@email.com" required></div>
+              <div class="form-group"><label for="register-password">Contraseña</label><input id="register-password" type="password" class="form-input" placeholder="••••••••" required></div>
+              <div class="form-group"><label for="confirm-password">Confirmar</label><input id="confirm-password" type="password" class="form-input" placeholder="••••••••" required></div>
+              <button type="submit" class="btn btn-primary">Crear Cuenta</button>
+            </form>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label class="form-label" for="register-email">Correo Electrónico</label>
-          <input type="email" id="register-email" class="form-input" placeholder="tu@email.com" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="register-password">Contraseña</label>
-          <input type="password" id="register-password" class="form-input" placeholder="••••••••" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="confirm-password">Confirmar Contraseña</label>
-          <input type="password" id="confirm-password" class="form-input" placeholder="••••••••" required>
-        </div>
-
-        <label class="filter-checkbox" style="margin-bottom: var(--spacing-lg);">
-          <input type="checkbox" id="terms" required>
-          <span>Acepto los <a href="#" style="color: var(--color-primary-dark);">términos y condiciones</a></span>
-        </label>
-
-        <button type="submit" class="btn btn-primary btn-lg">Crear Cuenta</button>
-      </form>
-
-
-      <div style="margin-top: 20px; padding: 15px; border-radius: 10px; background: #f5f5f5; border: 1px solid #ddd; text-align: center;">
-  
-  <h3 style="margin-bottom: 10px;"> <img src="../assets/icons/candado.svg" alt="Carrito"> Acceso Administrador</h3>
-  
-  <p style="margin: 5px;"><strong>Correo:</strong> admin@sportswear.com</p>
-  <p style="margin: 5px;"><strong>Contraseña:</strong> 1234</p>
-
-  <button id="admin-login-btn" style="margin-top: 10px;" class="btn btn-secondary">
-    Entrar como admin
-  </button>
-
-</div>
-
-      <!-- DIVIDER -->
-      <div class="auth-divider">O continúa con</div>
-
-      <!-- REDES SOCIALES -->
-      <div style="display: flex; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
-        <button type="button" class="btn btn-secondary" style="flex: 1;">Google</button>
-        <button type="button" class="btn btn-secondary" style="flex: 1;">Facebook</button>
-      </div>
-
-      <p class="auth-footer" id="tab-footer">
-        ¿No tienes cuenta? <a href="#" onclick="switchTab('register')">Crear una</a>
-      </p>
-    </div>
-  </div>
-
-<!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-section">
-        <h3>SportSwear</h3>
-        <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
-      </div>
-
-      <div class="footer-section">
-        <h3>Enlaces Rápidos</h3>
-        <ul>
-          <li><a href="productos.html">Productos</a></li>
-          <li><a href="productos.html?category=hombre">Hombre</a></li>
-          <li><a href="productos.html?category=mujer">Mujer</a></li>
-          <li><a href="carrito.html">Carrito</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h3>Atención al Cliente</h3>
-        <ul>
-          <li><a href="faq.html">Preguntas Frecuentes</a></li>
-          <li><a href="politica-devoluciones.html">Política de Devoluciones</a></li>
-          <li><a href="terminos.html">Términos y Condiciones</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h3>Contacto</h3>
-        <div class="footer-contact">
-          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
-          <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
-        </div>
-        <div class="footer-contact">
-          <span><img src="../assets/icons/telef.svg" alt="Teléfono"></span>
-          <p>+57 300 123 6754</p>
-        </div>
-        <div class="footer-contact">
-          <span><img src="../assets/icons/email.svg" alt="Email"></span>
-          <p>info@sportswear.com</p>
-        </div>
+          <!-- admin quick access removed per request -->
+        </section>
       </div>
     </div>
+  </main>
 
-    <div class="footer-divider"></div>
-
-    <div class="footer-bottom">
-      <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
-      <div class="footer-social">
-        <a href="#" aria-label="facebook">
-          <img src="../assets/icons/facebook.svg" alt="facebook">
-        </a>
-        <a href="#" aria-label="twitter">
-          <img src="../assets/icons/twitter.svg" alt="twitter">
-        </a>
-        <a href="#" aria-label="Instagram">
-          <img src="../assets/icons/insta.svg" alt="Instagram">
-        </a>
-      </div>
-    </div>
+  <footer class="footer"> <!-- simplified footer -->
+    <div class="footer-bottom">&copy; 2026 SportSwear</div>
   </footer>
 
   <script>
@@ -220,77 +63,106 @@
     const tabFooter = document.getElementById('tab-footer');
 
     function switchTab(tab) {
-      if (tab === 'login') {
-        loginTab.classList.add('active');
-        registerTab.classList.remove('active');
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-        tabFooter.innerHTML = '¿No tienes cuenta? <a href="#" onclick="switchTab(\'register\')">Crear una</a>';
+      if (tab === 'login') { loginTab.classList.add('active'); registerTab.classList.remove('active'); loginForm.style.display='block'; registerForm.style.display='none'; }
+      else { registerTab.classList.add('active'); loginTab.classList.remove('active'); registerForm.style.display='block'; loginForm.style.display='none'; }
+    }
+    loginTab && loginTab.addEventListener('click', () => switchTab('login'));
+    registerTab && registerTab.addEventListener('click', () => switchTab('register'));
+
+    registerForm && registerForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const first = document.getElementById('first-name').value.trim();
+      const last = document.getElementById('last-name').value.trim();
+      const email = document.getElementById('register-email').value.trim();
+      const password = document.getElementById('register-password').value;
+      const confirm = document.getElementById('confirm-password').value;
+      if (password !== confirm) { alert('Las contraseñas no coinciden'); return; }
+      if (password.length > 8) { alert('La contraseña debe tener máximo 8 caracteres.'); return; }
+      fetch('https://back-sportswear.onrender.com/users', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ nombre: first+' '+last, correo: email, contraseña: password, rol:'Usuario' }) })
+        .then(async res=>{ const t=await res.text(); try{return JSON.parse(t);}catch(e){return {raw:t,ok:res.ok}} })
+        .then(data=>{ const ok = data && (data.id || data.success || data.ok || (data.raw && data.raw.toLowerCase().includes('success'))); if (ok){ alert('Cuenta creada. Por favor inicia sesión'); switchTab('login'); } else { alert('Error: '+(data.message||data.mensaje||data.raw||JSON.stringify(data))); } })
+        .catch(err=>{ console.error(err); alert('Error de conexión al registrar usuario'); });
+    });
+  </script>
+
+  <script src="../js/main.js"></script>
+
+  <script>
+    const API_BASE = 'https://back-sportswear.onrender.com/api';
+    const adminBtn = document.getElementById('admin-login-btn');
+    const formLogin = document.getElementById('login-form');
+
+    function handleLogin(email,password){
+      return fetch('https://back-sportswear.onrender.com/auth',{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) })
+        .then(async res=>{ const t=await res.text(); try{return JSON.parse(t);}catch(e){return { raw:t, ok:res.ok }} });
+    }
+
+    function fetchUserById(id, token) {
+      const opts = token ? { headers: { 'Authorization': 'Bearer ' + token } } : {};
+      return fetch(`${API_BASE}/users/${id}`, opts)
+        .then(async r => {
+          const text = await r.text();
+          try {
+            const parsed = JSON.parse(text);
+            console.log('fetchUserById parsed:', parsed);
+            return parsed;
+          } catch (e) {
+            console.log('fetchUserById raw:', text);
+            return { raw: text, ok: r.ok };
+          }
+        });
+    }
+
+    function fetchUserByEmail(email, token) {
+      const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+      const url = `${API_BASE}/users?correo=${encodeURIComponent(email)}&email=${encodeURIComponent(email)}`;
+      return fetch(url, { headers })
+        .then(async r => {
+          const text = await r.text();
+          try {
+            const parsed = JSON.parse(text);
+            console.log('fetchUserByEmail parsed:', parsed);
+            return parsed;
+          } catch (e) {
+            console.log('fetchUserByEmail raw:', text);
+            return { raw: text, ok: r.ok };
+          }
+        })
+        .then(data => {
+          if (!data) return null;
+          if (Array.isArray(data) && data.length) return data[0];
+          if (data.user) return data.user;
+          return data;
+        });
+    }
+
+    function proceedWithUser(u) {
+      if (!u) { alert('No se pudo obtener datos del usuario'); return; }
+      // Debug: show the fetched user object if rol is missing
+      if (!u.rol && !u.role) console.log('Usuario sin rol recibido del backend:', u);
+      // normalize role value
+      const rawRole = (u.rol || u.role || '').toString().trim();
+      const roleLower = rawRole.toLowerCase();
+      // consider 'administrador' or 'admin' as admin
+      const isAdmin = roleLower === 'administrador' || roleLower === 'admin' || roleLower.includes('admin');
+      localStorage.setItem('user', JSON.stringify(u));
+      if (isAdmin) {
+        localStorage.setItem('isAdmin', 'true');
+        window.location.href = 'admin-productos.html';
       } else {
-        registerTab.classList.add('active');
-        loginTab.classList.remove('active');
-        registerForm.style.display = 'block';
-        loginForm.style.display = 'none';
-        tabFooter.innerHTML = '¿Ya tienes cuenta? <a href="#" onclick="switchTab(\'login\')">Inicia sesión</a>';
+        localStorage.removeItem('isAdmin');
+        // non-admin users go to home
+        window.location.href = 'home.html';
       }
     }
 
-    loginTab.addEventListener('click', () => switchTab('login'));
-    registerTab.addEventListener('click', () => switchTab('register'));
+    if(adminBtn){ adminBtn.addEventListener('click', ()=>{ const adminEmail='admin@sportswear.com', adminPass='1234'; handleLogin(adminEmail,adminPass).then(data=>{ const token = (data && (data.token||data.access_token||data.jwt)) || (data.user && (data.user.token||data.user.access_token)) || null; const id = (data && data.user && data.user.id) || data.id || null; if(id) fetchUserById(id,token).then(proceedWithUser).catch(err=>{console.error(err);alert('Error al consultar usuario por id')}); else fetchUserByEmail(adminEmail,token).then(proceedWithUser).catch(err=>{console.error(err);alert('Error al consultar usuario por email')}); }).catch(err=>{console.error(err);alert('Error de conexión al iniciar sesión.'); }); }); }
 
-   
-
-    
-    registerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('¡Cuenta creada exitosamente!');
-    });
+    if(formLogin){ formLogin.addEventListener('submit', function(e){ e.preventDefault(); const email=document.getElementById('email').value.trim(); const password=document.getElementById('password').value; handleLogin(email,password).then(data=>{ const token = (data && (data.token||data.access_token||data.jwt)) || (data.user && (data.user.token||data.user.access_token)) || null; const id = (data && data.user && data.user.id) || data.id || null; if(id) return fetchUserById(id,token).then(u=>{ proceedWithUser(u); }); return fetchUserByEmail(email,token).then(u=>{ if(u) proceedWithUser(u); else { localStorage.setItem('user', JSON.stringify(data.user||data)); window.location.href='home.html'; } }); }).catch(err=>{ console.error(err); alert('Error de conexión al iniciar sesión.'); }); }); }
   </script>
-  <script src="../js/main.js"></script>
 
-
-
-</div>
 </body>
-<script>
-
-  var adminBtn = document.getElementById("admin-login-btn");
-
-if (adminBtn) {
-  adminBtn.addEventListener("click", function () {
-
-    localStorage.setItem("isAdmin", "true");
-
-    alert("Entrando como administrador");
-
-    window.location.href = "admin-productos.html";
-  });
-}
-
-if (loginForm) {
-  loginForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-
-    if (email === "admin@sportswear.com" && password === "1234") {
-
-      localStorage.setItem("isAdmin", "true");
-
-      alert("Bienvenido administrador");
-
-// pequeña pausa para asegurar redirección
-setTimeout(function() {
-  window.location.href = "admin-productos.html";
-}, 500);
-
-    } else {
-      alert("Usuario o contraseña incorrectos");
-    }
-  });
-}
-</script>
-
 </html>
+  }
+
 
