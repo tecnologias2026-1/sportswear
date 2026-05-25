@@ -293,45 +293,33 @@
     });
   </script>
   <script src="../js/main.js"></script>
-  <script>
-
+ <script>
 async function agregarAlCarrito() {
-
     const cantidad = document.getElementById("quantity").value;
+    const params = new URLSearchParams(window.location.search);
+    const producto_id = params.get("id") || 1;
 
     try {
-
         const respuesta = await fetch(
-            "https://back-sportswear.onrender.com/routes/POST/agregar-carrito.php",
+            "https://back-sportswear.onrender.com/api/carrito",
             {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     usuario_id: 1,
-                    producto_id: 1,
+                    producto_id: producto_id,
                     cantidad: cantidad
                 })
             }
         );
-
         const data = await respuesta.json();
-
-        console.log(data);
-
         alert("Producto agregado al carrito");
-
         window.location.href = "carrito.html";
-
     } catch(error) {
-
         console.error(error);
-
         alert("Error agregando producto");
     }
 }
-
 </script>
 </body>
 </html>
