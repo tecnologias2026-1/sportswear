@@ -20,10 +20,7 @@
         <button class="carousel-arrow prev" id="prevBtn" aria-label="Imagen anterior">❮</button>
         <div class="carousel-container">
           <div class="carousel-images" id="carouselImages">
-            <img src="../assets/images/camiseta running.webp" alt="Camiseta vista 1" class="carousel-img">
-            <img src="../assets/images/camisa lado.webp" alt="Camiseta vista 2" class="carousel-img">
-            <img src="../assets/images/camisa1.webp" alt="Camiseta vista 3" class="carousel-img">
-            <img src="../assets/images/camisa atras.webp" alt="Camiseta vista 4" class="carousel-img">
+            <img src="" alt="Producto" class="carousel-img" style="min-height:200px;">
           </div>
         </div>
         <button class="carousel-arrow next" id="nextBtn" aria-label="Imagen siguiente">❯</button>
@@ -31,23 +28,21 @@
 
       <!-- Información del Producto -->
       <div class="product-detail-info">
-        <h1>Camiseta Running Pro</h1>
+        <h1>Cargando...</h1>
         
         <div class="product-detail-rating">
           <div class="product-card-rating">★★★★★</div>
           <span>(125 reseñas)</span>
         </div>
 
-        <div class="product-detail-price">$ 45.000</div>
+        <div class="product-detail-price">$ --</div>
 
         <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-lg);">
-          Camiseta deportiva de secado rápido, transpirable y cómoda. Perfecta para carreras, entrenamientos 
-          y uso diario. Hecha con material técnico de alta calidad que absorbe la humedad.
+          Cargando descripción...
         </p>
 
         <!-- Opciones de Producto -->
         <div class="product-detail-options">
-          <!-- Talles -->
           <div class="option-group">
             <label for="size">Talle:</label>
             <div class="size-options">
@@ -60,7 +55,6 @@
             </div>
           </div>
 
-          <!-- Colores -->
           <div class="option-group">
             <label for="color">Color:</label>
             <div class="color-options">
@@ -78,10 +72,13 @@
           <input type="number" id="quantity" name="quantity" value="1" min="1" max="999">
         </div>
 
+        <!-- Stock disponible -->
+        <p id="stock-info" style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--spacing-md);"></p>
+
         <!-- Botones de Acción -->
         <div class="product-detail-actions">
-         <button onclick="agregarAlCarrito()" class="btn btn-primary btn-lg">
-          Agregar al Carrito
+          <button type="button" id="btn-agregar-carrito" class="btn btn-primary btn-lg">
+            Agregar al Carrito
           </button>
         </div>
 
@@ -114,11 +111,10 @@
           </table>
         </div>
 
-        <!-- Descripción Completa -->
         <div class="product-detail-description">
           <h3>Descripción Completa</h3>
           <p>
-            La Camiseta Running Pro es el compañero perfecto para tus entrenamientos e cualquier momento. 
+            La Camiseta Running Pro es el compañero perfecto para tus entrenamientos en cualquier momento. 
             Fabricada con material técnico de última generación, esta camiseta ofrece:
           </p>
           <ul style="margin-left: var(--spacing-lg); color: var(--color-text-secondary);">
@@ -139,9 +135,7 @@
       <h2 class="section-title">Productos Relacionados</h2>
       <div class="grid grid-cols-4">
         <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/short.webp" alt="Short Training Pro">
-          </div>
+          <div class="product-card-image"><img src="../assets/images/short.webp" alt="Short Training Pro"></div>
           <div class="product-card-content">
             <h3 class="product-card-name">Short Training Pro</h3>
             <p class="product-card-description">Short para entrenamientos.</p>
@@ -155,11 +149,8 @@
             </div>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite">
-          </div>
+          <div class="product-card-image"><img src="../assets/images/leggins.webp" alt="Leggings Fitness Elite"></div>
           <div class="product-card-content">
             <h3 class="product-card-name">Leggings Fitness Elite</h3>
             <p class="product-card-description">Leggings con soporte.</p>
@@ -173,11 +164,8 @@
             </div>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter">
-          </div>
+          <div class="product-card-image"><img src="../assets/images/chaqueta termica.webp" alt="Chaqueta Térmica Winter"></div>
           <div class="product-card-content">
             <h3 class="product-card-name">Chaqueta Térmica Winter</h3>
             <p class="product-card-description">Chaqueta para clima frío.</p>
@@ -191,11 +179,8 @@
             </div>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-card-image">
-            <img src="../assets/images/sudadera deportiva.webp" alt="Sudadera Deportiva Classic">
-          </div>
+          <div class="product-card-image"><img src="../assets/images/sudadera deportiva.webp" alt="Sudadera Deportiva Classic"></div>
           <div class="product-card-content">
             <h3 class="product-card-name">Sudadera Deportiva Classic</h3>
             <p class="product-card-description">Sudadera versátil.</p>
@@ -213,14 +198,13 @@
     </div>
   </section>
 
-<!-- FOOTER -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
         <h3>SportSwear</h3>
         <p>Tu tienda de confianza para ropa deportiva de alta calidad. Equipamos a atletas de todos los niveles.</p>
       </div>
-
       <div class="footer-section">
         <h3>Enlaces Rápidos</h3>
         <ul>
@@ -230,7 +214,6 @@
           <li><a href="carrito.html">Carrito</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Atención al Cliente</h3>
         <ul>
@@ -240,11 +223,10 @@
           <li><a href="#">Contacto</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Contacto</h3>
         <div class="footer-contact">
-          <span><img src="../assets/icons/ubi.svg" alt="Carrito"></span>
+          <span><img src="../assets/icons/ubi.svg" alt="Ubicación"></span>
           <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
         </div>
         <div class="footer-contact">
@@ -257,21 +239,13 @@
         </div>
       </div>
     </div>
-
     <div class="footer-divider"></div>
-
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 SportSwear. Todos los derechos reservados.</p>
       <div class="footer-social">
-        <a href="#" aria-label="facebook">
-          <img src="../assets/icons/facebook.svg" alt="facebook">
-        </a>
-        <a href="#" aria-label="twitter">
-          <img src="../assets/icons/twitter.svg" alt="twitter">
-        </a>
-        <a href="#" aria-label="Instagram">
-          <img src="../assets/icons/insta.svg" alt="Instagram">
-        </a>
+        <a href="#" aria-label="facebook"><img src="../assets/icons/facebook.svg" alt="facebook"></a>
+        <a href="#" aria-label="twitter"><img src="../assets/icons/twitter.svg" alt="twitter"></a>
+        <a href="#" aria-label="Instagram"><img src="../assets/icons/insta.svg" alt="Instagram"></a>
       </div>
     </div>
   </footer>
@@ -284,7 +258,6 @@
           btn.addEventListener('click', () => {
             sizeButtons.forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
-            // poner un atributo aria-pressed para accesibilidad
             sizeButtons.forEach(b => b.setAttribute('aria-pressed', 'false'));
             btn.setAttribute('aria-pressed', 'true');
           });
@@ -292,35 +265,97 @@
       }
     });
   </script>
-  <script src="../js/main.js"></script>
- <script>
-async function agregarAlCarrito() {
-    const cantidad = document.getElementById("quantity").value;
-    const params = new URLSearchParams(window.location.search);
-    const producto_id = params.get("id") || 1;
 
-    try {
-        const respuesta = await fetch(
-            "https://back-sportswear.onrender.com/api/carrito",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    usuario_id: 1,
-                    producto_id: producto_id,
-                    cantidad: cantidad
-                })
+  <!-- Carga datos del producto desde la API -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const producto_id = params.get("id");
+
+    if (producto_id) {
+      fetch(`https://back-sportswear.onrender.com/api/productos?id=${producto_id}`)
+        .then(res => res.json())
+        .then(p => {
+          const h1 = document.querySelector('.product-detail-info h1');
+          if (h1) h1.textContent = p.nombre;
+
+          const precio = document.querySelector('.product-detail-price');
+          if (precio) precio.textContent = `$ ${Number(p.precio).toLocaleString("es-CO")}`;
+
+          const desc = document.querySelector('.product-detail-info > p');
+          if (desc) desc.textContent = p.descripcion;
+
+          if (p.imagen) {
+            const imgs = document.querySelectorAll('.carousel-img');
+            imgs.forEach(img => img.src = p.imagen);
+          }
+
+          // Guarda el stock en el botón
+          document.getElementById('btn-agregar-carrito').setAttribute('data-stock', p.stock);
+
+          // Muestra el stock disponible
+          const stockInfo = document.getElementById('stock-info');
+          if (stockInfo) {
+            if (p.stock === 0) {
+              stockInfo.textContent = 'Sin stock disponible';
+              stockInfo.style.color = 'red';
+              document.getElementById('btn-agregar-carrito').disabled = true;
+              document.getElementById('btn-agregar-carrito').textContent = 'Agotado';
+            } else {
+              stockInfo.textContent = `${p.stock} unidades disponibles`;
             }
+          }
+
+          document.title = p.nombre + " - SportSwear";
+        })
+        .catch(err => console.error("Error cargando producto:", err));
+    }
+  </script>
+
+  <script src="../js/main.js"></script>
+
+  <!-- Botón agregar al carrito -->
+  <script>
+    document.getElementById('btn-agregar-carrito').addEventListener('click', async function(e) {
+      e.stopPropagation();
+      const cantidad = parseInt(document.getElementById("quantity").value);
+      const stock = parseInt(this.getAttribute('data-stock') || 0);
+      const params = new URLSearchParams(window.location.search);
+      const producto_id = params.get("id") || 1;
+
+      if (stock === 0) {
+        alert("Este producto está agotado.");
+        return;
+      }
+      if (cantidad > stock) {
+        alert(`Solo hay ${stock} unidades disponibles.`);
+        return;
+      }
+
+      try {
+        const respuesta = await fetch(
+          "https://back-sportswear.onrender.com/api/carrito",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              usuario_id: 3,
+              producto_id: producto_id,
+              cantidad: cantidad
+            })
+          }
         );
         const data = await respuesta.json();
-        alert("Producto agregado al carrito");
-        window.location.href = "carrito.html";
-    } catch(error) {
-        console.error(error);
-        alert("Error agregando producto");
-    }
+if (respuesta.ok) {
+  alert("Producto agregado al carrito");
+  window.location.href = "carrito.html";
+} else {
+  alert(data.mensaje);
 }
-</script>
+} catch(error) {
+  console.error(error);
+  alert("Error agregando producto");
+}
+});
+  </script>
 </body>
 </html>
-

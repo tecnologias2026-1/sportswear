@@ -48,14 +48,12 @@
 
   <div class="container">
     <div class="cart-container">
-
-      <!-- Usamos cart-items-api para evitar que main.js interfiera -->
       <div class="cart-items-api" id="cart-items">
         <p id="cart-loading" style="color: var(--color-text-secondary);">Cargando carrito...</p>
         <p id="cart-empty" style="display:none; color: var(--color-text-secondary);">Tu carrito está vacío. <a href="productos.html">Ver productos</a></p>
       </div>
 
-      <div class="cart-summary" id="cart-summary">
+      <div class="cart-summary-api" id="cart-summary">
         <h3>Resumen del Pedido</h3>
         <div class="summary-row">
           <span>Subtotal:</span>
@@ -74,7 +72,7 @@
           <span id="resumen-total">$ 0</span>
         </div>
         <div class="cart-actions">
-         <button onclick="procederPago()" class="btn btn-primary btn-lg">Proceder al Pago</button>
+          <button onclick="procederPago()" class="btn btn-primary btn-lg">Proceder al Pago</button>
           <a href="productos.html" class="btn btn-secondary" style="width: 100%;">Seguir Comprando</a>
           <button onclick="vaciarCarrito()" class="btn btn-secondary" style="width: 100%; margin-top: 8px; color: red;">
             Vaciar Carrito
@@ -234,15 +232,11 @@
     </div>
   </footer>
 
-  <script src="../js/main.js"></script>
+  <!-- Script primero para que main.js no interfiera -->
   <script>
     const API = "https://back-sportswear.onrender.com/api";
+    const usuario_id = 3;
 
-    // Temporal para pruebas. Cuando tengas login listo cámbialo por:
-    // const usuario_id = JSON.parse(localStorage.getItem("usuario")).id;
-    const usuario_id = 1;
-
-    // ── 1. VER CARRITO ──────────────────────────────────────────
     async function cargarCarrito() {
       try {
         const res = await fetch(`${API}/carrito?usuario_id=${usuario_id}`);
@@ -260,6 +254,7 @@
           return;
         }
 
+        if (empty) empty.style.display = "none";
         contenedor.innerHTML = "";
         items.forEach(item => {
           contenedor.innerHTML += `
@@ -271,10 +266,10 @@
                 <h3 class="cart-item-name">${item.nombre}</h3>
                 <div class="cart-item-price">$ ${Number(item.precio).toLocaleString("es-CO")}</div>
                 <div class="cart-item-quantity">
-                  <button onclick="cambiarCantidad(${item.id}, ${item.cantidad - 1})">-</button>
-                  <input type="number" value="${item.cantidad}" min="1"
-                    onchange="cambiarCantidad(${item.id}, this.value)">
-                  <button onclick="cambiarCantidad(${item.id}, ${item.cantidad + 1})">+</button>
+                  <button onclick="cambiarCantidad(${item.id}, ${item.cantidad - 1}, ${item.stock})">-</button>
+<input type="number" value="${item.cantidad}" min="1" max="${item.stock}"
+  onchange="cambiarCantidad(${item.id}, this.value, ${item.stock})">
+<button onclick="cambiarCantidad(${item.id}, ${item.cantidad + 1}, ${item.stock})">+</button>
                 </div>
                 <div style="margin-top: var(--spacing-md);">
                   <a href="#" class="cart-item-remove"
@@ -293,19 +288,24 @@
         if (loading) loading.textContent = "Error al cargar el carrito.";
       }
     }
-function procederPago() {
-  const items = document.querySelectorAll('.cart-item');
-  if (items.length === 0) {
-    alert("Tu carrito está vacío. Agrega productos antes de proceder al pago.");
-    return;
-  }
-  window.location.href = "finalizar-compra.html";
-}
-    // ── 2. ACTUALIZAR CANTIDAD ──────────────────────────────────
-    async function cambiarCantidad(id, nuevaCantidad) {
-      nuevaCantidad = parseInt(nuevaCantidad);
-      if (nuevaCantidad < 1) {
+
+    function procederPago() {
+      const items = document.querySelectorAll('.cart-item');
+      if (items.length === 0) {
+        alert("Tu carrito está vacío. Agrega productos antes de proceder al pago.");
+        return;
+      }
+      window.location.href = "finalizar-compra.html";
+    }
+
+    async function cambiarCantidad(id, nuevaCantidad, stock = 999) {
+    nuevaCantidad = parseInt(nuevaCantidad);
+    if (nuevaCantidad < 1) {
         if (confirm("Quieres eliminar este producto del carrito?")) eliminarItem(id);
+        return;
+    }
+    if (nuevaCantidad > stock) {
+        alert(`Solo hay ${stock} unidades disponibles.`);
         return;
       }
       try {
@@ -319,37 +319,33 @@ function procederPago() {
         console.error("Error al actualizar cantidad:", error);
       }
     }
+async function eliminarItem(id) {
+  try {
+    await fetch(`${API}/carrito`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id })
+    });
+    location.reload(); // ← cambia cargarCarrito() por esto
+  } catch (error) {
+    console.error("Error al eliminar producto:", error);
+  }
+}
 
-    // ── 3. ELIMINAR PRODUCTO ────────────────────────────────────
-    async function eliminarItem(id) {
-      try {
-        await fetch(`${API}/carrito`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id })
-        });
-        cargarCarrito();
-      } catch (error) {
-        console.error("Error al eliminar producto:", error);
-      }
-    }
+async function vaciarCarrito() {
+  if (!confirm("Seguro que quieres vaciar el carrito?")) return;
+  try {
+    await fetch(`${API}/carrito?vaciar=1`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usuario_id })
+    });
+    location.reload(); // ← cambia cargarCarrito() por esto
+  } catch (error) {
+    console.error("Error al vaciar el carrito:", error);
+  }
+}
 
-    // ── 4. VACIAR CARRITO ───────────────────────────────────────
-    async function vaciarCarrito() {
-      if (!confirm("Seguro que quieres vaciar el carrito?")) return;
-      try {
-        await fetch(`${API}/carrito?vaciar=1`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ usuario_id })
-        });
-        cargarCarrito();
-      } catch (error) {
-        console.error("Error al vaciar el carrito:", error);
-      }
-    }
-
-    // ── RESUMEN ─────────────────────────────────────────────────
     function actualizarResumen(items) {
       const subtotal = items.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
       const iva      = subtotal * 0.19;
@@ -367,5 +363,8 @@ function procederPago() {
 
     cargarCarrito();
   </script>
+
+  <!-- main.js al final -->
+  <script src="../js/main.js"></script>
 </body>
 </html>

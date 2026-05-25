@@ -158,7 +158,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Delegated click handling for product "Añadir" buttons and nav icons
   document.addEventListener('click', function (e) {
     var addBtn = e.target.closest('.product-card-add');
-    if (addBtn) {
+if (addBtn) {
+  var href = addBtn.getAttribute('href');
+  if (href && href.includes('detalle-producto')) {
+    window.location.href = href;
+    e.preventDefault();
+    return;
+  }
       // Collect simple product info (if available) and save to localStorage
       try {
         var card = addBtn.closest('.product-card');
@@ -288,16 +294,17 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Cart remove item
     var removeBtn = e.target.closest('.cart-item-remove');
-    if (removeBtn) {
-      var index = parseInt(removeBtn.getAttribute('data-index'));
-      var cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      loadCart();
-      e.preventDefault();
-      return;
+if (removeBtn && !document.querySelector('.cart-items-api')) {
+  var index = parseInt(removeBtn.getAttribute('data-index'));
+  var cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  cart.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  loadCart();
+  e.preventDefault();
+  return;
+}
     }
-  });
+  );
 
   // Price Range Slider functionality
   var minRangeInput = document.getElementById('minRange');
@@ -571,9 +578,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function updateCartSummary(cart) {
-    var summary = document.querySelector('.cart-summary');
-    if (!summary) return;
-
+   var summary = document.querySelector('.cart-summary');
+if (!summary || document.querySelector('.cart-summary-api')) return;
     var subtotal = cart.reduce(function(total, item) {
       var price = parseInt(item.price.replace(/[^\d]/g, '')) || 0;
       return total + (price * item.qty);
@@ -614,9 +620,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // Load cart on cart page
-  if (document.querySelector('.cart-items')) {
-    loadCart();
-  }
+if (document.querySelector('.cart-items') && !document.querySelector('.cart-items-api')) {
+  loadCart();
+}
 
   // Close mobile menu when clicking outside
   document.addEventListener('click', function(e) {

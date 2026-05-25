@@ -261,18 +261,18 @@ async function agregarAlCarrito(producto_id) {
     let currentPage = 1;
     const itemsPerPage = 12; // Cantidad de productos a mostrar por página
 
-    function renderGrid(page) {
-      var grid = document.getElementById("products-grid");
-      var countText = document.querySelector(".products-count span");
-      
-      if (!filteredProducts || filteredProducts.length === 0) {
-        grid.innerHTML = "<p>No hay productos disponibles por el momento.</p>";
-        if (countText) countText.innerHTML = "Mostrando <strong>0</strong> productos";
+      function renderGrid(page) {
+        var grid = document.getElementById("products-grid");
+        var countText = document.querySelector(".products-count span");
         
-        let paginationContainer = document.querySelector(".pagination");
-        if (paginationContainer) paginationContainer.innerHTML = "";
-        return;
-      }
+        if (!filteredProducts || filteredProducts.length === 0) {
+          grid.innerHTML = "<p>No hay productos disponibles por el momento.</p>";
+          if (countText) countText.innerHTML = "Mostrando <strong>0</strong> productos";
+          
+          let paginationContainer = document.querySelector(".pagination");
+          if (paginationContainer) paginationContainer.innerHTML = "";
+          return;
+        }
 
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
