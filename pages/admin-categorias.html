@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin - Gestión de Categorías</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body style="margin: 0;">
+  <!-- LAYOUT ADMIN -->
+  <div class="admin-layout">
+    <!-- SIDEBAR (unificado con estilo de gestión) -->
+    <aside class="sidebar">
+      <div class="sidebar__menu">
+        <a href="admin-productos.html" class="btn-ghost">Productos</a>
+        <a href="admin-categorias.html" class="btn-ghost active">Categorías</a>
+        <a href="gestion-pedidos.html" class="btn-ghost">Pedidos</a>
+        <a href="gestion-usuarios.html" class="btn-ghost">Usuarios</a>
+      </div>
+    </aside>
+
+    <!-- CONTENIDO ADMIN -->
+    <main class="admin-content">
+
+      <!-- HEADER -->
+      <div class="admin-header">
+        <div>
+          <h1>Gestión de categorías</h1>
+          <p class="text-muted">Visualiza y gestiona las categorías de productos</p>
+        </div>
+        <button id="new-category-btn" class="btn btn-primary">
+          + Agregar categoría
+        </button>
+      </div>
+
+      <!-- ESTADÍSTICAS O RESUMEN (Opcional) -->
+      <div class="grid grid-cols-4" style="margin-bottom: var(--spacing-xl);">
+        <div class="summary-card">
+          <h4>Total Categorías</h4>
+          <div class="value" id="total-categories">0</div>
+        </div>
+      </div>
+
+      <!-- TABLA DE CATEGORÍAS -->
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="categories-table-body">
+            <!-- Renderizado dinámico -->
+            <tr><td colspan="4" style="text-align:center;">Cargando categorías...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL PARA CREAR/EDITAR CATEGORÍA -->
+  <div id="category-modal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal" style="background: white; border-radius: 8px; width: 100%; max-width: 500px; padding: 24px; position: relative;">
+      <button id="close-modal" style="position: absolute; right: 16px; top: 16px; border: none; background: transparent; font-size: 20px; cursor: pointer;">&times;</button>
+      <h2 id="modal-title">Nueva Categoría</h2>
+      <form id="category-form" style="margin-top: 16px;">
+        <input type="hidden" id="category-id">
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label class="form-label" for="category-name">Nombre</label>
+          <input type="text" id="category-name" class="form-input" required>
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label class="form-label" for="category-desc">Descripción</label>
+          <textarea id="category-desc" class="form-input" rows="3"></textarea>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+          <button type="button" id="cancel-modal" class="btn btn-secondary">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    const API_BASE = 'https://back-sportswear.onrender.com/api';
+    let categories = [];
+
+    const tableBody = document.getElementById('categories-table-body');
+    const modal = document.getElementById('category-modal');
+    const form = document.getElementById('category-form');
+    const modalTitle = document.getElementById('modal-title');
+    const totalElement = document.getElementById('total-categories');
+
+    async function loadCategories() {
+      try {
+        const res = await fetch(`${API_BASE}/categorias`);
+        const data = await res.json();
+        categories = data || [];
+        renderTable();
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+        tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:red;">Error al cargar las categorías</td></tr>';
+      }
+    }
+
+    function renderTable() {
+      totalElement.textContent = categories.length;
+      if (categories.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No hay categorías.</td></tr>';
+        return;
+      }
+      tableBody.innerHTML = categories.map(c => `
+        <tr>
+          <td>#${c.id}</td>
+          <td><strong>${c.nombre || c.name || ''}</strong></td>
+          <td>${c.descripcion || c.description || '-'}</td>
+          <td>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary" onclick="editCategory(${c.id})" style="padding: 6px 12px; font-size: 12px;">Editar</button>
+              <button class="btn btn-secondary" onclick="deleteCategory(${c.id})" style="padding: 6px 12px; font-size: 12px; color: red; border-color: red;">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    document.getElementById('new-category-btn').addEventListener('click', () => {
+      form.reset();
+      document.getElementById('category-id').value = '';
+      modalTitle.textContent = 'Nueva Categoría';
+      modal.style.display = 'flex';
+    });
+
+    document.getElementById('close-modal').addEventListener('click', () => modal.style.display = 'none');
+    document.getElementById('cancel-modal').addEventListener('click', () => modal.style.display = 'none');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('category-id').value;
+      const payload = {
+        nombre: document.getElementById('category-name').value.trim(),
+        descripcion: document.getElementById('category-desc').value.trim()
+      };
+      
+      const method = id ? 'PUT' : 'POST';
+      const url = id ? `${API_BASE}/categorias/${id}` : `${API_BASE}/categorias`;
+
+      try {
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          modal.style.display = 'none';
+          loadCategories();
+        } else {
+          alert('Error al guardar categoría');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error en la conexión');
+      }
+    });
+
+    window.editCategory = function(id) {
+      const c = categories.find(x => String(x.id) === String(id));
+      if (!c) return;
+      document.getElementById('category-id').value = c.id;
+      document.getElementById('category-name').value = c.nombre || c.name || '';
+      document.getElementById('category-desc').value = c.descripcion || c.description || '';
+      modalTitle.textContent = 'Editar Categoría';
+      modal.style.display = 'flex';
+    };
+
+    window.deleteCategory = async function(id) {
+      if (!confirm('¿Seguro que deseas eliminar esta categoría?')) return;
+      try {
+        const res = await fetch(`${API_BASE}/categorias/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          loadCategories();
+        } else {
+          alert('Error al eliminar');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error en la conexión');
+      }
+    };
+
+    loadCategories();
+  </script>
+</body>
+</html>

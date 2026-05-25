@@ -51,12 +51,12 @@
         <div class="filter-group">
           <h4>Marcas</h4>
           <label class="filter-checkbox">
-            <input type="checkbox" name="brand" value="spomay">
-            <span>SpoMay</span>
+            <input type="checkbox" name="brand" value="adidas">
+            <span>Adidas</span>
           </label>
           <label class="filter-checkbox">
-            <input type="checkbox" name="brand" value="futbo">
-            <span>Fútbol</span>
+            <input type="checkbox" name="brand" value="Reebok">
+            <span>Reebok</span>
           </label>
           <label class="filter-checkbox">
             <input type="checkbox" name="brand" value="nike">
@@ -257,6 +257,7 @@ async function agregarAlCarrito(producto_id) {
   }
 }
     let allProducts = [];
+    let filteredProducts = [];
     let currentPage = 1;
     const itemsPerPage = 12; // Cantidad de productos a mostrar por página
 
@@ -264,7 +265,7 @@ async function agregarAlCarrito(producto_id) {
       var grid = document.getElementById("products-grid");
       var countText = document.querySelector(".products-count span");
       
-      if (!allProducts || allProducts.length === 0) {
+      if (!filteredProducts || filteredProducts.length === 0) {
         grid.innerHTML = "<p>No hay productos disponibles por el momento.</p>";
         if (countText) countText.innerHTML = "Mostrando <strong>0</strong> productos";
         
@@ -275,7 +276,7 @@ async function agregarAlCarrito(producto_id) {
 
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
-      const productsToShow = allProducts.slice(startIndex, endIndex);
+      const productsToShow = filteredProducts.slice(startIndex, endIndex);
 
       if (countText) {
         countText.innerHTML = `Mostrando <strong>${productsToShow.length}</strong> de <strong>${allProducts.length}</strong> productos`;
@@ -339,7 +340,7 @@ async function agregarAlCarrito(producto_id) {
     }
 
     function renderPaginationControls() {
-      const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
       const paginationContainer = document.querySelector(".pagination");
       
       if (!paginationContainer) return;
@@ -361,7 +362,7 @@ async function agregarAlCarrito(producto_id) {
     }
 
     window.changePage = function(newPage) {
-      const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
       if (newPage >= 1 && newPage <= totalPages) {
         currentPage = newPage;
         renderGrid(currentPage);
@@ -369,13 +370,133 @@ async function agregarAlCarrito(producto_id) {
       }
     };
 
-    fetch('https://back-sportswear.onrender.com/api/productos')
-      .then(res => res.json())
-      .then(data => {
-        allProducts = data || [];
-        renderGrid(currentPage);
-      })
-      .catch(err => console.error('Error:', err));
+    
+    // LOAD DYNAMIC CATEGORIES FOR FILTERS
+    async function loadCategoryFilters() {
+      try {
+        const res = await fetch('https://back-sportswear.onrender.com/api/categorias');
+        const cats = await res.json();
+        if (cats && cats.length > 0) {
+          const container = document.querySelector('.filter-group:first-of-type');
+          if (container && container.querySelector('h4').textContent === 'Categoría') {
+            container.innerHTML = '<h4>Categoría</h4>' + cats.map(c => 
+              `<label class="filter-checkbox">
+                <input type="checkbox" name="category" value="${c.nombre.toLowerCase()}">
+                <span>${c.nombre}</span>
+              </label>`
+            ).join('');
+          }
+        }
+      } catch (e) {
+        console.error("Error loading category filters", e);
+      }
+    }
+
+    function applyFilters() {
+      const checkedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value.toLowerCase());
+      const checkedBrands = Array.from(document.querySelectorAll('input[name="brand"]:checked')).map(cb => cb.value.toLowerCase());
+      const checkedColors = Array.from(document.querySelectorAll('input[name="color"]:checked')).map(cb => cb.value.toLowerCase());
+      const checkedSizes = Array.from(document.querySelectorAll('input[name="size"]:checked')).map(cb => cb.value.toLowerCase());
+      
+      const minPrice = Number(document.getElementById('priceMin').value) || 0;
+      const maxPrice = Number(document.getElementById('priceMax').value) || 20000000;
+
+      const sortSelect = document.getElementById('sort');
+      const sortValue = sortSelect ? sortSelect.value : 'relevancia';
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchTerm = (urlParams.get('search') || '').toLowerCase();
+
+      filteredProducts = allProducts.filter(p => {
+         const pCat = (p.categoria || p.category || '').toLowerCase();
+         const pBrand = (p.marca || '').toLowerCase();
+         const pColor = (p.color || '').toLowerCase();
+         const pSize = (p.talla || p.size || '').toLowerCase();
+         const pName = (p.nombre || p.name || '').toLowerCase();
+         const pPrice = Number(p.precio) || 0;
+
+         if (checkedCategories.length > 0 && !checkedCategories.includes(pCat)) return false;
+         if (checkedBrands.length > 0 && !checkedBrands.includes(pBrand)) return false;
+         if (checkedColors.length > 0 && !checkedColors.includes(pColor)) return false;
+         if (checkedSizes.length > 0 && !checkedSizes.includes(pSize)) return false;
+         if (pPrice < minPrice || pPrice > maxPrice) return false;
+         if (searchTerm && !pName.includes(searchTerm) && !pCat.includes(searchTerm)) return false;
+
+         return true;
+      });
+
+      if (sortValue === 'precio-asc') {
+         filteredProducts.sort((a,b) => (Number(a.precio)||0) - (Number(b.precio)||0));
+      } else if (sortValue === 'precio-desc') {
+         filteredProducts.sort((a,b) => (Number(b.precio)||0) - (Number(a.precio)||0));
+      }
+
+      currentPage = 1;
+      renderGrid(currentPage);
+    }
+
+    async function initPage() {
+      await loadCategoryFilters();
+      
+      // Events
+      const sidebar = document.querySelector('.filters-sidebar');
+      if (sidebar) sidebar.addEventListener('change', applyFilters);
+      
+      const sortSelect = document.getElementById('sort');
+      if (sortSelect) sortSelect.addEventListener('change', applyFilters);
+
+      const clearBtn = document.querySelector('.filters-sidebar .btn-secondary');
+      if (clearBtn) {
+         clearBtn.addEventListener('click', () => {
+             document.querySelectorAll('.filters-sidebar input[type="checkbox"]').forEach(cb => cb.checked = false);
+             document.getElementById('priceMin').value = 0;
+             document.getElementById('priceMax').value = 200000;
+             document.getElementById('minRange').value = 0;
+             document.getElementById('maxRange').value = 200000;
+             if (sortSelect) sortSelect.value = 'relevancia';
+             window.history.replaceState({}, '', 'productos.html'); // clear search params
+             applyFilters();
+         });
+      }
+
+
+      // Sync sliders logic inside initPage
+      const minR = document.getElementById('minRange');
+      const maxR = document.getElementById('maxRange');
+      const minI = document.getElementById('priceMin');
+      const maxI = document.getElementById('priceMax');
+      if (minR && minI) minR.addEventListener('input', (e) => { minI.value = e.target.value; });
+      if (maxR && maxI) maxR.addEventListener('input', (e) => { maxI.value = e.target.value; });
+      if (minI && minR) minI.addEventListener('input', (e) => { minR.value = e.target.value; });
+      if (maxI && maxR) maxI.addEventListener('input', (e) => { maxR.value = e.target.value; });
+
+      ['minRange', 'maxRange', 'priceMin', 'priceMax'].forEach(id => {
+         const el = document.getElementById(id);
+         if (el) el.addEventListener('change', applyFilters); // Only apply on 'change' to avoid lag while dragging
+      });
+
+
+      try {
+        const res = await fetch('https://back-sportswear.onrender.com/api/productos');
+        allProducts = await res.json() || [];
+        filteredProducts = [...allProducts];
+
+        // URL param initialization
+        const urlParams = new URLSearchParams(window.location.search);
+        const catParam = urlParams.get('category');
+        if (catParam) {
+           const cb = document.querySelector(`input[name="category"][value="${catParam.toLowerCase()}"]`);
+           if (cb) cb.checked = true;
+        }
+
+        applyFilters();
+      } catch (err) {
+        console.error('Error fetching products:', err);
+      }
+    }
+
+    initPage();
+
   </script>
 </body>
 </html>
