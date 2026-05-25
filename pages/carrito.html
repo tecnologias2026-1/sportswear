@@ -7,27 +7,60 @@
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+<<<<<<< Updated upstream
   <!-- ENCABEZADO -->
+=======
+  <header class="navbar">
+    <div class="navbar__left">
+      <div class="logo">S</div>
+      <a href="../index.html" class="brand-link">
+        <div class="brand">Sportswear</div>
+      </a>
+    </div>
+    <div class="navbar__center">
+      <form class="search" role="search">
+        <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
+      </form>
+    </div>
+    <nav class="navbar__right">
+      <div class="nav-links">
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
+      </div>
+      <div class="nav-icons">
+        <a href="carrito.html" class="icon" aria-label="Carrito"><img src="../assets/icons/cart.svg" alt="Carrito"></a>
+        <a href="admin-productos.html" class="icon" aria-label="Cuenta"><img src="../assets/icons/user.svg" alt="Cuenta"></a>
+        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu" aria-hidden="true">
+        <a href="productos.html">Productos</a>
+        <a href="productos.html?category=hombre">Hombre</a>
+        <a href="productos.html?category=mujer">Mujer</a>
+        <a href="login.html">Iniciar Sesión</a>
+      </div>
+    </nav>
+  </header>
+
+>>>>>>> Stashed changes
   <section class="page-header">
     <div class="container">
       <h1>Carrito de Compras</h1>
     </div>
   </section>
 
-  <!-- CONTENIDO DEL CARRITO -->
   <div class="container">
     <div class="cart-container">
 
-      <!-- ITEMS EN EL CARRITO — se llenan dinámicamente desde la API -->
-      <div class="cart-items" id="cart-items">
+      <!-- Usamos cart-items-api para evitar que main.js interfiera -->
+      <div class="cart-items-api" id="cart-items">
         <p id="cart-loading" style="color: var(--color-text-secondary);">Cargando carrito...</p>
         <p id="cart-empty" style="display:none; color: var(--color-text-secondary);">Tu carrito está vacío. <a href="productos.html">Ver productos</a></p>
       </div>
 
-      <!-- RESUMEN DEL CARRITO -->
-      <div class="cart-summary">
+      <div class="cart-summary" id="cart-summary">
         <h3>Resumen del Pedido</h3>
-
         <div class="summary-row">
           <span>Subtotal:</span>
           <span id="resumen-subtotal">$ 0</span>
@@ -44,15 +77,13 @@
           <span>Total:</span>
           <span id="resumen-total">$ 0</span>
         </div>
-
         <div class="cart-actions">
-          <a href="finalizar-compra.html" class="btn btn-primary btn-lg">Proceder al Pago</a>
+         <button onclick="procederPago()" class="btn btn-primary btn-lg">Proceder al Pago</button>
           <a href="productos.html" class="btn btn-secondary" style="width: 100%;">Seguir Comprando</a>
           <button onclick="vaciarCarrito()" class="btn btn-secondary" style="width: 100%; margin-top: 8px; color: red;">
             Vaciar Carrito
           </button>
         </div>
-
         <div style="text-align: center; margin-top: var(--spacing-xl); font-size: var(--font-size-xs); color: var(--color-text-secondary);">
           Pagos seguros garantizados
         </div>
@@ -60,7 +91,6 @@
     </div>
   </div>
 
-  <!-- OPCIONES ADICIONALES -->
   <section class="section" style="border-top: 1px solid var(--color-neutral-200); border-bottom: 1px solid var(--color-neutral-200);">
     <div class="container">
       <div class="grid grid-cols-3" style="gap: var(--spacing-2xl);">
@@ -89,7 +119,6 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS RELACIONADOS -->
   <section class="section" style="background-color: #F9FAFB;">
     <div class="container">
       <h2 class="section-title">Quizás También Te Interese</h2>
@@ -158,7 +187,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
@@ -221,17 +249,17 @@
     // ── 1. VER CARRITO ──────────────────────────────────────────
     async function cargarCarrito() {
       try {
-        const res = await fetch(`${API}/routes/GET/ver-carrito.php?usuario_id=${usuario_id}`);
+        const res = await fetch(`${API}/carrito?usuario_id=${usuario_id}`);
         const items = await res.json();
 
         const contenedor = document.getElementById("cart-items");
         const loading    = document.getElementById("cart-loading");
         const empty      = document.getElementById("cart-empty");
 
-        loading.style.display = "none";
+        if (loading) loading.style.display = "none";
 
         if (!items || items.length === 0) {
-          empty.style.display = "block";
+          if (empty) empty.style.display = "block";
           actualizarResumen([]);
           return;
         }
@@ -247,7 +275,7 @@
                 <h3 class="cart-item-name">${item.nombre}</h3>
                 <div class="cart-item-price">$ ${Number(item.precio).toLocaleString("es-CO")}</div>
                 <div class="cart-item-quantity">
-                  <button onclick="cambiarCantidad(${item.id}, ${item.cantidad - 1})">−</button>
+                  <button onclick="cambiarCantidad(${item.id}, ${item.cantidad - 1})">-</button>
                   <input type="number" value="${item.cantidad}" min="1"
                     onchange="cambiarCantidad(${item.id}, this.value)">
                   <button onclick="cambiarCantidad(${item.id}, ${item.cantidad + 1})">+</button>
@@ -265,21 +293,27 @@
 
       } catch (error) {
         console.error("Error al cargar el carrito:", error);
-        document.getElementById("cart-loading").textContent = "Error al cargar el carrito.";
+        const loading = document.getElementById("cart-loading");
+        if (loading) loading.textContent = "Error al cargar el carrito.";
       }
     }
-
+function procederPago() {
+  const items = document.querySelectorAll('.cart-item');
+  if (items.length === 0) {
+    alert("Tu carrito está vacío. Agrega productos antes de proceder al pago.");
+    return;
+  }
+  window.location.href = "finalizar-compra.html";
+}
     // ── 2. ACTUALIZAR CANTIDAD ──────────────────────────────────
     async function cambiarCantidad(id, nuevaCantidad) {
       nuevaCantidad = parseInt(nuevaCantidad);
       if (nuevaCantidad < 1) {
-        if (confirm("¿Quieres eliminar este producto del carrito?")) {
-          eliminarItem(id);
-        }
+        if (confirm("Quieres eliminar este producto del carrito?")) eliminarItem(id);
         return;
       }
       try {
-        await fetch(`${API}/routes/PUT/actualizar-carrito.php`, {
+        await fetch(`${API}/carrito`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id, cantidad: nuevaCantidad })
@@ -293,7 +327,7 @@
     // ── 3. ELIMINAR PRODUCTO ────────────────────────────────────
     async function eliminarItem(id) {
       try {
-        await fetch(`${API}/routes/DELETE/eliminar-carrito.php`, {
+        await fetch(`${API}/carrito`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id })
@@ -306,9 +340,9 @@
 
     // ── 4. VACIAR CARRITO ───────────────────────────────────────
     async function vaciarCarrito() {
-      if (!confirm("¿Seguro que quieres vaciar el carrito?")) return;
+      if (!confirm("Seguro que quieres vaciar el carrito?")) return;
       try {
-        await fetch(`${API}/routes/DELETE/vaciar-carrito.php`, {
+        await fetch(`${API}/carrito?vaciar=1`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ usuario_id })
@@ -324,14 +358,17 @@
       const subtotal = items.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
       const iva      = subtotal * 0.19;
       const total    = subtotal + iva;
-      const fmt      = n => `$ ${Math.round(n).toLocaleString("es-CO")}`;
+      const fmt      = n => "$ " + Math.round(n).toLocaleString("es-CO");
 
-      document.getElementById("resumen-subtotal").textContent = fmt(subtotal);
-      document.getElementById("resumen-iva").textContent      = fmt(iva);
-      document.getElementById("resumen-total").textContent    = fmt(total);
+      const elSub   = document.getElementById("resumen-subtotal");
+      const elIva   = document.getElementById("resumen-iva");
+      const elTotal = document.getElementById("resumen-total");
+
+      if (elSub)   elSub.textContent   = fmt(subtotal);
+      if (elIva)   elIva.textContent   = fmt(iva);
+      if (elTotal) elTotal.textContent = fmt(total);
     }
 
-    // Carga el carrito al abrir la página
     cargarCarrito();
   </script>
 </body>

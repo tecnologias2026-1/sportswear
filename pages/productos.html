@@ -240,6 +240,22 @@
 
   <script src="../js/main.js"></script>
   <script>
+    const API = "https://back-sportswear.onrender.com/api";
+const usuario_id = 1;
+
+async function agregarAlCarrito(producto_id) {
+  try {
+    const res = await fetch(`${API}/carrito`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usuario_id, producto_id, cantidad: 1 })
+    });
+    const data = await res.json();
+    alert("Producto agregado al carrito");
+  } catch (error) {
+    console.error("Error al agregar al carrito:", error);
+  }
+}
     let allProducts = [];
     let currentPage = 1;
     const itemsPerPage = 12; // Cantidad de productos a mostrar por página
@@ -312,7 +328,7 @@
               </div>
               <div class="product-card-actions">
                 <a href="detalle-producto.html?id=${product.id}" class="product-card-btn product-card-add">Ver Detalles</a>
-                <button class="product-card-btn product-card-heart">♡</button>
+                <button class="product-card-btn product-card-heart" onclick="agregarAlCarrito(${product.id})">♡</button>
               </div>
             </div>
           </div>
